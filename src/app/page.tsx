@@ -1,87 +1,52 @@
-'use client';
+import React from 'react';
 
-import React, { useState, useMemo } from 'react';
-import { BioHeader } from '@/components/BioHeader';
-import { CollectionsPanel } from '@/components/CollectionsPanel';
-import { TimelinePanel } from '@/components/TimelinePanel';
-import { LightboxModal } from '@/components/LightboxModal';
-import { mockCollections, mockPosts } from '@/data/mockData';
-import { LightboxData } from '@/types';
-
-export default function LifePage() {
-  const [isCollectionsCollapsed, setIsCollectionsCollapsed] = useState<boolean>(false);
-  const [selectedCollectionId, setSelectedCollectionId] = useState<string | null>(null);
-  const [activeLightboxItem, setActiveLightboxItem] = useState<LightboxData | null>(null);
-
-  // Filter posts based on active collection selection
-  const filteredPosts = useMemo(() => {
-    if (!selectedCollectionId) {
-      return mockPosts;
-    }
-    return mockPosts.filter((post) => post.collectionId === selectedCollectionId);
-  }, [selectedCollectionId]);
-
-  // Find active collection title
-  const activeCollection = useMemo(() => {
-    if (!selectedCollectionId) return null;
-    return mockCollections.find((c) => c.id === selectedCollectionId) || null;
-  }, [selectedCollectionId]);
-
-  const handleFilterCollection = (collectionId: string) => {
-    // If already selected, toggle off or keep it selected
-    if (selectedCollectionId === collectionId) {
-      setSelectedCollectionId(null);
-    } else {
-      setSelectedCollectionId(collectionId);
-    }
-  };
-
-  const handleClearFilter = () => {
-    setSelectedCollectionId(null);
-  };
-
-  const handleToggleCollapse = () => {
-    setIsCollectionsCollapsed((prev) => !prev);
-  };
-
+export default function ComingSoonPage() {
   return (
-    <div className="flex flex-col h-screen w-screen overflow-hidden bg-zinc-950 text-zinc-100 antialiased selection:bg-zinc-800 selection:text-white">
-      {/* Zone 1: Top Bio Zone - Always visible full-width across top */}
-      <BioHeader
-        totalCollections={mockCollections.length}
-        totalPosts={mockPosts.length}
-        activeFilterTitle={activeCollection ? activeCollection.title : null}
-        onClearFilter={handleClearFilter}
-      />
+    <main className="min-h-screen w-full bg-zinc-950 text-zinc-100 flex flex-col items-center justify-between p-6 sm:p-12 relative overflow-hidden font-sans select-none">
+      {/* Background ambient lighting */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-zinc-800/10 rounded-full blur-3xl pointer-events-none" />
 
-      {/* Main Dual-Panel Zone (Zone 2 & Zone 3) */}
-      <div className="flex-1 flex flex-row overflow-hidden relative">
-        {/* Zone 2: Collections Panel (Left, Collapsible, Independent Scroll) */}
-        <CollectionsPanel
-          collections={mockCollections}
-          activeCollectionId={selectedCollectionId}
-          onFilterCollection={handleFilterCollection}
-          onOpenLightbox={(item) => setActiveLightboxItem(item)}
-          isCollapsed={isCollectionsCollapsed}
-          onToggleCollapse={handleToggleCollapse}
-        />
+      {/* Top Bar: Domain Pill */}
+      <header className="w-full max-w-4xl flex items-center justify-between z-10">
+        <div className="flex items-center gap-2.5 px-3 py-1 rounded-full bg-zinc-900/90 border border-zinc-800 text-xs font-mono text-zinc-400">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+          </span>
+          <span>life.vaibhv19.dev</span>
+        </div>
+        <span className="text-xs font-mono text-zinc-400 uppercase tracking-widest">
+          coming soon
+        </span>
+      </header>
 
-        {/* Zone 3: Timeline Panel (Right, Always Present, Expands, Independent Scroll) */}
-        <TimelinePanel
-          posts={filteredPosts}
-          activeCollectionTitle={activeCollection ? activeCollection.title : null}
-          onClearFilter={handleClearFilter}
-          onOpenLightbox={(item) => setActiveLightboxItem(item)}
-          isCollectionsCollapsed={isCollectionsCollapsed}
-          onExpandCollections={() => setIsCollectionsCollapsed(false)}
-        />
-      </div>
+      {/* Center Hero Block */}
+      <section className="my-auto text-center space-y-6 max-w-xl z-10 px-4">
+        <div className="inline-block px-3 py-1 rounded-md bg-zinc-900 border border-zinc-800 text-xs font-mono tracking-widest uppercase text-zinc-400">
+          [ IN DEVELOPMENT ]
+        </div>
 
-      {/* Lightbox / Modal Overlay */}
-      <LightboxModal
-        data={activeLightboxItem}
-        onClose={() => setActiveLightboxItem(null)}
-      />
-    </div>
+        <h1 className="text-3xl sm:text-5xl font-light tracking-tight text-white leading-tight">
+          Life is coming soon.
+        </h1>
+
+        <p className="text-base sm:text-lg text-zinc-400 font-light leading-relaxed">
+          A personal space for the things that exist outside the code.
+        </p>
+
+        <div className="pt-4 flex items-center justify-center gap-3">
+          <span className="h-[1px] w-8 bg-zinc-800" />
+          <span className="text-sm font-mono text-zinc-300 tracking-wider">
+            — Vaibhav Gupta
+          </span>
+          <span className="h-[1px] w-8 bg-zinc-800" />
+        </div>
+      </section>
+
+      {/* Bottom Minimal Footer */}
+      <footer className="w-full max-w-4xl text-center text-xs font-mono text-zinc-400 z-10 pt-8">
+        <span>© 2025 vaibhv19.dev • All rights reserved.</span>
+      </footer>
+    </main>
   );
 }

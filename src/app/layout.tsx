@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "life.vaibhv19.dev — Vaibhav Gupta",
-  description: "A personal visual journal, collections, and memoirs apart from code by Vaibhav Gupta.",
+  title: "Life is coming soon — life.vaibhv19.dev",
+  description: "A personal space for the things that exist outside the code. — Vaibhav Gupta",
 };
 
 export default function RootLayout({
@@ -27,7 +27,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
     >
-      <body className="h-full w-full bg-zinc-950 text-zinc-100 flex flex-col overflow-hidden">
+      <body className="h-full w-full bg-zinc-950 text-zinc-100 flex flex-col">
         {children}
       </body>
     </html>
