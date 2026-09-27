@@ -48,8 +48,6 @@ export default function LifePage() {
     <div className="flex flex-col h-screen w-screen overflow-hidden bg-zinc-950 text-zinc-100 antialiased selection:bg-zinc-800 selection:text-white">
       {/* Zone 1: Top Bio Zone - Always visible full-width across top */}
       <BioHeader
-        totalCollections={mockCollections.length}
-        totalPosts={mockPosts.length}
         activeFilterTitle={activeCollection ? activeCollection.title : null}
         onClearFilter={handleClearFilter}
       />
