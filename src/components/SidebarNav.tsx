@@ -2,23 +2,23 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 
+export type ActiveNavView = 'home' | 'collections' | 'timeline';
+
 interface SidebarNavProps {
+  activeView: ActiveNavView;
+  onSelectView: (view: ActiveNavView) => void;
   searchQuery: string;
   onSearchChange: (query: string) => void;
-  onResetAll: () => void;
-  isCollectionsCollapsed: boolean;
-  onToggleCollections: () => void;
   isSearchOpen: boolean;
   onToggleSearch: (open: boolean) => void;
   filteredCount: number;
 }
 
 export const SidebarNav: React.FC<SidebarNavProps> = ({
+  activeView,
+  onSelectView,
   searchQuery,
   onSearchChange,
-  onResetAll,
-  isCollectionsCollapsed,
-  onToggleCollections,
   isSearchOpen,
   onToggleSearch,
   filteredCount,
@@ -70,6 +70,21 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isSearchOpen, onToggleSearch]);
 
+  const handleSelectHome = () => {
+    onSelectView('home');
+    if (isSearchOpen) onToggleSearch(false);
+  };
+
+  const handleSelectCollections = () => {
+    onSelectView('collections');
+    if (isSearchOpen) onToggleSearch(false);
+  };
+
+  const handleSelectTimeline = () => {
+    onSelectView('timeline');
+    if (isSearchOpen) onToggleSearch(false);
+  };
+
   return (
     <div className="relative flex shrink-0 h-full z-30">
       {/* Persistent Vertical Navigation Rail */}
@@ -77,44 +92,53 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
         aria-label="Sidebar navigation"
         className="w-14 sm:w-16 h-full shrink-0 border-r border-zinc-200 dark:border-zinc-800/80 bg-zinc-50 dark:bg-zinc-950 flex flex-col items-center justify-between py-5 select-none transition-colors"
       >
-        {/* Top: Monogram / Identity Anchor */}
+        {/* Top: Monogram / Home Anchor */}
         <div className="flex flex-col items-center gap-6">
           <button
-            onClick={onResetAll}
-            className="w-9 h-9 rounded flex items-center justify-center text-zinc-900 dark:text-zinc-100 hover:bg-zinc-200/60 dark:hover:bg-zinc-900 border border-transparent hover:border-zinc-300 dark:hover:border-zinc-800 transition-colors"
-            title="Vaibhav Gupta — Reset view"
-            aria-label="Vaibhav Gupta — Reset view"
+            onClick={handleSelectHome}
+            className={`w-9 h-9 rounded flex items-center justify-center transition-colors ${
+              activeView === 'home' && !isSearchOpen
+                ? 'text-zinc-950 dark:text-zinc-100 bg-zinc-200/70 dark:bg-zinc-900 border border-zinc-300/80 dark:border-zinc-800'
+                : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-100 hover:bg-zinc-200/50 dark:hover:bg-zinc-900'
+            }`}
+            title="Home — Personal Post"
+            aria-label="Home — Personal Post"
           >
             <svg width="20" height="20" viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M 6.5 9.5 L 13.5 22.5 L 20.5 10 A 6 6 0 1 1 14.5 16 H 19" />
             </svg>
           </button>
 
-          {/* Primary Navigation / Interaction Icons */}
-          <div className="flex flex-col items-center gap-3">
-            {/* Timeline / All entries */}
+          {/* Primary View Navigation */}
+          <div className="flex flex-col items-center gap-2.5">
+            {/* Timeline View */}
             <button
-              onClick={onResetAll}
-              className="w-9 h-9 rounded flex items-center justify-center text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 hover:bg-zinc-200/60 dark:hover:bg-zinc-900 transition-colors"
-              title="All entries"
-              aria-label="All entries"
+              onClick={handleSelectTimeline}
+              className={`w-9 h-9 rounded flex items-center justify-center transition-colors ${
+                activeView === 'timeline' && !isSearchOpen
+                  ? 'text-zinc-950 dark:text-zinc-100 bg-zinc-200/70 dark:bg-zinc-900 font-medium'
+                  : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 hover:bg-zinc-200/60 dark:hover:bg-zinc-900'
+              }`}
+              title="Timeline (Chronological Archive)"
+              aria-label="Timeline (Chronological Archive)"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-                <polyline points="9 22 9 12 15 12 15 22" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="18" x2="15" y2="18" />
               </svg>
             </button>
 
-            {/* Collections panel toggle */}
+            {/* Collections View */}
             <button
-              onClick={onToggleCollections}
+              onClick={handleSelectCollections}
               className={`w-9 h-9 rounded flex items-center justify-center transition-colors ${
-                !isCollectionsCollapsed
-                  ? 'text-zinc-950 dark:text-zinc-100 bg-zinc-200/70 dark:bg-zinc-900'
+                activeView === 'collections' && !isSearchOpen
+                  ? 'text-zinc-950 dark:text-zinc-100 bg-zinc-200/70 dark:bg-zinc-900 font-medium'
                   : 'text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-zinc-100 hover:bg-zinc-200/60 dark:hover:bg-zinc-900'
               }`}
-              title={isCollectionsCollapsed ? 'Show collections' : 'Hide collections'}
-              aria-label={isCollectionsCollapsed ? 'Show collections' : 'Hide collections'}
+              title="Collections (Series & Lenses)"
+              aria-label="Collections (Series & Lenses)"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
                 <rect x="3" y="3" width="7" height="7" />
@@ -225,15 +249,21 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
             </div>
 
             {/* Live Search Status */}
-            <div className="space-y-2 text-xs font-mono text-zinc-500 dark:text-zinc-400 pt-1">
+            <div className="space-y-3 text-xs font-mono text-zinc-500 dark:text-zinc-400 pt-1">
               {searchQuery ? (
-                <div className="space-y-1">
-                  <div className="text-zinc-800 dark:text-zinc-200">
+                <div className="space-y-2">
+                  <div className="text-zinc-800 dark:text-zinc-200 font-medium">
                     {filteredCount} matching {filteredCount === 1 ? 'entry' : 'entries'}
                   </div>
-                  <p className="text-[11px] text-zinc-400 dark:text-zinc-600 font-sans">
-                    Filtering both timeline entries and collections in real time.
-                  </p>
+                  <button
+                    onClick={() => {
+                      onSelectView('timeline');
+                      onToggleSearch(false);
+                    }}
+                    className="text-xs font-mono text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-100 underline underline-offset-2 block"
+                  >
+                    view results in timeline →
+                  </button>
                 </div>
               ) : (
                 <div className="space-y-2">
@@ -244,7 +274,10 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
                     {['35mm', 'espresso', 'alpine', 'monochrome', 'notebooks', 'brutalist'].map((tag) => (
                       <button
                         key={tag}
-                        onClick={() => onSearchChange(tag)}
+                        onClick={() => {
+                          onSearchChange(tag);
+                          onSelectView('timeline');
+                        }}
                         className="text-[11px] font-mono px-2 py-0.5 rounded bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-zinc-600 dark:text-zinc-400 hover:text-zinc-950 dark:hover:text-zinc-200 hover:border-zinc-400 dark:hover:border-zinc-600 transition-colors"
                       >
                         {tag}

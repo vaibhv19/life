@@ -1,7 +1,8 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import { SidebarNav } from '@/components/SidebarNav';
+import { SidebarNav, ActiveNavView } from '@/components/SidebarNav';
+import { PersonalPostView } from '@/components/PersonalPostView';
 import { BioHeader } from '@/components/BioHeader';
 import { CollectionsPanel } from '@/components/CollectionsPanel';
 import { TimelinePanel } from '@/components/TimelinePanel';
@@ -10,6 +11,7 @@ import { mockCollections, mockPosts } from '@/data/mockData';
 import { LightboxData } from '@/types';
 
 export default function LifePage() {
+  const [activeView, setActiveView] = useState<ActiveNavView>('home');
   const [isCollectionsCollapsed, setIsCollectionsCollapsed] = useState<boolean>(false);
   const [selectedCollectionId, setSelectedCollectionId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
@@ -64,11 +66,14 @@ export default function LifePage() {
   }, [selectedCollectionId]);
 
   const handleFilterCollection = (collectionId: string) => {
-    // If already selected, toggle off or keep it selected
     if (selectedCollectionId === collectionId) {
       setSelectedCollectionId(null);
     } else {
       setSelectedCollectionId(collectionId);
+    }
+    // Switch to timeline or collections view to see filtered results
+    if (activeView === 'home') {
+      setActiveView('timeline');
     }
   };
 
@@ -80,12 +85,6 @@ export default function LifePage() {
     setSearchQuery('');
   };
 
-  const handleResetAll = () => {
-    setSelectedCollectionId(null);
-    setSearchQuery('');
-    setIsSearchOpen(false);
-  };
-
   const handleToggleCollapse = () => {
     setIsCollectionsCollapsed((prev) => !prev);
   };
@@ -94,49 +93,57 @@ export default function LifePage() {
     <div className="flex flex-row h-screen w-screen overflow-hidden bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 antialiased selection:bg-zinc-200 selection:text-zinc-900 dark:selection:bg-zinc-800 dark:selection:text-white transition-colors">
       {/* Persistent Left Vertical Sidebar Navigation Rail */}
       <SidebarNav
+        activeView={activeView}
+        onSelectView={setActiveView}
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
-        onResetAll={handleResetAll}
-        isCollectionsCollapsed={isCollectionsCollapsed}
-        onToggleCollections={handleToggleCollapse}
         isSearchOpen={isSearchOpen}
         onToggleSearch={setIsSearchOpen}
         filteredCount={filteredPosts.length}
       />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col h-full overflow-hidden min-w-0">
-        {/* Zone 1: Top Bio Zone */}
-        <BioHeader
-          activeFilterTitle={activeCollection ? activeCollection.title : null}
-          onClearFilter={handleClearFilter}
+      {activeView === 'home' ? (
+        /* New Default Homepage: Single Personal Editorial Post */
+        <PersonalPostView
+          onExploreCollections={() => setActiveView('collections')}
+          onExploreTimeline={() => setActiveView('timeline')}
         />
-
-        {/* Main Dual-Panel Zone (Zone 2 & Zone 3) */}
-        <div className="flex-1 flex flex-row overflow-hidden relative min-w-0">
-          {/* Zone 2: Collections Panel (Left, Collapsible, Independent Scroll) */}
-          <CollectionsPanel
-            collections={filteredCollections}
-            activeCollectionId={selectedCollectionId}
-            onFilterCollection={handleFilterCollection}
-            onOpenLightbox={(item) => setActiveLightboxItem(item)}
-            isCollapsed={isCollectionsCollapsed}
-            onToggleCollapse={handleToggleCollapse}
-          />
-
-          {/* Zone 3: Timeline Panel (Right, Always Present, Expands, Independent Scroll) */}
-          <TimelinePanel
-            posts={filteredPosts}
-            searchQuery={searchQuery}
-            onClearSearch={handleClearSearch}
-            activeCollectionTitle={activeCollection ? activeCollection.title : null}
+      ) : (
+        /* Archive Views: Collections + Timeline */
+        <div className="flex-1 flex flex-col h-full overflow-hidden min-w-0">
+          {/* Top Bio Zone */}
+          <BioHeader
+            activeFilterTitle={activeCollection ? activeCollection.title : null}
             onClearFilter={handleClearFilter}
-            onOpenLightbox={(item) => setActiveLightboxItem(item)}
-            isCollectionsCollapsed={isCollectionsCollapsed}
-            onExpandCollections={() => setIsCollectionsCollapsed(false)}
           />
+
+          {/* Main Dual-Panel Zone (Collections & Timeline) */}
+          <div className="flex-1 flex flex-row overflow-hidden relative min-w-0">
+            {/* Collections Panel (Left) */}
+            <CollectionsPanel
+              collections={filteredCollections}
+              activeCollectionId={selectedCollectionId}
+              onFilterCollection={handleFilterCollection}
+              onOpenLightbox={(item) => setActiveLightboxItem(item)}
+              isCollapsed={activeView === 'timeline' ? isCollectionsCollapsed : false}
+              onToggleCollapse={handleToggleCollapse}
+            />
+
+            {/* Timeline Panel (Right) */}
+            <TimelinePanel
+              posts={filteredPosts}
+              searchQuery={searchQuery}
+              onClearSearch={handleClearSearch}
+              activeCollectionTitle={activeCollection ? activeCollection.title : null}
+              onClearFilter={handleClearFilter}
+              onOpenLightbox={(item) => setActiveLightboxItem(item)}
+              isCollectionsCollapsed={activeView === 'timeline' ? isCollectionsCollapsed : false}
+              onExpandCollections={() => setIsCollectionsCollapsed(false)}
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Lightbox / Modal Overlay */}
       <LightboxModal
