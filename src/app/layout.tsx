@@ -13,8 +13,11 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "life.vaibhv19.dev — Vaibhav Gupta",
+  title: "Vaibhav Gupta",
   description: "A personal visual journal, collections, and memoirs apart from code by Vaibhav Gupta.",
+  icons: {
+    icon: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
