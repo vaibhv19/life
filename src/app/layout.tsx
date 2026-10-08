@@ -1,15 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Syne } from "next/font/google";
+import { FixedBackground } from "@/components/FixedBackground";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const syne = Syne({
+  variable: "--font-syne",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -25,10 +22,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
+      className={`${syne.variable} h-full antialiased dark`}
     >
-      <body className="h-full w-full bg-zinc-950 text-zinc-100 flex flex-col">
-        {children}
+      <body className="min-h-full w-full bg-[#722F37] text-[#F8F4E7] font-sans selection:bg-[#D7A781] selection:text-[#722F37] flex flex-col relative font-[family-name:var(--font-syne)]">
+        {/* Full-Viewport Fixed Background Layer (Stationary) */}
+        <FixedBackground />
+
+        {/* Foreground Content */}
+        <div className="relative z-10 flex flex-col min-h-screen bg-transparent">
+          {children}
+        </div>
       </body>
     </html>
   );
