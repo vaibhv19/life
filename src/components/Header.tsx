@@ -100,17 +100,11 @@ export const Header: React.FC<HeaderProps> = ({
             </span>
           </button>
 
-          {/* 4. Organic / Non-symmetrical Hand-Cut Editorial Button */}
-          <button
-            onClick={() => {
-              if (!isHomePage) {
-                window.location.href = '/?view=hidden';
-              } else if (onSelectView) {
-                onSelectView('hidden');
-              }
-            }}
+          {/* 4. Organic / Non-symmetrical Hand-Cut Editorial Button (Links to /hiddenspace) */}
+          <Link
+            href="/hiddenspace"
             className={`cursor-pointer focus:outline-none bg-[#F8F4E7] text-[#D7A781] px-3.5 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-semibold tracking-tight transition-all duration-200 ease-out hover:bg-[#FFFDF7] hover:scale-[1.02] active:scale-[0.98] shadow-sm select-none shrink-0 ${
-              isHomePage && activeView === 'hidden' ? 'ring-2 ring-[#D7A781]/40' : ''
+              pathname === '/hiddenspace' ? 'ring-2 ring-[#D7A781]/40' : ''
             }`}
             style={{
               borderRadius: '18px 5px 22px 7px / 8px 20px 7px 16px',
@@ -118,7 +112,7 @@ export const Header: React.FC<HeaderProps> = ({
             title="Open hidden space"
           >
             hidden space
-          </button>
+          </Link>
         </nav>
       </div>
     </header>
