@@ -9,8 +9,8 @@ export const FixedBackground: React.FC = () => {
       aria-hidden="true"
     >
       {/* 1. Deep Burgundy/Dark Mask Layer — Lowers brightness & saturation for a richer dark tone */}
-      <div 
-        className="absolute inset-0 bg-[#160608]/48" 
+      <div
+        className="absolute inset-0 bg-[#160608]/48"
       />
 
       {/* 2. Organic Fine Tactile Paper / Film Grain Layer (No grid, understated editorial texture) */}

@@ -132,12 +132,7 @@ export default function LifePage() {
       <main className="flex-1 flex flex-col">
         {/* 02. Hero / Introduction — Shown on 'all' and 'archive' */}
         {(activeView === 'all' || activeView === 'archive') && (
-          <HeroArchive
-            featuredItem={defaultFeaturedItem}
-            onSelectFeatured={(item) => handleSelectItem(item)}
-            onExploreSeries={() => setActiveView('series')}
-            totalEntriesCount={mockArchiveItems.length}
-          />
+          <HeroArchive />
         )}
 
         {/* 03. Single Entry Focus View (When an entry is inspected or chosen) */}
