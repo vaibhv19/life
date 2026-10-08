@@ -2,18 +2,43 @@ import 'server-only';
 import crypto from 'crypto';
 import { cookies } from 'next/headers';
 
-export type PersonId = 'zoya' | 'vaibhav';
+export type PersonId =
+  | 'zoya'
+  | 'somya'
+  | 'stuti'
+  | 'madhu'
+  | 'priyam'
+  | 'shristi'
+  | 'anushka'
+  | 'prakhar'
+  | 'sarthak'
+  | 'utsav'
+  | 'yash';
 
 export interface PersonProfile {
   id: PersonId;
   displayName: string;
+  relationship?: string;
 }
 
 // Server-only birthday mapping (NEVER exposed to the client bundle)
 const REGISTERED_BIRTHDAYS: Record<string, PersonProfile> = {
   '12-08-2004': { id: 'zoya', displayName: 'Zoya' },
-  '19-08-2004': { id: 'vaibhav', displayName: 'Vaibhav' },
+  '12-07-2004': { id: 'somya', displayName: 'Somya' },
+  '22-03-2004': { id: 'stuti', displayName: 'Stuti' },
+  '16-06-1974': { id: 'madhu', displayName: 'Madhu', relationship: 'Mother' },
+  '06-08-1997': { id: 'priyam', displayName: 'Priyam', relationship: 'Didi' },
+  '29-05-2004': { id: 'shristi', displayName: 'Shristi' },
+  '13-08-2005': { id: 'anushka', displayName: 'Anushka' },
+  '08-03-2004': { id: 'prakhar', displayName: 'Prakhar' },
+  '30-07-2003': { id: 'sarthak', displayName: 'Sarthak' },
+  '30-08-2002': { id: 'utsav', displayName: 'Utsav' },
+  '30-12-2004': { id: 'yash', displayName: 'Yash' },
 };
+
+const VALID_PERSON_IDS = new Set<string>(
+  Object.values(REGISTERED_BIRTHDAYS).map((p) => p.id)
+);
 
 const BETWEEN_US_COOKIE = 'life_between_us_session';
 const BETWEEN_US_SECRET =
@@ -31,11 +56,19 @@ export function normalizeBirthdayInput(input: string): string {
 
 /**
  * Validates whether the given birthday is registered.
- * Returns the person profile if valid, or null if invalid.
+ * Returns the person profile if valid, or null if unconfigured.
  */
 export function verifyBirthday(inputBirthday: string): PersonProfile | null {
   const normalized = normalizeBirthdayInput(inputBirthday);
   return REGISTERED_BIRTHDAYS[normalized] || null;
+}
+
+/**
+ * Retrieves a person profile by PersonId.
+ */
+export function getPersonProfileById(id: PersonId): PersonProfile | null {
+  const profile = Object.values(REGISTERED_BIRTHDAYS).find((p) => p.id === id);
+  return profile || null;
 }
 
 /**
@@ -86,7 +119,7 @@ function verifySignedToken(token: string): PersonId | null {
       return null;
     }
 
-    if (payload.sub === 'zoya' || payload.sub === 'vaibhav') {
+    if (VALID_PERSON_IDS.has(payload.sub)) {
       return payload.sub as PersonId;
     }
 
@@ -138,14 +171,7 @@ export async function getAuthenticatedPerson(): Promise<PersonProfile | null> {
       return null;
     }
 
-    if (personId === 'zoya') {
-      return { id: 'zoya', displayName: 'Zoya' };
-    }
-    if (personId === 'vaibhav') {
-      return { id: 'vaibhav', displayName: 'Vaibhav' };
-    }
-
-    return null;
+    return getPersonProfileById(personId);
   } catch {
     return null;
   }
