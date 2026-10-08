@@ -101,11 +101,11 @@ export const Header: React.FC<HeaderProps> = ({
             </span>
           </button>
 
-          {/* 4. [ Between Us ] Button (Organic Hand-Cut Shape, Cream Fill, Dusty Pink Text) */}
+          {/* 4. [ Between Us ] Button (Organic Hand-Cut Shape, Cream Fill, Burgundy Text) */}
           <Link
             href="/between-us"
-            className={`cursor-pointer focus:outline-none bg-[#F8F4E7] text-[#D7A781] px-3.5 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-semibold tracking-tight transition-all duration-200 ease-out hover:bg-[#FFFDF7] hover:scale-[1.02] active:scale-[0.98] shadow-sm select-none shrink-0 ${
-              isBetweenUsPage ? 'ring-2 ring-[#D7A781]/40' : ''
+            className={`cursor-pointer focus:outline-none bg-[#F8F4E7] text-[#722F37] px-3.5 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-semibold tracking-tight transition-all duration-200 ease-out hover:bg-[#FFFDF7] hover:scale-[1.02] active:scale-[0.98] shadow-sm select-none shrink-0 ${
+              isBetweenUsPage ? 'ring-2 ring-[#F8F4E7]/60' : ''
             }`}
             style={{
               borderRadius: '18px 5px 22px 7px / 8px 20px 7px 16px',

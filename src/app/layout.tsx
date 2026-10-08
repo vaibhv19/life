@@ -10,10 +10,14 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
-  title: "LIFE — life.vaibhv19.dev",
+  title: "life",
   description: "A personal digital archive, scrapbook, visual journal, and memoirs by Vaibhav Gupta.",
   icons: {
-    icon: "/icon.svg",
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
   },
 };
 
