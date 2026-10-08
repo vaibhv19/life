@@ -1,20 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Syne } from "next/font/google";
+import { FixedBackground } from "@/components/FixedBackground";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const syne = Syne({
+  variable: "--font-syne",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Vaibhav Gupta",
-  description: "A personal visual journal, collections, and memoirs apart from code by Vaibhav Gupta.",
+  title: "LIFE — life.vaibhv19.dev",
+  description: "A personal digital archive, scrapbook, visual journal, and memoirs by Vaibhav Gupta.",
   icons: {
     icon: "/icon.svg",
   },
@@ -28,30 +25,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      suppressHydrationWarning
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${syne.variable} h-full antialiased dark`}
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var saved = localStorage.getItem('theme');
-                  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  if (saved === 'dark' || (!saved && prefersDark)) {
-                    document.documentElement.classList.add('dark');
-                  } else {
-                    document.documentElement.classList.remove('dark');
-                  }
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
-      </head>
-      <body className="h-full w-full bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 flex flex-col overflow-hidden">
-        {children}
+      <body className="min-h-full w-full bg-[#1B1E4A] text-[#AFAEA2] font-sans selection:bg-[#D21319] selection:text-[#E8E7E0] flex flex-col relative font-[family-name:var(--font-syne)]">
+        {/* Full-Viewport Fixed Background Layer (Stationary during scrolling) */}
+        <FixedBackground />
+
+        {/* Moving Foreground Content */}
+        <div className="relative z-10 flex flex-col min-h-screen bg-transparent">
+          {children}
+        </div>
       </body>
     </html>
   );

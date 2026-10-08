@@ -1,55 +1,93 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
+@theme {
+  --color-navy: #1B1E4A;
+  --color-navy-deep: #131538;
+  --color-navy-surface: #222659;
+  
+  --color-stone: #AFAEA2;
+  --color-stone-light: #E8E7E0;
+  --color-stone-paper: #D3D2C7;
+  --color-stone-muted: #8E8D82;
+  --color-stone-dark: #636259;
+  
+  --color-crimson: #D21319;
+  --color-crimson-dark: #A80F14;
+  
+  --color-border-stone: rgba(175, 174, 162, 0.25);
+  --color-border-stone-strong: rgba(175, 174, 162, 0.6);
 
+  --font-serif: var(--font-syne), system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-syne), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-syne), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-syne), system-ui, -apple-system, sans-serif;
+}
+
+/* Global resets & Canvas */
 :root {
-  --background: #fafafa;
-  --foreground: #18181b;
+  --canvas-bg: #1B1E4A;
+  --canvas-fg: #AFAEA2;
+  --canvas-accent: #D21319;
 }
 
-.dark {
-  --background: #09090b;
-  --foreground: #f4f4f5;
+html, body {
+  background-color: #1B1E4A;
+  color: #AFAEA2;
+  font-family: var(--font-syne), system-ui, -apple-system, sans-serif;
+  color-scheme: dark;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* 40px x 40px Fine Architectural Grid Mask */
+.bg-grid {
+  background-image: 
+    linear-gradient(to right, rgba(175, 174, 162, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(175, 174, 162, 0.15) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-  overflow: hidden; /* Main window is fixed; independent panels scroll */
+/* Syne Editorial Typography utilities */
+.font-editorial-display {
+  font-family: var(--font-syne), system-ui, sans-serif;
+  letter-spacing: -0.025em;
+  font-weight: 700;
 }
 
-/* Custom subtle scrollbars for independent zones */
+.font-editorial-italic {
+  font-family: var(--font-syne), system-ui, sans-serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+/* Subtle, restrained scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #1B1E4A;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #d4d4d8;
-  border-radius: 9999px;
-}
-
-.dark ::-webkit-scrollbar-thumb {
-  background: #27272a;
+  background: #AFAEA2;
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a1a1aa;
+  background: #D21319;
 }
 
-.dark ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+/* Grain texture overlay (ultra-subtle) */
+.subtle-paper-grain {
+  position: relative;
 }
 
+.subtle-paper-grain::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: radial-gradient(rgba(175, 174, 162, 0.9) 1px, transparent 0);
+  background-size: 8px 8px;
+}

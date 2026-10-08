@@ -1,90 +1,141 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { LightboxData } from '../types';
+import { ArchiveItem } from '../types';
 
 interface LightboxModalProps {
-  data: LightboxData | null;
+  item: ArchiveItem | null;
   onClose: () => void;
 }
 
-export const LightboxModal: React.FC<LightboxModalProps> = ({ data, onClose }) => {
+export const LightboxModal: React.FC<LightboxModalProps> = ({ item, onClose }) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === 'Escape' && item) {
         onClose();
       }
     };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [item, onClose]);
 
-    if (data) {
-      window.addEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = 'hidden';
-    }
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
-    };
-  }, [data, onClose]);
-
-  if (!data) return null;
+  if (!item) return null;
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10 bg-black/60 dark:bg-black/90"
-    >
-      {/* Modal Content */}
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-2xl bg-white dark:bg-zinc-950 border border-zinc-200 dark:border-zinc-800 rounded flex flex-col overflow-hidden shadow-2xl"
-      >
-        {/* Top bar with metadata and close button */}
-        <div className="flex items-center justify-between px-5 py-3 border-b border-zinc-200 dark:border-zinc-800/80 bg-zinc-50 dark:bg-zinc-950">
-          <div className="flex items-center gap-2 text-xs font-mono text-zinc-500 dark:text-zinc-500">
-            <span>{data.collectionTitle}</span>
-            {data.date && (
-              <>
-                <span className="text-zinc-300 dark:text-zinc-700">•</span>
-                <span>{data.date}</span>
-              </>
-            )}
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#1B1E4A]/95 backdrop-blur-md p-4 sm:p-8 select-none">
+      {/* Backdrop click dismiss */}
+      <div className="absolute inset-0" onClick={onClose} />
+
+      {/* Modal Dialog Container: Warm Stone Grey Physical Surface */}
+      <div className="relative z-10 w-full max-w-4xl max-h-[90vh] bg-[#AFAEA2] text-[#1B1E4A] border-2 border-[#AFAEA2] flex flex-col shadow-2xl overflow-hidden rounded-xs">
+        {/* Modal Top Bar */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#1B1E4A]/15 text-xs font-mono shrink-0 bg-[#AFAEA2] font-semibold">
+          <div className="flex items-center gap-2.5">
+            <span className="text-[#D21319] font-bold">SPECIMEN VIEW</span>
+            <span className="text-[#1B1E4A]/30">/</span>
+            <span className="text-[#1B1E4A] font-bold">{item.collectionTitle}</span>
           </div>
 
           <button
             onClick={onClose}
-            className="text-zinc-400 hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-zinc-200 text-xs font-mono p-1"
-            title="Close (ESC)"
-            aria-label="Close modal"
+            className="text-[#1B1E4A] hover:text-[#D21319] px-2.5 py-1 border border-[#1B1E4A]/30 hover:border-[#D21319] text-xs font-mono cursor-pointer transition-colors font-bold"
           >
-            ✕
+            CLOSE [ESC] ✕
           </button>
         </div>
 
-        {/* Image Preview Container */}
-        <div className="p-6 bg-zinc-50 dark:bg-zinc-950 flex flex-col items-center justify-center">
-          <div className="w-full aspect-[4/3] sm:aspect-[16/10] rounded bg-zinc-100 dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800/80 flex flex-col items-center justify-center p-6 text-center">
-            <div className="font-normal text-sm text-zinc-900 dark:text-zinc-300">
-              {data.title}
+        {/* Modal Scrollable Content */}
+        <div className="flex-1 overflow-y-auto p-6 sm:p-10 space-y-8 bg-[#AFAEA2]">
+          {/* Main Visual Display on Navy Inset Frame */}
+          <div className="relative w-full aspect-[16/10] max-h-[460px] bg-[#1B1E4A] border border-[#1B1E4A]/40 p-6 sm:p-8 flex flex-col justify-between shadow-inner">
+            {/* Corner registration marks in Crimson Red */}
+            <div className="absolute top-2 left-2 w-3.5 h-3.5 border-t-2 border-l-2 border-[#D21319]" />
+            <div className="absolute top-2 right-2 w-3.5 h-3.5 border-t-2 border-r-2 border-[#D21319]" />
+            <div className="absolute bottom-2 left-2 w-3.5 h-3.5 border-b-2 border-l-2 border-[#D21319]" />
+            <div className="absolute bottom-2 right-2 w-3.5 h-3.5 border-b-2 border-r-2 border-[#D21319]" />
+
+            <div className="flex items-center justify-between text-xs font-mono text-[#AFAEA2]">
+              <span className="text-[#D21319] font-bold">{item.metadata?.format || 'ARCHIVAL SPECIMEN'}</span>
+              <span>{item.date}</span>
             </div>
-            {data.location && (
-              <div className="text-xs font-mono text-zinc-500 dark:text-zinc-500 mt-1">
-                {data.location}
+
+            <div className="my-auto text-center py-6">
+              <span className="text-xs font-mono text-[#D21319] uppercase tracking-widest block mb-2 font-bold">
+                {item.medium}
+              </span>
+              <h2 className="font-editorial-display text-2xl sm:text-4xl text-[#E8E7E0] max-w-xl mx-auto">
+                "{item.title}"
+              </h2>
+              {item.location && (
+                <span className="text-xs font-mono text-[#AFAEA2] mt-2 block">
+                  {item.location}
+                </span>
+              )}
+            </div>
+
+            <div className="flex items-center justify-between text-xs font-mono text-[#AFAEA2] pt-3 border-t border-[#AFAEA2]/15">
+              <span>{item.metadata?.filmStock || item.metadata?.camera || '35mm Negative'}</span>
+              <span>{item.coordinates || '28°38\'N 77°13\'E'}</span>
+            </div>
+          </div>
+
+          {/* Narrative & Field Notes on Warm Stone */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+            <div className="md:col-span-7 space-y-4">
+              <h3 className="font-editorial-display text-2xl text-[#1B1E4A] font-semibold">
+                {item.title}
+              </h3>
+              <p className="text-sm text-[#1B1E4A]/90 font-sans leading-relaxed font-medium">
+                {item.caption}
+              </p>
+              {item.notes && (
+                <div className="bg-[#1B1E4A] p-4 border border-[#1B1E4A] rounded-xs space-y-1">
+                  <span className="text-[10px] font-mono text-[#D21319] uppercase block font-bold">
+                    Author's Field Note:
+                  </span>
+                  <p className="text-xs font-mono text-[#E8E7E0] italic leading-relaxed">
+                    {item.notes}
+                  </p>
+                </div>
+              )}
+            </div>
+
+            {/* Technical Metadata Matrix */}
+            <div className="md:col-span-5 bg-[#1B1E4A] text-[#AFAEA2] p-5 space-y-3 text-xs font-mono rounded-xs shadow-md">
+              <span className="text-[10px] uppercase text-[#D21319] tracking-wider block font-bold">
+                TECHNICAL LOG
+              </span>
+              <div className="space-y-2 text-[#AFAEA2]">
+                <div className="flex justify-between border-b border-[#AFAEA2]/10 pb-1">
+                  <span className="text-[#AFAEA2]/70">Recorded:</span>
+                  <span className="text-[#E8E7E0] font-semibold">{item.date}</span>
+                </div>
+                <div className="flex justify-between border-b border-[#AFAEA2]/10 pb-1">
+                  <span className="text-[#AFAEA2]/70">Medium:</span>
+                  <span className="text-[#D21319] font-bold uppercase">{item.medium}</span>
+                </div>
+                {item.metadata?.camera && (
+                  <div className="flex justify-between border-b border-[#AFAEA2]/10 pb-1">
+                    <span className="text-[#AFAEA2]/70">Camera:</span>
+                    <span className="text-[#E8E7E0]">{item.metadata.camera}</span>
+                  </div>
+                )}
+                {item.metadata?.filmStock && (
+                  <div className="flex justify-between border-b border-[#AFAEA2]/10 pb-1">
+                    <span className="text-[#AFAEA2]/70">Emulsion:</span>
+                    <span className="text-[#D21319] font-medium">{item.metadata.filmStock}</span>
+                  </div>
+                )}
+                {item.coordinates && (
+                  <div className="flex justify-between border-b border-[#AFAEA2]/10 pb-1">
+                    <span className="text-[#AFAEA2]/70">Coordinates:</span>
+                    <span className="text-[#E8E7E0]">{item.coordinates}</span>
+                  </div>
+                )}
               </div>
-            )}
+            </div>
           </div>
         </div>
-
-        {/* Caption & Context Footer */}
-        {data.caption && (
-          <div className="px-5 py-4 border-t border-zinc-200 dark:border-zinc-800/80 bg-white dark:bg-zinc-950">
-            <p className="text-xs sm:text-sm text-zinc-700 dark:text-zinc-400 font-normal leading-relaxed">
-              {data.caption}
-            </p>
-          </div>
-        )}
       </div>
     </div>
   );

@@ -1,153 +1,187 @@
 'use client';
 
-import React, { useState, useMemo } from 'react';
-import { SidebarNav, ActiveNavView } from '@/components/SidebarNav';
-import { PersonalPostView } from '@/components/PersonalPostView';
-import { BioHeader } from '@/components/BioHeader';
-import { CollectionsPanel } from '@/components/CollectionsPanel';
-import { TimelinePanel } from '@/components/TimelinePanel';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Header, MainViewMode } from '@/components/Header';
+import { HeroArchive } from '@/components/HeroArchive';
+import { VisualArchiveGrid } from '@/components/VisualArchiveGrid';
+import { CollectionLenses } from '@/components/CollectionLenses';
+import { ChronologicalStream } from '@/components/ChronologicalStream';
+import { FeaturedEntryFocus } from '@/components/FeaturedEntryFocus';
+import { Footer } from '@/components/Footer';
+import { SearchDrawer } from '@/components/SearchDrawer';
 import { LightboxModal } from '@/components/LightboxModal';
-import { mockCollections, mockPosts } from '@/data/mockData';
-import { LightboxData } from '@/types';
+import { mockArchiveItems, mockSeries } from '@/data/mockData';
+import { ArchiveItem } from '@/types';
 
 export default function LifePage() {
-  const [activeView, setActiveView] = useState<ActiveNavView>('home');
-  const [isCollectionsCollapsed, setIsCollectionsCollapsed] = useState<boolean>(false);
-  const [selectedCollectionId, setSelectedCollectionId] = useState<string | null>(null);
+  const [activeView, setActiveView] = useState<MainViewMode>('all');
+  const [selectedSeriesId, setSelectedSeriesId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
-  const [activeLightboxItem, setActiveLightboxItem] = useState<LightboxData | null>(null);
+  const [activeFocalItem, setActiveFocalItem] = useState<ArchiveItem | null>(null);
+  const [activeLightboxItem, setActiveLightboxItem] = useState<ArchiveItem | null>(null);
 
-  // Filter posts based on active collection selection AND search query
-  const filteredPosts = useMemo(() => {
-    let posts = mockPosts;
-    if (selectedCollectionId) {
-      posts = posts.filter((post) => post.collectionId === selectedCollectionId);
+  // Global keyboard shortcut '/' to open search
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (
+        e.key === '/' &&
+        !isSearchOpen &&
+        document.activeElement?.tagName !== 'INPUT' &&
+        document.activeElement?.tagName !== 'TEXTAREA'
+      ) {
+        e.preventDefault();
+        setIsSearchOpen(true);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isSearchOpen]);
+
+  // Featured Item for Hero Section (Item 01)
+  const defaultFeaturedItem = useMemo(() => {
+    return mockArchiveItems.find((item) => item.featured) || mockArchiveItems[0];
+  }, []);
+
+  // Filtered Archive Items based on series filter and search query
+  const filteredItems = useMemo(() => {
+    let items = mockArchiveItems;
+
+    if (selectedSeriesId) {
+      items = items.filter((item) => item.collectionId === selectedSeriesId);
     }
+
     if (searchQuery.trim()) {
       const q = searchQuery.trim().toLowerCase();
-      posts = posts.filter((post) => {
-        const inCaption = post.caption.toLowerCase().includes(q);
-        const inLocation = post.location.toLowerCase().includes(q);
-        const inDate = post.date.toLowerCase().includes(q);
-        const inCollection = post.collectionTitle.toLowerCase().includes(q);
-        const inTags = post.tags && post.tags.some((t) => t.toLowerCase().includes(q));
-        return inCaption || inLocation || inDate || inCollection || inTags;
+      items = items.filter((item) => {
+        const inTitle = item.title.toLowerCase().includes(q);
+        const inCaption = item.caption ? item.caption.toLowerCase().includes(q) : false;
+        const inLocation = item.location ? item.location.toLowerCase().includes(q) : false;
+        const inSeries = item.collectionTitle.toLowerCase().includes(q);
+        const inNotes = item.notes ? item.notes.toLowerCase().includes(q) : false;
+        const inTags = item.tags.some((t) => t.toLowerCase().includes(q));
+        const inCamera = item.metadata?.camera ? item.metadata.camera.toLowerCase().includes(q) : false;
+        const inFilm = item.metadata?.filmStock ? item.metadata.filmStock.toLowerCase().includes(q) : false;
+
+        return inTitle || inCaption || inLocation || inSeries || inNotes || inTags || inCamera || inFilm;
       });
     }
-    return posts;
-  }, [selectedCollectionId, searchQuery]);
 
-  // Filter collections based on search query
-  const filteredCollections = useMemo(() => {
-    if (!searchQuery.trim()) {
-      return mockCollections;
-    }
-    const q = searchQuery.trim().toLowerCase();
-    return mockCollections.filter((col) => {
-      const inTitle = col.title.toLowerCase().includes(q);
-      const inDesc = col.description.toLowerCase().includes(q);
-      const inDate = col.dateRange.toLowerCase().includes(q);
-      const inIndex = col.indexNumber.toLowerCase().includes(q);
-      const inThumbnails = col.thumbnails.some(
-        (t) =>
-          t.title.toLowerCase().includes(q) ||
-          t.caption.toLowerCase().includes(q) ||
-          (t.location && t.location.toLowerCase().includes(q))
-      );
-      return inTitle || inDesc || inDate || inIndex || inThumbnails;
-    });
-  }, [searchQuery]);
+    return items;
+  }, [selectedSeriesId, searchQuery]);
 
-  // Find active collection title
-  const activeCollection = useMemo(() => {
-    if (!selectedCollectionId) return null;
-    return mockCollections.find((c) => c.id === selectedCollectionId) || null;
-  }, [selectedCollectionId]);
+  // Active Series Title
+  const activeSeriesTitle = useMemo(() => {
+    if (!selectedSeriesId) return null;
+    return mockSeries.find((s) => s.id === selectedSeriesId)?.title || null;
+  }, [selectedSeriesId]);
 
-  const handleFilterCollection = (collectionId: string) => {
-    if (selectedCollectionId === collectionId) {
-      setSelectedCollectionId(null);
+  const handleSelectSeries = (seriesId: string) => {
+    if (selectedSeriesId === seriesId) {
+      setSelectedSeriesId(null);
     } else {
-      setSelectedCollectionId(collectionId);
-    }
-    // Switch to timeline or collections view to see filtered results
-    if (activeView === 'home') {
-      setActiveView('timeline');
+      setSelectedSeriesId(seriesId);
+      // If we are in 'series' mode, switch to 'archive' to see filtered results
+      if (activeView === 'series') {
+        setActiveView('archive');
+      }
     }
   };
 
   const handleClearFilter = () => {
-    setSelectedCollectionId(null);
-  };
-
-  const handleClearSearch = () => {
+    setSelectedSeriesId(null);
     setSearchQuery('');
   };
 
-  const handleToggleCollapse = () => {
-    setIsCollectionsCollapsed((prev) => !prev);
+  const handleSelectItem = (item: ArchiveItem) => {
+    setActiveFocalItem(item);
+  };
+
+  const handleOpenLightbox = (item: ArchiveItem) => {
+    setActiveLightboxItem(item);
+  };
+
+  const handleSelectTag = (tag: string) => {
+    setSearchQuery(tag);
   };
 
   return (
-    <div className="flex flex-row h-screen w-screen overflow-hidden bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 antialiased selection:bg-zinc-200 selection:text-zinc-900 dark:selection:bg-zinc-800 dark:selection:text-white transition-colors">
-      {/* Persistent Left Vertical Sidebar Navigation Rail */}
-      <SidebarNav
+    <div className="flex flex-col min-h-screen w-full bg-transparent text-[#AFAEA2] antialiased">
+      {/* 01. Global Editorial Header */}
+      <Header
         activeView={activeView}
         onSelectView={setActiveView}
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
-        isSearchOpen={isSearchOpen}
-        onToggleSearch={setIsSearchOpen}
-        filteredCount={filteredPosts.length}
+        onOpenSearch={() => setIsSearchOpen(true)}
+        activeFilterTitle={activeSeriesTitle}
+        onClearFilter={handleClearFilter}
       />
 
-      {/* Main Content Area */}
-      {activeView === 'home' ? (
-        /* New Default Homepage: Single Personal Editorial Post */
-        <PersonalPostView
-          onExploreCollections={() => setActiveView('collections')}
-          onExploreTimeline={() => setActiveView('timeline')}
-        />
-      ) : (
-        /* Archive Views: Collections + Timeline */
-        <div className="flex-1 flex flex-col h-full overflow-hidden min-w-0">
-          {/* Top Bio Zone */}
-          <BioHeader
-            activeFilterTitle={activeCollection ? activeCollection.title : null}
+      {/* Main Content Sections */}
+      <main className="flex-1 flex flex-col">
+        {/* 02. Hero / Introduction — Shown on 'all' and 'archive' */}
+        {(activeView === 'all' || activeView === 'archive') && (
+          <HeroArchive
+            featuredItem={defaultFeaturedItem}
+            onSelectFeatured={(item) => handleSelectItem(item)}
+            onExploreSeries={() => setActiveView('series')}
+            totalEntriesCount={mockArchiveItems.length}
+          />
+        )}
+
+        {/* 03. Single Entry Focus View (When an entry is inspected or chosen) */}
+        {activeFocalItem && (
+          <FeaturedEntryFocus
+            item={activeFocalItem}
+            onOpenLightbox={handleOpenLightbox}
+            onClose={() => setActiveFocalItem(null)}
+          />
+        )}
+
+        {/* 04. Primary Visual Archive Grid */}
+        {(activeView === 'all' || activeView === 'archive') && (
+          <VisualArchiveGrid
+            items={filteredItems}
+            onSelectItem={handleSelectItem}
+            activeCollectionTitle={activeSeriesTitle}
+          />
+        )}
+
+        {/* 05. Collection & Thematic Lenses */}
+        {(activeView === 'all' || activeView === 'series') && (
+          <CollectionLenses
+            seriesList={mockSeries}
+            activeSeriesId={selectedSeriesId}
+            onSelectSeries={handleSelectSeries}
             onClearFilter={handleClearFilter}
           />
+        )}
 
-          {/* Main Dual-Panel Zone (Collections & Timeline) */}
-          <div className="flex-1 flex flex-row overflow-hidden relative min-w-0">
-            {/* Collections Panel (Left) */}
-            <CollectionsPanel
-              collections={filteredCollections}
-              activeCollectionId={selectedCollectionId}
-              onFilterCollection={handleFilterCollection}
-              onOpenLightbox={(item) => setActiveLightboxItem(item)}
-              isCollapsed={activeView === 'timeline' ? isCollectionsCollapsed : false}
-              onToggleCollapse={handleToggleCollapse}
-            />
+        {/* 06. Chronological Stream & Field Records */}
+        {(activeView === 'all' || activeView === 'chronology') && (
+          <ChronologicalStream
+            items={filteredItems}
+            onSelectItem={handleSelectItem}
+          />
+        )}
+      </main>
 
-            {/* Timeline Panel (Right) */}
-            <TimelinePanel
-              posts={filteredPosts}
-              searchQuery={searchQuery}
-              onClearSearch={handleClearSearch}
-              activeCollectionTitle={activeCollection ? activeCollection.title : null}
-              onClearFilter={handleClearFilter}
-              onOpenLightbox={(item) => setActiveLightboxItem(item)}
-              isCollectionsCollapsed={activeView === 'timeline' ? isCollectionsCollapsed : false}
-              onExpandCollections={() => setIsCollectionsCollapsed(false)}
-            />
-          </div>
-        </div>
-      )}
+      {/* 07. Minimal Colophon Footer */}
+      <Footer />
 
-      {/* Lightbox / Modal Overlay */}
+      {/* Search Drawer Overlay */}
+      <SearchDrawer
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
+        filteredItems={filteredItems}
+        onSelectItem={handleSelectItem}
+        onSelectTag={handleSelectTag}
+      />
+
+      {/* High-Fidelity Lightbox Modal */}
       <LightboxModal
-        data={activeLightboxItem}
+        item={activeLightboxItem}
         onClose={() => setActiveLightboxItem(null)}
       />
     </div>
