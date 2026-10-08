@@ -22,6 +22,7 @@ export const Header: React.FC<HeaderProps> = ({
   const pathname = usePathname();
   const isHomePage = pathname === '/';
   const isNotesPage = pathname === '/notes';
+  const isBetweenUsPage = pathname === '/between-us';
 
   return (
     <header className="sticky top-0 z-40 w-full bg-[#722F37]/95 backdrop-blur-md border-b border-[#F8F4E7]/25 select-none">
@@ -44,8 +45,8 @@ export const Header: React.FC<HeaderProps> = ({
           </span>
         </Link>
 
-        {/* RIGHT: Archive Catalog, Notes, All Post & Hidden Space Navigation */}
-        <nav aria-label="Main Navigation" className="flex items-center gap-4 sm:gap-7 md:gap-9 shrink-0">
+        {/* RIGHT: Archive Catalog, Notes, All Post & [ Between Us ] Button Navigation */}
+        <nav aria-label="Main Navigation" className="flex items-center gap-4 sm:gap-6 md:gap-8 shrink-0">
           {/* 1. Catalog */}
           <button
             onClick={() => {
@@ -66,7 +67,7 @@ export const Header: React.FC<HeaderProps> = ({
             </span>
           </button>
 
-          {/* 2. Notes (Visually identical to Catalog and All Post) */}
+          {/* 2. Notes */}
           <Link
             href="/notes"
             className={`group text-sm sm:text-base md:text-lg font-medium tracking-normal transition-all cursor-pointer relative py-1 focus:outline-none ${
@@ -100,18 +101,18 @@ export const Header: React.FC<HeaderProps> = ({
             </span>
           </button>
 
-          {/* 4. Organic / Non-symmetrical Hand-Cut Editorial Button (Links to /hiddenspace) */}
+          {/* 4. [ Between Us ] Button (Organic Hand-Cut Shape, Cream Fill, Dusty Pink Text) */}
           <Link
-            href="/hiddenspace"
+            href="/between-us"
             className={`cursor-pointer focus:outline-none bg-[#F8F4E7] text-[#D7A781] px-3.5 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-semibold tracking-tight transition-all duration-200 ease-out hover:bg-[#FFFDF7] hover:scale-[1.02] active:scale-[0.98] shadow-sm select-none shrink-0 ${
-              pathname === '/hiddenspace' ? 'ring-2 ring-[#D7A781]/40' : ''
+              isBetweenUsPage ? 'ring-2 ring-[#D7A781]/40' : ''
             }`}
             style={{
               borderRadius: '18px 5px 22px 7px / 8px 20px 7px 16px',
             }}
-            title="Open hidden space"
+            title="Open Between Us private space"
           >
-            hidden space
+            Between Us
           </Link>
         </nav>
       </div>

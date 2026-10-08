@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
-import { clearHiddenSpaceSession } from '@/lib/hiddenspace/access';
+import { clearExtraaSession } from '@/lib/extraa/access';
 
 export async function POST() {
   try {
-    await clearHiddenSpaceSession();
+    await clearExtraaSession();
     return NextResponse.json({ success: true });
   } catch {
     return NextResponse.json({ success: false }, { status: 500 });

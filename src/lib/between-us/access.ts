@@ -15,10 +15,10 @@ const REGISTERED_BIRTHDAYS: Record<string, PersonProfile> = {
   '19-08-2004': { id: 'vaibhav', displayName: 'Vaibhav' },
 };
 
-const SESSION_COOKIE_NAME = 'life_hs_session';
-const SESSION_SECRET =
-  process.env.HIDDEN_SPACE_SECRET ||
-  'life-editorial-archive-secret-key-2026-restraint-over-decoration';
+const BETWEEN_US_COOKIE = 'life_between_us_session';
+const BETWEEN_US_SECRET =
+  process.env.BETWEEN_US_SECRET ||
+  'life-between-us-secret-key-2026-restraint-and-authenticity';
 const SESSION_DURATION_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
 
 /**
@@ -39,18 +39,19 @@ export function verifyBirthday(inputBirthday: string): PersonProfile | null {
 }
 
 /**
- * Creates a signed HMAC-SHA256 session token.
+ * Creates a signed HMAC-SHA256 session token for Between Us.
  */
 function createSignedToken(personId: PersonId): string {
   const payload = {
     sub: personId,
+    scope: 'between-us',
     iat: Date.now(),
     exp: Date.now() + SESSION_DURATION_MS,
   };
 
   const payloadString = Buffer.from(JSON.stringify(payload)).toString('base64url');
   const signature = crypto
-    .createHmac('sha256', SESSION_SECRET)
+    .createHmac('sha256', BETWEEN_US_SECRET)
     .update(payloadString)
     .digest('base64url');
 
@@ -68,7 +69,7 @@ function verifySignedToken(token: string): PersonId | null {
 
     const [payloadString, signature] = parts;
     const expectedSignature = crypto
-      .createHmac('sha256', SESSION_SECRET)
+      .createHmac('sha256', BETWEEN_US_SECRET)
       .update(payloadString)
       .digest('base64url');
 
@@ -81,7 +82,7 @@ function verifySignedToken(token: string): PersonId | null {
     }
 
     const payload = JSON.parse(Buffer.from(payloadString, 'base64url').toString('utf-8'));
-    if (!payload.sub || !payload.exp || Date.now() > payload.exp) {
+    if (!payload.sub || payload.scope !== 'between-us' || !payload.exp || Date.now() > payload.exp) {
       return null;
     }
 
@@ -96,13 +97,13 @@ function verifySignedToken(token: string): PersonId | null {
 }
 
 /**
- * Sets an HttpOnly cookie establishing a valid Hidden Space session.
+ * Sets an HttpOnly cookie establishing a valid Between Us session.
  */
-export async function setHiddenSpaceSession(personId: PersonId): Promise<void> {
+export async function setBetweenUsSession(personId: PersonId): Promise<void> {
   const token = createSignedToken(personId);
   const cookieStore = await cookies();
 
-  cookieStore.set(SESSION_COOKIE_NAME, token, {
+  cookieStore.set(BETWEEN_US_COOKIE, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
@@ -112,21 +113,21 @@ export async function setHiddenSpaceSession(personId: PersonId): Promise<void> {
 }
 
 /**
- * Clears the session cookie to lock Hidden Space.
+ * Clears the Between Us session cookie.
  */
-export async function clearHiddenSpaceSession(): Promise<void> {
+export async function clearBetweenUsSession(): Promise<void> {
   const cookieStore = await cookies();
-  cookieStore.delete(SESSION_COOKIE_NAME);
+  cookieStore.delete(BETWEEN_US_COOKIE);
 }
 
 /**
- * Retrieves the currently authenticated person from server-side cookies.
+ * Retrieves the currently authenticated person for Between Us from server-side cookies.
  * Returns the PersonProfile if valid, or null if unauthenticated or expired.
  */
 export async function getAuthenticatedPerson(): Promise<PersonProfile | null> {
   try {
     const cookieStore = await cookies();
-    const sessionCookie = cookieStore.get(SESSION_COOKIE_NAME);
+    const sessionCookie = cookieStore.get(BETWEEN_US_COOKIE);
 
     if (!sessionCookie || !sessionCookie.value) {
       return null;

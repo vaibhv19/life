@@ -1,19 +1,20 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { getAuthenticatedPerson } from '@/lib/hiddenspace/access';
-import { BirthdayGate } from '@/components/hiddenspace/BirthdayGate';
-import { HiddenSpace } from '@/components/hiddenspace/HiddenSpace';
+import { getAuthenticatedPerson } from '@/lib/between-us/access';
+import { getPersonSpaceConfig } from '@/lib/between-us/content';
+import { BirthdayGate } from '@/components/between-us/BirthdayGate';
+import { BetweenUsSpace } from '@/components/between-us/BetweenUsSpace';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 
 export const metadata: Metadata = {
-  title: 'Hidden Space — life.vaibhv19.dev',
-  description: 'Private personal archive and dedicated repository.',
+  title: 'Between Us — life.vaibhv19.dev',
+  description: 'A private vault of dedicated spaces and quiet correspondence.',
 };
 
 export const dynamic = 'force-dynamic';
 
-export default async function HiddenSpacePage() {
+export default async function BetweenUsPage() {
   const person = await getAuthenticatedPerson();
 
   return (
@@ -24,7 +25,7 @@ export default async function HiddenSpacePage() {
       {/* 02. Server-Gated Body */}
       <main className="flex-1 flex flex-col items-center justify-center">
         {person ? (
-          <HiddenSpace person={person} />
+          <BetweenUsSpace config={getPersonSpaceConfig(person.id)} />
         ) : (
           <BirthdayGate />
         )}

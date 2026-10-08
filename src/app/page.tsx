@@ -8,6 +8,7 @@ import { CollectionLenses } from '@/components/CollectionLenses';
 import { ChronologicalStream } from '@/components/ChronologicalStream';
 import { FeaturedEntryFocus } from '@/components/FeaturedEntryFocus';
 import { Footer } from '@/components/Footer';
+import { ExtraaDiscovery } from '@/components/ExtraaDiscovery';
 import { SearchDrawer } from '@/components/SearchDrawer';
 import { LightboxModal } from '@/components/LightboxModal';
 import { mockArchiveItems, mockSeries } from '@/data/mockData';
@@ -205,7 +206,10 @@ export default function LifePage() {
         )}
       </main>
 
-      {/* 07. Minimal Colophon Footer */}
+      {/* 07. Discreet Extraa Archive Discovery */}
+      <ExtraaDiscovery />
+
+      {/* 08. Minimal Colophon Footer */}
       <Footer />
 
       {/* Search Drawer Overlay */}
