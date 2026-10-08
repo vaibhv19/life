@@ -38,6 +38,17 @@ export default function LifePage() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isSearchOpen]);
 
+  // Support ?view= param when returning from other pages
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const viewParam = params.get('view') as MainViewMode | null;
+      if (viewParam && ['all', 'archive', 'series', 'chronology', 'hidden'].includes(viewParam)) {
+        setActiveView(viewParam);
+      }
+    }
+  }, []);
+
   // Featured Item for Hero Section (Item 01)
   const defaultFeaturedItem = useMemo(() => {
     return mockArchiveItems.find((item) => item.featured) || mockArchiveItems[0];
@@ -106,7 +117,7 @@ export default function LifePage() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen w-full bg-transparent text-[#AFAEA2] antialiased">
+    <div className="flex flex-col min-h-screen w-full bg-transparent text-[#F8F4E7] antialiased">
       {/* 01. Global Editorial Header */}
       <Header
         activeView={activeView}
@@ -162,6 +173,35 @@ export default function LifePage() {
             items={filteredItems}
             onSelectItem={handleSelectItem}
           />
+        )}
+
+        {/* 07. Hidden Space / Unlisted Marginalia View */}
+        {activeView === 'hidden' && (
+          <section className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-16 sm:py-24 text-[#F8F4E7]">
+            <div 
+              className="max-w-3xl mx-auto border border-[#F8F4E7]/25 bg-[#F8F4E7]/[0.04] backdrop-blur-sm p-8 sm:p-12 md:p-16 select-none"
+              style={{ borderRadius: '24px 6px 20px 8px / 12px 22px 9px 18px' }}
+            >
+              <div className="text-[11px] font-bold uppercase tracking-widest text-[#D7A781] mb-3">
+                UNLISTED OBSERVATION // 00
+              </div>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#F8F4E7] mb-6">
+                A quiet space away from the stream.
+              </h2>
+              <p className="text-sm sm:text-base text-[#F8F4E7]/80 leading-relaxed font-normal mb-8">
+                Some moments are captured not for display, but to anchor memory. Unedited 35mm film negatives, margin notes from high passes, and quiet reflections kept intact.
+              </p>
+              <div className="pt-6 border-t border-[#F8F4E7]/15 flex items-center justify-between text-xs text-[#F8F4E7]/60">
+                <span>NEW DELHI · 28°38&apos;N 77°13&apos;E</span>
+                <button
+                  onClick={() => setActiveView('all')}
+                  className="text-[#D7A781] hover:text-[#FFFDF7] font-semibold transition-colors cursor-pointer"
+                >
+                  Back to main archive →
+                </button>
+              </div>
+            </div>
+          </section>
         )}
       </main>
 

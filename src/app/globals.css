@@ -1,21 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --color-navy: #1B1E4A;
-  --color-navy-deep: #131538;
-  --color-navy-surface: #222659;
+  --color-burgundy: #722F37;
+  --color-burgundy-deep: #5A232A;
+  --color-burgundy-surface: #853740;
   
-  --color-stone: #AFAEA2;
-  --color-stone-light: #E8E7E0;
-  --color-stone-paper: #D3D2C7;
-  --color-stone-muted: #8E8D82;
-  --color-stone-dark: #636259;
+  --color-cream: #F8F4E7;
+  --color-cream-light: #FFFDF7;
+  --color-cream-muted: #E2DDD0;
+  --color-cream-dark: #C2BDB0;
   
-  --color-crimson: #D21319;
-  --color-crimson-dark: #A80F14;
+  --color-dusty-pink: #D7A781;
+  --color-dusty-pink-dark: #B8855F;
   
-  --color-border-stone: rgba(175, 174, 162, 0.25);
-  --color-border-stone-strong: rgba(175, 174, 162, 0.6);
+  --color-border-cream: rgba(248, 244, 231, 0.25);
+  --color-border-cream-strong: rgba(248, 244, 231, 0.6);
 
   --font-serif: var(--font-syne), system-ui, -apple-system, sans-serif;
   --font-sans: var(--font-syne), system-ui, -apple-system, sans-serif;
@@ -25,25 +24,18 @@
 
 /* Global resets & Canvas */
 :root {
-  --canvas-bg: #1B1E4A;
-  --canvas-fg: #AFAEA2;
-  --canvas-accent: #D21319;
+  --canvas-bg: #722F37;
+  --canvas-fg: #F8F4E7;
+  --canvas-accent: #D7A781;
 }
 
 html, body {
-  background-color: #1B1E4A;
-  color: #AFAEA2;
+  background-color: #722F37;
+  color: #F8F4E7;
   font-family: var(--font-syne), system-ui, -apple-system, sans-serif;
   color-scheme: dark;
 }
 
-/* 40px x 40px Fine Architectural Grid Mask */
-.bg-grid {
-  background-image: 
-    linear-gradient(to right, rgba(175, 174, 162, 0.15) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(175, 174, 162, 0.15) 1px, transparent 1px);
-  background-size: 40px 40px;
-}
 
 /* Syne Editorial Typography utilities */
 .font-editorial-display {
@@ -65,16 +57,16 @@ html, body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #1B1E4A;
+  background: #722F37;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #AFAEA2;
+  background: #F8F4E7;
   border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #D21319;
+  background: #D7A781;
 }
 
 /* Grain texture overlay (ultra-subtle) */
@@ -88,6 +80,6 @@ html, body {
   inset: 0;
   pointer-events: none;
   opacity: 0.03;
-  background-image: radial-gradient(rgba(175, 174, 162, 0.9) 1px, transparent 0);
+  background-image: radial-gradient(rgba(248, 244, 231, 0.9) 1px, transparent 0);
   background-size: 8px 8px;
 }

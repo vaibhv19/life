@@ -1,136 +1,125 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-export type MainViewMode = 'all' | 'archive' | 'series' | 'chronology';
+export type MainViewMode = 'all' | 'archive' | 'series' | 'chronology' | 'hidden';
 
 interface HeaderProps {
-  activeView: MainViewMode;
-  onSelectView: (view: MainViewMode) => void;
-  onOpenSearch: () => void;
+  activeView?: MainViewMode;
+  onSelectView?: (view: MainViewMode) => void;
+  onOpenSearch?: () => void;
   activeFilterTitle?: string | null;
   onClearFilter?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
-  activeView,
+  activeView = 'all',
   onSelectView,
-  onOpenSearch,
-  activeFilterTitle,
   onClearFilter,
 }) => {
+  const pathname = usePathname();
+  const isHomePage = pathname === '/';
+  const isNotesPage = pathname === '/notes';
+
   return (
-    <header className="sticky top-0 z-40 w-full bg-[#1B1E4A]/95 backdrop-blur-md border-b border-[#AFAEA2]/20 select-none">
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 h-16 sm:h-20 flex items-center justify-between">
-        {/* Left: Brand Identity & Volume Stamp */}
-        <div className="flex items-center gap-4 sm:gap-6">
+    <header className="sticky top-0 z-40 w-full bg-[#722F37]/95 backdrop-blur-md border-b border-[#F8F4E7]/25 select-none">
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 h-14 sm:h-16 py-3 sm:py-4 flex items-center justify-between gap-6">
+        {/* LEFT: Main Home / Navigation Identity (Static Text Visually, Clickable) */}
+        <Link
+          href="/"
+          onClick={(e) => {
+            if (isHomePage) {
+              e.preventDefault();
+              if (onClearFilter) onClearFilter();
+              if (onSelectView) onSelectView('all');
+            }
+          }}
+          className="text-left cursor-pointer focus:outline-none shrink min-w-0 bg-transparent border-none p-0 appearance-none"
+          title="Return to Life Homepage"
+        >
+          <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold tracking-tight text-[#F8F4E7] no-underline inline-block">
+            Who is @vaibhv19 apart from code?
+          </span>
+        </Link>
+
+        {/* RIGHT: Archive Catalog, Notes, All Post & Hidden Space Navigation */}
+        <nav aria-label="Main Navigation" className="flex items-center gap-4 sm:gap-7 md:gap-9 shrink-0">
+          {/* 1. Catalog */}
           <button
             onClick={() => {
-              if (onClearFilter) onClearFilter();
-              onSelectView('all');
+              if (!isHomePage) {
+                window.location.href = '/?view=series';
+              } else if (onSelectView) {
+                onSelectView('series');
+              }
             }}
-            className="group flex items-baseline gap-2.5 text-left cursor-pointer focus:outline-none"
+            className={`group text-sm sm:text-base md:text-lg font-medium tracking-normal transition-all cursor-pointer relative py-1 focus:outline-none ${
+              isHomePage && activeView === 'series'
+                ? 'text-[#FFFDF7] font-semibold after:w-full'
+                : 'text-[#F8F4E7] hover:text-[#FFFDF7]'
+            }`}
           >
-            <span className="font-editorial-display text-xl sm:text-2xl font-semibold tracking-tight text-[#E8E7E0] group-hover:text-[#D21319] transition-colors">
-              LIFE
-            </span>
-            <span className="hidden sm:inline-block text-[11px] font-mono tracking-widest text-[#D21319] uppercase font-bold">
-              vol. 01
+            <span className="inline-block relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#F8F4E7] group-hover:after:w-full after:transition-all after:duration-300 after:ease-out">
+              Catalog
             </span>
           </button>
 
-          <span className="hidden md:inline-block text-xs font-mono text-[#AFAEA2]/40">/</span>
+          {/* 2. Notes (Visually identical to Catalog and All Post) */}
+          <Link
+            href="/notes"
+            className={`group text-sm sm:text-base md:text-lg font-medium tracking-normal transition-all cursor-pointer relative py-1 focus:outline-none ${
+              isNotesPage
+                ? 'text-[#FFFDF7] font-semibold after:w-full'
+                : 'text-[#F8F4E7] hover:text-[#FFFDF7]'
+            }`}
+          >
+            <span className="inline-block relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#F8F4E7] group-hover:after:w-full after:transition-all after:duration-300 after:ease-out">
+              Notes
+            </span>
+          </Link>
 
-          <span className="hidden md:inline-block text-xs font-mono text-[#AFAEA2] tracking-wide">
-            life.vaibhv19.dev
-          </span>
-        </div>
-
-        {/* Center: Editorial View Switcher on Warm Stone Surface */}
-        <nav aria-label="Archive view switcher" className="hidden lg:flex items-center gap-1 bg-[#AFAEA2]/12 border border-[#AFAEA2]/25 p-1 rounded-sm">
-          {[
-            { id: 'all', label: 'Index / All' },
-            { id: 'archive', label: 'Visual Archive' },
-            { id: 'series', label: 'Series Lenses' },
-            { id: 'chronology', label: 'Chronology' },
-          ].map((tab) => {
-            const isActive = activeView === tab.id;
-            return (
-              <button
-                key={tab.id}
-                onClick={() => onSelectView(tab.id as MainViewMode)}
-                className={`px-3 py-1 text-xs font-mono transition-all cursor-pointer ${
-                  isActive
-                    ? 'text-[#1B1E4A] bg-[#AFAEA2] font-semibold shadow-sm'
-                    : 'text-[#AFAEA2] hover:text-[#E8E7E0] hover:bg-[#AFAEA2]/20'
-                }`}
-              >
-                {tab.label}
-              </button>
-            );
-          })}
-        </nav>
-
-        {/* Right: Active Filter Indicator & Search Trigger */}
-        <div className="flex items-center gap-3 sm:gap-5">
-          {activeFilterTitle && (
-            <div className="hidden sm:flex items-center gap-2 text-xs font-mono bg-[#AFAEA2] text-[#1B1E4A] border border-[#D21319] px-2.5 py-1 rounded-sm font-medium">
-              <span className="text-[#1B1E4A]/70">lens:</span>
-              <span className="truncate max-w-[140px] text-[#D21319] font-bold">{activeFilterTitle}</span>
-              {onClearFilter && (
-                <button
-                  onClick={onClearFilter}
-                  className="hover:text-[#D21319] ml-1 text-xs font-bold"
-                  title="Clear lens filter"
-                >
-                  ✕
-                </button>
-              )}
-            </div>
-          )}
-
-          {/* Search Trigger */}
+          {/* 3. All Post */}
           <button
-            onClick={onOpenSearch}
-            className="flex items-center gap-2 px-3 py-1.5 rounded-sm border border-[#AFAEA2]/30 bg-[#AFAEA2]/10 hover:border-[#D21319] text-xs font-mono text-[#AFAEA2] hover:text-[#D21319] transition-colors cursor-pointer"
-            title="Search Archive (Press /)"
-            aria-label="Search Archive"
+            onClick={() => {
+              if (!isHomePage) {
+                window.location.href = '/?view=chronology';
+              } else if (onSelectView) {
+                onSelectView('chronology');
+              }
+            }}
+            className={`group text-sm sm:text-base md:text-lg font-medium tracking-normal transition-all cursor-pointer relative py-1 focus:outline-none ${
+              isHomePage && activeView === 'chronology'
+                ? 'text-[#FFFDF7] font-semibold after:w-full'
+                : 'text-[#F8F4E7] hover:text-[#FFFDF7]'
+            }`}
           >
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-[#D21319]">
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
-            <span className="hidden sm:inline font-medium">Search</span>
-            <kbd className="text-[10px] bg-[#1B1E4A] text-[#AFAEA2] px-1 rounded border border-[#AFAEA2]/30">
-              /
-            </kbd>
+            <span className="inline-block relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#F8F4E7] group-hover:after:w-full after:transition-all after:duration-300 after:ease-out">
+              All Post
+            </span>
           </button>
-        </div>
-      </div>
 
-      {/* Mobile Sub-Navigation Bar */}
-      <div className="lg:hidden flex items-center justify-between px-5 py-2 border-t border-[#AFAEA2]/15 bg-[#1B1E4A] overflow-x-auto gap-2">
-        {[
-          { id: 'all', label: 'Index' },
-          { id: 'archive', label: 'Visual' },
-          { id: 'series', label: 'Series' },
-          { id: 'chronology', label: 'Chronology' },
-        ].map((tab) => {
-          const isActive = activeView === tab.id;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => onSelectView(tab.id as MainViewMode)}
-              className={`px-2.5 py-1 text-xs font-mono shrink-0 rounded-xs transition-colors cursor-pointer ${
-                isActive
-                  ? 'text-[#1B1E4A] bg-[#AFAEA2] font-semibold'
-                  : 'text-[#AFAEA2] hover:text-[#E8E7E0]'
-              }`}
-            >
-              {tab.label}
-            </button>
-          );
-        })}
+          {/* 4. Organic / Non-symmetrical Hand-Cut Editorial Button */}
+          <button
+            onClick={() => {
+              if (!isHomePage) {
+                window.location.href = '/?view=hidden';
+              } else if (onSelectView) {
+                onSelectView('hidden');
+              }
+            }}
+            className={`cursor-pointer focus:outline-none bg-[#F8F4E7] text-[#D7A781] px-3.5 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-semibold tracking-tight transition-all duration-200 ease-out hover:bg-[#FFFDF7] hover:scale-[1.02] active:scale-[0.98] shadow-sm select-none shrink-0 ${
+              isHomePage && activeView === 'hidden' ? 'ring-2 ring-[#D7A781]/40' : ''
+            }`}
+            style={{
+              borderRadius: '18px 5px 22px 7px / 8px 20px 7px 16px',
+            }}
+            title="Open hidden space"
+          >
+            hidden space
+          </button>
+        </nav>
       </div>
     </header>
   );
