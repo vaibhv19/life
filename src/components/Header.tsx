@@ -21,8 +21,10 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const pathname = usePathname();
   const isHomePage = pathname === '/';
-  const isNotesPage = pathname === '/notes';
-  const isBetweenUsPage = pathname === '/between-us';
+  const isCatalogPage = pathname.startsWith('/catalog') || (isHomePage && activeView === 'series');
+  const isNotesPage = pathname.startsWith('/notes');
+  const isAllPostPage = pathname.startsWith('/all-post') || (isHomePage && activeView === 'chronology');
+  const isBetweenUsPage = pathname.startsWith('/between-us');
 
   return (
     <header className="sticky top-0 z-40 w-full bg-[#722F37]/95 backdrop-blur-md border-b border-[#F8F4E7]/25 select-none">
@@ -48,16 +50,10 @@ export const Header: React.FC<HeaderProps> = ({
         {/* RIGHT: Archive Catalog, Notes, All Post & [ Between Us ] Button Navigation */}
         <nav aria-label="Main Navigation" className="flex items-center gap-4 sm:gap-6 md:gap-8 shrink-0">
           {/* 1. Catalog */}
-          <button
-            onClick={() => {
-              if (!isHomePage) {
-                window.location.href = '/?view=series';
-              } else if (onSelectView) {
-                onSelectView('series');
-              }
-            }}
+          <Link
+            href="/catalog"
             className={`group text-sm sm:text-base md:text-lg font-medium tracking-normal transition-all cursor-pointer relative py-1 focus:outline-none ${
-              isHomePage && activeView === 'series'
+              isCatalogPage
                 ? 'text-[#FFFDF7] font-semibold after:w-full'
                 : 'text-[#F8F4E7] hover:text-[#FFFDF7]'
             }`}
@@ -65,7 +61,7 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="inline-block relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#F8F4E7] group-hover:after:w-full after:transition-all after:duration-300 after:ease-out">
               Catalog
             </span>
-          </button>
+          </Link>
 
           {/* 2. Notes */}
           <Link
@@ -82,16 +78,10 @@ export const Header: React.FC<HeaderProps> = ({
           </Link>
 
           {/* 3. All Post */}
-          <button
-            onClick={() => {
-              if (!isHomePage) {
-                window.location.href = '/?view=chronology';
-              } else if (onSelectView) {
-                onSelectView('chronology');
-              }
-            }}
+          <Link
+            href="/all-post"
             className={`group text-sm sm:text-base md:text-lg font-medium tracking-normal transition-all cursor-pointer relative py-1 focus:outline-none ${
-              isHomePage && activeView === 'chronology'
+              isAllPostPage
                 ? 'text-[#FFFDF7] font-semibold after:w-full'
                 : 'text-[#F8F4E7] hover:text-[#FFFDF7]'
             }`}
@@ -99,7 +89,7 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="inline-block relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#F8F4E7] group-hover:after:w-full after:transition-all after:duration-300 after:ease-out">
               All Post
             </span>
-          </button>
+          </Link>
 
           {/* 4. [ Between Us ] Button (Organic Hand-Cut Shape, Cream Fill, Burgundy Text) */}
           <Link

@@ -15,7 +15,16 @@ import { mockArchiveItems, mockSeries } from '@/data/mockData';
 import { ArchiveItem } from '@/types';
 
 export default function LifePage() {
-  const [activeView, setActiveView] = useState<MainViewMode>('all');
+  const [activeView, setActiveView] = useState<MainViewMode>(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const viewParam = params.get('view') as MainViewMode | null;
+      if (viewParam && ['all', 'archive', 'series', 'chronology', 'hidden'].includes(viewParam)) {
+        return viewParam;
+      }
+    }
+    return 'all';
+  });
   const [selectedSeriesId, setSelectedSeriesId] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
@@ -38,22 +47,6 @@ export default function LifePage() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isSearchOpen]);
-
-  // Support ?view= param when returning from other pages
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      const viewParam = params.get('view') as MainViewMode | null;
-      if (viewParam && ['all', 'archive', 'series', 'chronology', 'hidden'].includes(viewParam)) {
-        setActiveView(viewParam);
-      }
-    }
-  }, []);
-
-  // Featured Item for Hero Section (Item 01)
-  const defaultFeaturedItem = useMemo(() => {
-    return mockArchiveItems.find((item) => item.featured) || mockArchiveItems[0];
-  }, []);
 
   // Filtered Archive Items based on series filter and search query
   const filteredItems = useMemo(() => {

@@ -126,7 +126,7 @@ export const SearchDrawer: React.FC<SearchDrawerProps> = ({
 
           {filteredItems.length === 0 ? (
             <div className="py-12 text-center text-xs font-mono text-[#722F37]/70">
-              No entries found matching "{searchQuery}"
+              No entries found matching &quot;{searchQuery}&quot;
             </div>
           ) : (
             filteredItems.map((item) => (

@@ -64,7 +64,7 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({ item, onClose }) =
                 {item.medium}
               </span>
               <h2 className="font-editorial-display text-2xl sm:text-4xl text-[#F8F4E7] max-w-xl mx-auto">
-                "{item.title}"
+                &quot;{item.title}&quot;
               </h2>
               {item.location && (
                 <span className="text-xs font-mono text-[#F8F4E7]/70 mt-2 block">
@@ -91,7 +91,7 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({ item, onClose }) =
               {item.notes && (
                 <div className="bg-[#722F37] p-4 border border-[#722F37] rounded-xs space-y-1">
                   <span className="text-[10px] font-mono text-[#D7A781] uppercase block font-bold">
-                    Author's Field Note:
+                    Author&apos;s Field Note:
                   </span>
                   <p className="text-xs font-mono text-[#F8F4E7] italic leading-relaxed">
                     {item.notes}

@@ -40,7 +40,7 @@ export const TimelinePanel: React.FC<TimelinePanelProps> = ({
           {searchQuery && (
             <div className="flex items-center gap-1.5 text-xs font-mono text-zinc-500 dark:text-zinc-400 pl-2">
               <span className="text-zinc-400 dark:text-zinc-500">query:</span>
-              <span className="text-zinc-800 dark:text-zinc-200">"{searchQuery}"</span>
+              <span className="text-zinc-800 dark:text-zinc-200">&quot;{searchQuery}&quot;</span>
               {onClearSearch && (
                 <button
                   onClick={onClearSearch}
@@ -55,7 +55,7 @@ export const TimelinePanel: React.FC<TimelinePanelProps> = ({
           {activeCollectionTitle && (
             <div className="flex items-center gap-1.5 text-xs font-mono text-zinc-500 dark:text-zinc-400 pl-2">
               <span className="text-zinc-400 dark:text-zinc-500">collection:</span>
-              <span className="text-zinc-800 dark:text-zinc-200 truncate max-w-[200px]">"{activeCollectionTitle}"</span>
+              <span className="text-zinc-800 dark:text-zinc-200 truncate max-w-[200px]">&quot;{activeCollectionTitle}&quot;</span>
               <button
                 onClick={onClearFilter}
                 className="text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-200 underline underline-offset-2 ml-1"

@@ -59,10 +59,10 @@ export const FeaturedEntryFocus: React.FC<FeaturedEntryFocusProps> = ({
                 {/* Inner Graphic Centered Focus */}
                 <div className="my-auto text-center py-8">
                   <span className="text-xs font-mono text-[#D7A781] tracking-widest uppercase block mb-2 font-bold">
-                    {item.medium} // ARCHIVE SPECIMEN
+                    {item.medium} {'//'} ARCHIVE SPECIMEN
                   </span>
                   <h3 className="font-editorial-display text-2xl sm:text-3xl lg:text-4xl text-[#F8F4E7] leading-snug max-w-lg mx-auto">
-                    "{item.title}"
+                    &quot;{item.title}&quot;
                   </h3>
                   {item.location && (
                     <span className="text-xs font-mono text-[#F8F4E7]/70 mt-2 block">

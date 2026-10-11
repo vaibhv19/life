@@ -30,7 +30,7 @@ export const BetweenUsSpace: React.FC<BetweenUsSpaceProps> = ({ config }) => {
         <div>
           <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#D7A781] mb-2">
             <span>AUTHENTICATED AS</span>
-            <span className="text-[#F8F4E7]/40">//</span>
+            <span className="text-[#F8F4E7]/40">{'//'}</span>
             <span className="text-[#F8F4E7]">{config.displayName}</span>
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#F8F4E7]">

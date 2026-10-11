@@ -30,7 +30,7 @@ export const ExtraaSpace: React.FC = () => {
         <div>
           <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#D7A781] mb-2">
             <span>VAULT ACCESS</span>
-            <span className="text-[#F8F4E7]/40">//</span>
+            <span className="text-[#F8F4E7]/40">{'//'}</span>
             <span className="text-[#F8F4E7]">VAIBHAV GUPTA</span>
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#F8F4E7]">

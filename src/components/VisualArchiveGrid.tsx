@@ -72,7 +72,7 @@ export const VisualArchiveGrid: React.FC<VisualArchiveGridProps> = ({
 
                   {/* Top Bar inside Inset */}
                   <div className="relative z-10 flex items-center justify-between text-[10px] font-mono text-[#F8F4E7]/80">
-                    <span className="uppercase font-semibold text-[#D7A781]">{item.medium} // {String(idx + 1).padStart(2, '0')}</span>
+                    <span className="uppercase font-semibold text-[#D7A781]">{item.medium} {'//'} {String(idx + 1).padStart(2, '0')}</span>
                     <span className="text-[#F8F4E7]/70">{item.date}</span>
                   </div>
 

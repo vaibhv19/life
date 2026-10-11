@@ -113,7 +113,7 @@ export const ChronologicalStream: React.FC<ChronologicalStreamProps> = ({
 
                           <div className="text-center py-2 px-1">
                             <span className="font-editorial-italic text-sm text-[#722F37] font-semibold">
-                              "{item.title}"
+                              &quot;{item.title}&quot;
                             </span>
                           </div>
 
