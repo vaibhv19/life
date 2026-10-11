@@ -22,14 +22,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${syne.variable} h-full antialiased dark`}
+      className={`${syne.variable} h-full antialiased light`}
     >
-      <body className="min-h-full w-full bg-[#722F37] text-[#F8F4E7] font-sans selection:bg-[#D7A781] selection:text-[#722F37] flex flex-col relative font-[family-name:var(--font-syne)]">
+      <body className="min-h-full w-full bg-[#EDECE6] text-[#1546D9] font-sans selection:bg-[#F9B318] selection:text-[#1546D9] flex flex-col relative font-[family-name:var(--font-syne)]">
         {/* Full-Viewport Fixed Background Layer (Stationary) */}
         <FixedBackground />
 
         {/* Foreground Content */}
-        <div className="relative z-10 flex flex-col min-h-screen bg-transparent">
+        <div className="relative z-10 flex flex-col min-h-full flex-1 bg-transparent">
           {children}
         </div>
       </body>
