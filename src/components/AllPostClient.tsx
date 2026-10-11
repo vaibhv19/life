@@ -39,18 +39,18 @@ export const AllPostClient: React.FC<AllPostClientProps> = ({ posts }) => {
     <>
       {posts.length === 0 ? (
         <div className="w-full py-20 px-4 text-center select-none">
-          <div className="max-w-md mx-auto border border-dashed border-[#F8F4E7]/25 p-10 sm:p-14"
+          <div className="max-w-md mx-auto border border-dashed border-[#1546D9]/25 p-10 sm:p-14"
             style={{ borderRadius: '18px 4px 18px 4px' }}
           >
-            <div className="text-[11px] font-bold uppercase tracking-widest text-[#D7A781] mb-3">
+            <div className="text-[11px] font-bold uppercase tracking-widest text-[#F9B318] mb-3">
               EMPTY ARCHIVE
             </div>
-            <h2 className="text-xl sm:text-2xl font-bold text-[#F8F4E7] mb-3">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#1546D9] mb-3">
               No photographs recorded yet.
             </h2>
-            <p className="text-xs sm:text-sm text-[#F8F4E7]/70 leading-relaxed font-normal">
-              Photographs named using the <code className="text-[#D7A781] font-mono">YYYY-MM-DD.ext</code> convention
-              placed in the <code className="text-[#D7A781] font-mono">public/archive/</code> directory will appear automatically upon rebuild.
+            <p className="text-xs sm:text-sm text-[#1546D9]/70 leading-relaxed font-normal">
+              Photographs named using the <code className="text-[#F9B318] font-mono">YYYY-MM-DD.ext</code> convention
+              placed in the <code className="text-[#F9B318] font-mono">public/archive/</code> directory will appear automatically upon rebuild.
             </p>
           </div>
         </div>
@@ -59,80 +59,81 @@ export const AllPostClient: React.FC<AllPostClientProps> = ({ posts }) => {
           {groupedPosts.map((group) => (
             <section key={group.label} className="space-y-8">
               {/* Chronological Section Indicator */}
-              <div className="flex items-baseline justify-between border-b border-[#F8F4E7]/20 pb-3">
+              <div className="flex items-baseline justify-between border-b border-[#1546D9]/20 pb-3">
                 <div className="flex items-baseline gap-3">
-                  <span className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-[#F8F4E7]">
+                  <span className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-[#1546D9]">
                     {group.label}
                   </span>
-                  <span className="text-xs text-[#D7A781] font-mono font-medium">
+                  <span className="text-xs text-[#F9B318] font-mono font-medium">
                     {'//'} {group.items.length} {group.items.length === 1 ? 'FRAME' : 'FRAMES'}
                   </span>
                 </div>
-                <span className="text-xs text-[#F8F4E7]/50 font-mono">
+                <span className="text-xs text-[#1546D9]/50 font-mono">
                   {group.year}
                 </span>
               </div>
 
-              {/* Dynamic Masonry-Style Responsive Editorial Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-start">
-                {group.items.map((item, index) => {
-                  // Asymmetric spans for visual variety without generic rigid cards
-                  const isFeaturedSpan = index % 5 === 0;
-
-                  return (
-                    <article
-                      key={item.id}
-                      onClick={() =>
-                        setSelectedPhoto({
-                          src: item.src,
-                          formattedDate: item.formattedDate,
-                          title: item.title,
-                          caption: item.caption,
-                        })
-                      }
-                      className={`group cursor-pointer transition-all duration-300 relative select-none ${
-                        isFeaturedSpan ? 'sm:col-span-2 lg:col-span-2' : 'col-span-1'
-                      }`}
+              {/* Centered Single-Column Editorial Photo Stream */}
+              <div className="space-y-8 sm:space-y-10">
+                {group.items.map((item) => (
+                  <article
+                    key={item.id}
+                    onClick={() =>
+                      setSelectedPhoto({
+                        src: item.src,
+                        formattedDate: item.formattedDate,
+                        title: item.title,
+                        caption: item.caption,
+                      })
+                    }
+                    className="group cursor-pointer transition-all duration-300 relative select-none"
+                  >
+                    {/* Photo Container Frame with Tactile Editorial Border */}
+                    <div
+                      className="relative overflow-hidden bg-[#E2E1DA]/40 border border-[#1546D9]/25 group-hover:border-[#F9B318] transition-colors p-2.5 sm:p-3 shadow-md"
+                      style={{ borderRadius: '14px 4px 16px 4px / 6px 14px 5px 12px' }}
                     >
-                      {/* Photo Container Frame with Tactile Editorial Border */}
-                      <div
-                        className="relative overflow-hidden bg-[#160608]/40 border border-[#F8F4E7]/25 group-hover:border-[#D7A781] transition-colors p-2 sm:p-2.5 shadow-md"
-                        style={{ borderRadius: '14px 4px 16px 4px / 6px 14px 5px 12px' }}
-                      >
-                        <div className="relative w-full overflow-hidden bg-[#722F37]/40 aspect-[4/3] sm:aspect-[16/11]">
-                          <img
-                            src={item.src}
-                            alt={item.title || `Archive photograph from ${item.formattedDate}`}
-                            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
-                            loading="lazy"
-                          />
+                      <div className="relative w-full overflow-hidden bg-[#EDECE6]/40 aspect-[4/3] sm:aspect-[16/10]">
+                        <img
+                          src={item.src}
+                          alt={item.title || `Archive photograph from ${item.formattedDate}`}
+                          className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.01]"
+                          loading="lazy"
+                        />
 
-                          {/* Hover inspection pill */}
-                          <div className="absolute inset-0 bg-[#160608]/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-                            <span
-                              className="px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-widest bg-[#F8F4E7] text-[#722F37] shadow-lg"
-                              style={{ borderRadius: '12px 3px 14px 3px' }}
-                            >
-                              Inspect ↗
-                            </span>
-                          </div>
-                        </div>
-
-                        {/* Subtle Understated Date & Meta Caption */}
-                        <div className="pt-3 pb-1 px-1 flex items-center justify-between text-xs text-[#F8F4E7]/80">
-                          <span className="font-semibold text-[#F8F4E7] tracking-tight group-hover:text-[#D7A781] transition-colors">
-                            {item.formattedDate}
+                        {/* Hover inspection pill */}
+                        <div className="absolute inset-0 bg-[#160608]/25 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                          <span
+                            className="btn-palette-b px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-widest shadow-lg"
+                            style={{ borderRadius: '12px 3px 14px 3px' }}
+                          >
+                            Inspect ↗
                           </span>
-                          {item.suffix && (
-                            <span className="text-[10px] font-mono text-[#D7A781] uppercase tracking-wider">
-                              #{item.suffix}
-                            </span>
-                          )}
                         </div>
                       </div>
-                    </article>
-                  );
-                })}
+
+                      {/* Date & Meta Caption */}
+                      <div className="pt-3 pb-1 px-1 flex items-center justify-between text-xs text-[#1546D9]/80">
+                        <div className="flex items-center gap-2">
+                          <span className="font-semibold text-[#1546D9] tracking-tight group-hover:text-[#F9B318] transition-colors">
+                            {item.formattedDate}
+                          </span>
+                          {item.title && (
+                            <>
+                              <span className="text-[#1546D9]/40">·</span>
+                              <span className="text-[#1546D9]/90">{item.title}</span>
+                            </>
+                          )}
+                        </div>
+                        {item.suffix && (
+                          <span className="text-[10px] font-mono text-[#F9B318] uppercase tracking-wider">
+                            #{item.suffix}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </article>
+                ))}
               </div>
             </section>
           ))}

@@ -4,15 +4,18 @@ import React from 'react';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="w-full bg-[#722F37]/95 backdrop-blur-md border-t border-[#F8F4E7]/25 text-[#F8F4E7] select-none">
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12">
+    <footer className="w-full bg-[#EDECE6]/95 backdrop-blur-md text-[#1546D9] select-none">
+      <div className="content-container">
+        {/* Top footer divider aligned with content width */}
+        <div className="content-divider" />
+
         {/* 1. TOP ROW */}
         <div className="py-4 sm:py-5 flex items-center justify-between gap-6">
           {/* Left: Clean Email Address */}
           <div className="text-xs sm:text-sm font-medium">
             <a 
               href="mailto:contact@vaibhv19.dev" 
-              className="text-[#F8F4E7] hover:text-[#D7A781] transition-colors tracking-normal"
+              className="text-[#1546D9] hover:text-[#F9B318] transition-colors tracking-normal"
             >
               contact@vaibhv19.dev
             </a>
@@ -24,7 +27,7 @@ export const Footer: React.FC = () => {
               href="https://www.instagram.com/vaibhv_19"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#F8F4E7] hover:text-[#D7A781] transition-colors p-1 inline-flex items-center justify-center"
+              className="text-[#1546D9] hover:text-[#F9B318] transition-colors p-1 inline-flex items-center justify-center"
               aria-label="Instagram profile @vaibhv_19"
               title="@vaibhv_19 on Instagram"
             >
@@ -47,7 +50,7 @@ export const Footer: React.FC = () => {
               href="https://www.linkedin.com/in/vaibhv19"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#F8F4E7] hover:text-[#D7A781] transition-colors p-1 inline-flex items-center justify-center"
+              className="text-[#1546D9] hover:text-[#F9B318] transition-colors p-1 inline-flex items-center justify-center"
               aria-label="LinkedIn profile Vaibhav Gupta"
               title="Vaibhav Gupta on LinkedIn"
             >
@@ -70,31 +73,31 @@ export const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* 2. FIRST DIVIDER */}
-        <div className="w-full h-[1px] bg-[#F8F4E7]/25" />
+        {/* 2. FIRST DIVIDER (Contact/Social row divider) */}
+        <div className="content-divider" />
 
         {/* 3. MAIN CENTERPIECE: Editorial Quote */}
         <div className="py-7 sm:py-9 md:py-11 flex items-center justify-center text-center px-4">
-          <p className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold tracking-tight text-[#F8F4E7] max-w-4xl leading-tight sm:leading-snug md:leading-snug">
+          <p className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-[#1546D9] max-w-4xl leading-tight sm:leading-snug md:leading-snug">
             everything is beautiful when you look at it with love
           </p>
         </div>
 
-        {/* 4. SECOND DIVIDER */}
-        <div className="w-full h-[1px] bg-[#F8F4E7]/25" />
+        {/* 4. SECOND DIVIDER (Quote section divider) */}
+        <div className="content-divider" />
 
         {/* 5. BOTTOM ROW */}
         <div className="py-4 sm:py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs sm:text-sm tracking-wider uppercase">
           {/* Left: Copyright & Built by */}
-          <div className="space-y-0.5 text-[#F8F4E7]/80">
+          <div className="space-y-0.5 text-[#1546D9]/80">
             <div>© 2026 VAIBHAV GUPTA. ALL RIGHTS RESERVED.</div>
-            <div className="text-[11px] sm:text-xs text-[#F8F4E7]/60">
+            <div className="text-[11px] sm:text-xs text-[#1546D9]/60">
               BUILT BY{' '}
               <a 
                 href="https://vaibhv19.dev" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="hover:text-[#D7A781] transition-colors underline decoration-[#F8F4E7]/30 underline-offset-2"
+                className="hover:text-[#F9B318] transition-colors underline decoration-[#1546D9]/30 underline-offset-2"
               >
                 VAIBHV19.DEV
               </a>
@@ -102,18 +105,18 @@ export const Footer: React.FC = () => {
           </div>
 
           {/* Right: Legal links matching 1NFINITY reference */}
-          <div className="flex items-center gap-4 sm:gap-6 text-[11px] sm:text-xs font-medium text-[#F8F4E7]/80">
+          <div className="flex items-center gap-4 sm:gap-6 text-[11px] sm:text-xs font-medium text-[#1546D9]/80">
             <button
               type="button"
-              className="hover:text-[#D7A781] transition-colors cursor-pointer bg-transparent border-none p-0 tracking-wider"
+              className="hover:text-[#F9B318] transition-colors cursor-pointer bg-transparent border-none p-0 tracking-wider"
               onClick={() => {}}
             >
               PRIVACY POLICY
             </button>
-            <span className="text-[#F8F4E7]/40 text-[10px]">•</span>
+            <span className="text-[#1546D9]/40 text-[10px]">•</span>
             <button
               type="button"
-              className="hover:text-[#D7A781] transition-colors cursor-pointer bg-transparent border-none p-0 tracking-wider"
+              className="hover:text-[#F9B318] transition-colors cursor-pointer bg-transparent border-none p-0 tracking-wider"
               onClick={() => {}}
             >
               TERMS & CONDITIONS

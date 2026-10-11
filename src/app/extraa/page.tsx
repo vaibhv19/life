@@ -17,7 +17,7 @@ export default async function ExtraaPage() {
   const authenticated = await isExtraaAuthenticated();
 
   return (
-    <div className="flex flex-col min-h-screen w-full bg-transparent text-[#F8F4E7] antialiased">
+    <div className="flex flex-col min-h-screen w-full bg-transparent text-[#1546D9] antialiased">
       {/* 01. Global Editorial Header */}
       <Header />
 

@@ -47,26 +47,26 @@ export const SearchDrawer: React.FC<SearchDrawerProps> = ({
   const popularTags = ['35mm', 'alpine', 'notebooks', 'night', 'architecture', 'monochrome', 'shadows', 'typography'];
 
   return (
-    <div className="fixed inset-0 z-50 flex justify-end bg-[#722F37]/90 backdrop-blur-sm select-none">
+    <div className="fixed inset-0 z-50 flex justify-end bg-[#EDECE6]/90 backdrop-blur-sm select-none">
       {/* Backdrop click dismiss */}
       <div className="flex-1" onClick={onClose} />
 
       {/* Drawer Body on Cream Physical Surface */}
       <aside
         aria-label="Archive search drawer"
-        className="w-full max-w-md h-full bg-[#F8F4E7] text-[#722F37] border-l-2 border-[#F8F4E7] flex flex-col shadow-2xl p-6 sm:p-8"
+        className="w-full max-w-md h-full bg-[#1546D9] text-[#EDECE6] border-l-2 border-[#1546D9] flex flex-col shadow-2xl p-6 sm:p-8"
       >
         {/* Drawer Header */}
-        <div className="flex items-center justify-between pb-6 border-b border-[#722F37]/20">
+        <div className="flex items-center justify-between pb-6 border-b border-[#EDECE6]/20">
           <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#D7A781]" />
-            <h3 className="font-mono text-xs uppercase tracking-wider text-[#722F37] font-bold">
+            <span className="w-2 h-2 rounded-full bg-[#F9B318]" />
+            <h3 className="font-mono text-xs uppercase tracking-wider text-[#EDECE6] font-bold">
               SEARCH ARCHIVE
             </h3>
           </div>
           <button
             onClick={onClose}
-            className="text-xs font-mono text-[#722F37] hover:text-[#D7A781] px-2 py-1 border border-[#722F37]/30 hover:border-[#D7A781] cursor-pointer transition-colors font-bold"
+            className="text-xs font-mono text-[#EDECE6] hover:text-[#F9B318] px-2 py-1 border border-[#EDECE6]/30 hover:border-[#F9B318] cursor-pointer transition-colors font-bold"
             title="Close (ESC)"
           >
             ESC ✕
@@ -75,8 +75,8 @@ export const SearchDrawer: React.FC<SearchDrawerProps> = ({
 
         {/* Input Bar */}
         <div className="pt-6 space-y-4">
-          <div className="flex items-center gap-2.5 bg-[#722F37] border-2 border-[#722F37] focus-within:border-[#D7A781] px-3.5 py-2.5 rounded-sm">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-[#D7A781]">
+          <div className="flex items-center gap-2.5 bg-[#EDECE6] border-2 border-[#EDECE6] focus-within:border-[#F9B318] px-3.5 py-2.5 rounded-sm">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-[#F9B318]">
               <circle cx="11" cy="11" r="8" />
               <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
@@ -86,12 +86,12 @@ export const SearchDrawer: React.FC<SearchDrawerProps> = ({
               value={searchQuery}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder="Search by keyword, location, series, or gear..."
-              className="bg-transparent text-xs font-mono text-[#F8F4E7] placeholder:text-[#F8F4E7]/60 outline-none w-full font-medium"
+              className="bg-transparent text-xs font-mono text-[#1546D9] placeholder:text-[#1546D9]/60 outline-none w-full font-medium"
             />
             {searchQuery && (
               <button
                 onClick={() => onSearchChange('')}
-                className="text-[#F8F4E7] hover:text-[#D7A781] text-xs font-mono font-bold"
+                className="text-[#1546D9] hover:text-[#F9B318] text-xs font-mono font-bold"
               >
                 ✕
               </button>
@@ -100,7 +100,7 @@ export const SearchDrawer: React.FC<SearchDrawerProps> = ({
 
           {/* Tag Suggestions */}
           <div className="space-y-2">
-            <span className="text-[10px] font-mono uppercase tracking-wider text-[#722F37] block font-bold">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-[#EDECE6] block font-bold">
               SUGGESTED TAGS:
             </span>
             <div className="flex flex-wrap gap-1.5">
@@ -108,7 +108,7 @@ export const SearchDrawer: React.FC<SearchDrawerProps> = ({
                 <button
                   key={tag}
                   onClick={() => onSelectTag(tag)}
-                  className="text-[10px] font-mono px-2 py-0.5 border border-[#722F37]/25 bg-[#722F37]/10 text-[#722F37] hover:bg-[#D7A781] hover:text-[#722F37] hover:border-[#D7A781] transition-colors cursor-pointer font-semibold rounded-xs"
+                  className="text-[10px] font-mono px-2 py-0.5 border border-[#EDECE6]/25 bg-[#EDECE6]/10 text-[#EDECE6] hover:bg-[#F9B318] hover:text-[#1546D9] hover:border-[#F9B318] transition-colors cursor-pointer font-semibold rounded-xs"
                 >
                   #{tag}
                 </button>
@@ -118,14 +118,14 @@ export const SearchDrawer: React.FC<SearchDrawerProps> = ({
         </div>
 
         {/* Results List */}
-        <div className="flex-1 overflow-y-auto mt-6 divide-y divide-[#722F37]/15">
-          <div className="pb-2 text-[11px] font-mono text-[#722F37] flex items-center justify-between font-semibold">
+        <div className="flex-1 overflow-y-auto mt-6 divide-y divide-[#EDECE6]/15">
+          <div className="pb-2 text-[11px] font-mono text-[#EDECE6] flex items-center justify-between font-semibold">
             <span>RESULTS</span>
-            <span className="text-[#D7A781]">{filteredItems.length} MATCHES</span>
+            <span className="text-[#F9B318]">{filteredItems.length} MATCHES</span>
           </div>
 
           {filteredItems.length === 0 ? (
-            <div className="py-12 text-center text-xs font-mono text-[#722F37]/70">
+            <div className="py-12 text-center text-xs font-mono text-[#EDECE6]/70">
               No entries found matching &quot;{searchQuery}&quot;
             </div>
           ) : (
@@ -136,16 +136,16 @@ export const SearchDrawer: React.FC<SearchDrawerProps> = ({
                   onSelectItem(item);
                   onClose();
                 }}
-                className="py-3.5 group cursor-pointer hover:bg-[#722F37]/10 px-2 -mx-2 transition-colors rounded-xs"
+                className="py-3.5 group cursor-pointer hover:bg-[#EDECE6]/10 px-2 -mx-2 transition-colors rounded-xs"
               >
-                <div className="flex items-center justify-between text-[10px] font-mono text-[#722F37]/80 font-medium">
+                <div className="flex items-center justify-between text-[10px] font-mono text-[#EDECE6]/80 font-medium">
                   <span>{item.date}</span>
-                  <span className="text-[#D7A781] font-bold uppercase">{item.medium}</span>
+                  <span className="text-[#F9B318] font-bold uppercase">{item.medium}</span>
                 </div>
-                <h4 className="font-editorial-display text-base text-[#722F37] group-hover:text-[#D7A781] font-semibold mt-1">
+                <h4 className="font-editorial-display text-base text-[#EDECE6] group-hover:text-[#F9B318] font-semibold mt-1">
                   {item.title}
                 </h4>
-                <p className="text-xs text-[#722F37]/80 font-sans truncate mt-0.5">
+                <p className="text-xs text-[#EDECE6]/80 font-sans truncate mt-0.5">
                   {item.caption}
                 </p>
               </div>

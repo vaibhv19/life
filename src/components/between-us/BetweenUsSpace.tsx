@@ -24,19 +24,19 @@ export const BetweenUsSpace: React.FC<BetweenUsSpaceProps> = ({ config }) => {
   };
 
   return (
-    <div className="w-full max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 py-12 sm:py-20 select-none">
+    <div className="content-container py-12 sm:py-16 select-none">
       {/* Top Banner & Context Header */}
-      <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#F8F4E7]/20 pb-8 mb-12">
+      <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#1546D9]/20 pb-8 mb-12">
         <div>
-          <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#D7A781] mb-2">
+          <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#F9B318] mb-2">
             <span>AUTHENTICATED AS</span>
-            <span className="text-[#F8F4E7]/40">{'//'}</span>
-            <span className="text-[#F8F4E7]">{config.displayName}</span>
+            <span className="text-[#1546D9]/40">{'//'}</span>
+            <span className="text-[#1546D9]">{config.displayName}</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#F8F4E7]">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#1546D9]">
             {config.spaceTitle}
           </h1>
-          <p className="text-xs sm:text-sm text-[#F8F4E7]/70 mt-2 max-w-xl font-normal">
+          <p className="text-xs sm:text-sm text-[#1546D9]/70 mt-2 max-w-xl font-normal">
             {config.tagline}
           </p>
         </div>
@@ -45,7 +45,7 @@ export const BetweenUsSpace: React.FC<BetweenUsSpaceProps> = ({ config }) => {
         <button
           onClick={handleLock}
           disabled={isLocking}
-          className="self-start md:self-auto px-4 py-2 text-xs uppercase tracking-wider font-semibold border border-[#F8F4E7]/30 text-[#F8F4E7] hover:border-[#D7A781] hover:text-[#D7A781] transition-colors cursor-pointer disabled:opacity-50"
+          className="btn-palette-b self-start md:self-auto px-4 py-2 text-xs uppercase tracking-wider font-semibold border border-[#F9B318] cursor-pointer disabled:opacity-50 shadow-sm"
           style={{ borderRadius: '12px 4px 14px 4px' }}
           title="Lock and exit Between Us"
         >

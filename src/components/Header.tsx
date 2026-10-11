@@ -27,9 +27,10 @@ export const Header: React.FC<HeaderProps> = ({
   const isBetweenUsPage = pathname.startsWith('/between-us');
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-[#722F37]/95 backdrop-blur-md border-b border-[#F8F4E7]/25 select-none">
-      <div className="max-w-[1440px] mx-auto px-5 sm:px-8 lg:px-12 h-14 sm:h-16 py-3 sm:py-4 flex items-center justify-between gap-6">
-        {/* LEFT: Main Home / Navigation Identity (Static Text Visually, Clickable) */}
+    <header className="sticky top-0 z-40 w-full bg-[#EDECE6]/95 backdrop-blur-md select-none">
+      <div className="content-container">
+        <div className="h-14 sm:h-16 py-3 sm:py-4 flex items-center justify-between gap-3 sm:gap-6 border-b border-[#1546D9]/25">
+        {/* LEFT: Home link */}
         <Link
           href="/"
           onClick={(e) => {
@@ -39,26 +40,30 @@ export const Header: React.FC<HeaderProps> = ({
               if (onSelectView) onSelectView('all');
             }
           }}
-          className="text-left cursor-pointer focus:outline-none shrink min-w-0 bg-transparent border-none p-0 appearance-none"
+          className={`group text-base sm:text-lg font-bold tracking-tight transition-all cursor-pointer relative py-1 focus:outline-none shrink-0 bg-transparent border-none p-0 appearance-none ${
+            isHomePage
+              ? 'text-[#2E5DE8] after:w-full'
+              : 'text-[#1546D9] hover:text-[#2E5DE8]'
+          }`}
           title="Return to Life Homepage"
         >
-          <span className="text-base sm:text-lg md:text-xl lg:text-2xl font-semibold tracking-tight text-[#F8F4E7] no-underline inline-block">
-            Who is @vaibhv19 apart from code?
+          <span className="inline-block relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#1546D9] group-hover:after:w-full after:transition-all after:duration-300 after:ease-out">
+            Home
           </span>
         </Link>
 
         {/* RIGHT: Archive Catalog, Notes, All Post & [ Between Us ] Button Navigation */}
-        <nav aria-label="Main Navigation" className="flex items-center gap-4 sm:gap-6 md:gap-8 shrink-0">
+        <nav aria-label="Main Navigation" className="flex items-center gap-3 sm:gap-5 md:gap-6 shrink-0">
           {/* 1. Catalog */}
           <Link
             href="/catalog"
-            className={`group text-sm sm:text-base md:text-lg font-medium tracking-normal transition-all cursor-pointer relative py-1 focus:outline-none ${
+            className={`group text-xs sm:text-sm md:text-base font-medium tracking-normal transition-all cursor-pointer relative py-1 focus:outline-none ${
               isCatalogPage
-                ? 'text-[#FFFDF7] font-semibold after:w-full'
-                : 'text-[#F8F4E7] hover:text-[#FFFDF7]'
+                ? 'text-[#2E5DE8] font-semibold after:w-full'
+                : 'text-[#1546D9] hover:text-[#2E5DE8]'
             }`}
           >
-            <span className="inline-block relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#F8F4E7] group-hover:after:w-full after:transition-all after:duration-300 after:ease-out">
+            <span className="inline-block relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#1546D9] group-hover:after:w-full after:transition-all after:duration-300 after:ease-out">
               Catalog
             </span>
           </Link>
@@ -66,13 +71,13 @@ export const Header: React.FC<HeaderProps> = ({
           {/* 2. Notes */}
           <Link
             href="/notes"
-            className={`group text-sm sm:text-base md:text-lg font-medium tracking-normal transition-all cursor-pointer relative py-1 focus:outline-none ${
+            className={`group text-xs sm:text-sm md:text-base font-medium tracking-normal transition-all cursor-pointer relative py-1 focus:outline-none ${
               isNotesPage
-                ? 'text-[#FFFDF7] font-semibold after:w-full'
-                : 'text-[#F8F4E7] hover:text-[#FFFDF7]'
+                ? 'text-[#2E5DE8] font-semibold after:w-full'
+                : 'text-[#1546D9] hover:text-[#2E5DE8]'
             }`}
           >
-            <span className="inline-block relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#F8F4E7] group-hover:after:w-full after:transition-all after:duration-300 after:ease-out">
+            <span className="inline-block relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#1546D9] group-hover:after:w-full after:transition-all after:duration-300 after:ease-out">
               Notes
             </span>
           </Link>
@@ -80,13 +85,13 @@ export const Header: React.FC<HeaderProps> = ({
           {/* 3. All Post */}
           <Link
             href="/all-post"
-            className={`group text-sm sm:text-base md:text-lg font-medium tracking-normal transition-all cursor-pointer relative py-1 focus:outline-none ${
+            className={`group text-xs sm:text-sm md:text-base font-medium tracking-normal transition-all cursor-pointer relative py-1 focus:outline-none ${
               isAllPostPage
-                ? 'text-[#FFFDF7] font-semibold after:w-full'
-                : 'text-[#F8F4E7] hover:text-[#FFFDF7]'
+                ? 'text-[#2E5DE8] font-semibold after:w-full'
+                : 'text-[#1546D9] hover:text-[#2E5DE8]'
             }`}
           >
-            <span className="inline-block relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#F8F4E7] group-hover:after:w-full after:transition-all after:duration-300 after:ease-out">
+            <span className="inline-block relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#1546D9] group-hover:after:w-full after:transition-all after:duration-300 after:ease-out">
               All Post
             </span>
           </Link>
@@ -94,8 +99,8 @@ export const Header: React.FC<HeaderProps> = ({
           {/* 4. [ Between Us ] Button (Organic Hand-Cut Shape, Cream Fill, Burgundy Text) */}
           <Link
             href="/between-us"
-            className={`cursor-pointer focus:outline-none bg-[#F8F4E7] text-[#722F37] px-3.5 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-semibold tracking-tight transition-all duration-200 ease-out hover:bg-[#FFFDF7] hover:scale-[1.02] active:scale-[0.98] shadow-sm select-none shrink-0 ${
-              isBetweenUsPage ? 'ring-2 ring-[#F8F4E7]/60' : ''
+            className={`btn-palette-b cursor-pointer focus:outline-none px-3.5 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-semibold tracking-tight hover:scale-[1.02] active:scale-[0.98] shadow-sm select-none shrink-0 ${
+              isBetweenUsPage ? 'ring-2 ring-[#F9B318]/60' : ''
             }`}
             style={{
               borderRadius: '18px 5px 22px 7px / 8px 20px 7px 16px',
@@ -105,6 +110,7 @@ export const Header: React.FC<HeaderProps> = ({
             Between Us
           </Link>
         </nav>
+        </div>
       </div>
     </header>
   );

@@ -47,12 +47,12 @@ export default async function CatalogCollectionPage({ params }: PageProps) {
   const travelLocations = collectionId === 'travel' ? getTravelLocations() : [];
 
   return (
-    <div className="flex flex-col min-h-screen w-full bg-transparent text-[#F8F4E7] antialiased">
+    <div className="flex flex-col min-h-screen w-full bg-transparent text-[#1546D9] antialiased">
       {/* 01. Global Editorial Header */}
       <Header />
 
       {/* 02. Curated Collection View */}
-      <main className="flex-1 flex flex-col max-w-[1440px] w-full mx-auto px-5 sm:px-8 lg:px-12 py-12 sm:py-20 select-none">
+      <main className="flex-1 flex flex-col content-container py-12 sm:py-16 select-none">
         <CatalogCollectionView
           collection={collection}
           items={items}
