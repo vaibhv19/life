@@ -27,6 +27,7 @@
   --canvas-bg: #EAE6DE;
   --canvas-fg: #226192;
   --canvas-accent: #EF8557;
+  --separator-color: rgba(239, 133, 87, 0.25);
 }
 
 html, body {
@@ -104,7 +105,7 @@ html, body {
 .content-divider {
   width: 100%;
   height: 1px;
-  background-color: rgba(34, 97, 146, 0.2);
+  background-color: rgba(239, 133, 87, 0.25);
 }
 
 /* Shared Button Styles (Palette C: Coral Orange background, Deep Editorial Blue text) */

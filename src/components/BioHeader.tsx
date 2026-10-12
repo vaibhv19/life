@@ -13,7 +13,7 @@ export const BioHeader: React.FC<BioHeaderProps> = ({
 }) => {
   return (
     <header className="w-full bg-[#EAE6DE] shrink-0 transition-colors">
-      <div className="content-container py-5 border-b border-[#226192]/15">
+      <div className="content-container py-5 border-b border-[#EF8557]/20">
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
           {/* Left: Identity + Personal Belief */}
           <div className="max-w-3xl space-y-1.5">

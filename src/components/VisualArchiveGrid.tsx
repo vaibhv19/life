@@ -18,7 +18,7 @@ export const VisualArchiveGrid: React.FC<VisualArchiveGridProps> = ({
     <section className="relative w-full pt-12 sm:pt-20 pb-4 sm:pb-6">
       <div className="content-container">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 sm:pb-12 border-b border-[#226192]/20">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 sm:pb-12 border-b border-[#EF8557]/25">
           <div>
             <div className="flex items-center gap-2 text-xs font-mono text-[#EF8557] uppercase tracking-wider mb-2 font-bold">
               <span>01</span>
@@ -83,7 +83,7 @@ export const VisualArchiveGrid: React.FC<VisualArchiveGridProps> = ({
                   </div>
 
                   {/* Bottom Technical Bar */}
-                  <div className="relative z-10 flex items-center justify-between text-[10px] font-mono text-[#226192]/70 pt-2 border-t border-[#226192]/15">
+                  <div className="relative z-10 flex items-center justify-between text-[10px] font-mono text-[#226192]/70 pt-2 border-t border-[#EF8557]/20">
                     <span className="truncate max-w-[160px]">
                       {item.metadata?.camera || item.metadata?.author || 'Archived Entry'}
                     </span>

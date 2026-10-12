@@ -13,7 +13,7 @@ export const MemoryCollection: React.FC<MemoryCollectionProps> = ({ block }) => 
       className="w-full border border-[#226192]/20 bg-[#226192]/[0.02] p-8 sm:p-12 mb-10"
       style={{ borderRadius: '20px 6px 22px 8px / 10px 20px 8px 18px' }}
     >
-      <div className="flex items-center justify-between border-b border-[#226192]/15 pb-4 mb-6">
+      <div className="flex items-center justify-between border-b border-[#EF8557]/20 pb-4 mb-6">
         <div>
           <div className="text-[10px] font-bold uppercase tracking-widest text-[#EF8557] mb-1">
             ARCHIVE // MEMORIES

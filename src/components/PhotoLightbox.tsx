@@ -40,7 +40,7 @@ export const PhotoLightbox: React.FC<PhotoLightboxProps> = ({ photo, onClose }) 
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top bar */}
-        <div className="flex items-center justify-between px-5 sm:px-8 py-3.5 border-b border-[#226192]/20 text-xs text-[#226192]/80 shrink-0">
+        <div className="flex items-center justify-between px-5 sm:px-8 py-3.5 border-b border-[#EF8557]/25 text-xs text-[#226192]/80 shrink-0">
           <div className="flex items-center gap-3">
             {photo.formattedDate && (
               <span className="font-semibold text-[#EF8557] tracking-wide">
@@ -83,7 +83,7 @@ export const PhotoLightbox: React.FC<PhotoLightboxProps> = ({ photo, onClose }) 
         </div>
 
         {/* Specimen details & Like component footer */}
-        <div className="px-5 sm:px-6 py-3.5 border-t border-[#226192]/15 bg-[#EAE6DE]/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shrink-0">
+        <div className="px-5 sm:px-6 py-3.5 border-t border-[#EF8557]/20 bg-[#EAE6DE]/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shrink-0">
           <div className="min-w-0 flex-1">
             {photo.title && (
               <h3 className="text-sm sm:text-base font-semibold text-[#226192] mb-0.5 truncate">

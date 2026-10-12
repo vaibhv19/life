@@ -29,7 +29,7 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="sticky top-0 z-40 w-full bg-[#EAE6DE]/95 backdrop-blur-md select-none">
       <div className="content-container">
-        <div className="h-14 sm:h-16 py-3 sm:py-4 flex items-center justify-between gap-3 sm:gap-6 border-b border-[#226192]/25">
+        <div className="h-14 sm:h-16 py-3 sm:py-4 flex items-center justify-between gap-3 sm:gap-6 border-b border-[#EF8557]/25">
         {/* LEFT: Home link */}
         <Link
           href="/"

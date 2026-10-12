@@ -23,7 +23,7 @@ export default function AllPostPage() {
       {/* 02. Chronological Visual Archive Content */}
       <main className="flex-1 flex flex-col content-container py-12 sm:py-16">
         {/* Editorial Section Header */}
-        <header className="mb-10 sm:mb-12 border-b border-[#226192]/20 pb-6 sm:pb-8">
+        <header className="mb-10 sm:mb-12 border-b border-[#EF8557]/25 pb-6 sm:pb-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div>
               <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#226192]">

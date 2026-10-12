@@ -19,7 +19,7 @@ export const FeaturedEntryFocus: React.FC<FeaturedEntryFocusProps> = ({
     <section className="relative w-full pt-12 sm:pt-20 pb-4 sm:pb-6 bg-transparent">
       <div className="content-container">
         {/* Top Focal Header */}
-        <div className="flex items-center justify-between pb-6 border-b border-[#226192]/20 text-xs font-mono text-[#226192]">
+        <div className="flex items-center justify-between pb-6 border-b border-[#EF8557]/25 text-xs font-mono text-[#226192]">
           <div className="flex items-center gap-3">
             <span className="text-[#EF8557] font-bold text-sm">04</span>
             <span className="text-[#226192]/40">/</span>
@@ -73,7 +73,7 @@ export const FeaturedEntryFocus: React.FC<FeaturedEntryFocusProps> = ({
                 </div>
 
                 {/* Bottom Overlay Meta */}
-                <div className="flex items-center justify-between text-xs font-mono text-[#226192]/80 pt-3 border-t border-[#226192]/15">
+                <div className="flex items-center justify-between text-xs font-mono text-[#226192]/80 pt-3 border-t border-[#EF8557]/20">
                   <span>{item.metadata?.filmStock || item.metadata?.camera || '35mm Film'}</span>
                   <span className="text-[#EF8557] group-hover:underline font-bold">EXPAND FULL VIEW ↗</span>
                 </div>
@@ -108,7 +108,7 @@ export const FeaturedEntryFocus: React.FC<FeaturedEntryFocusProps> = ({
             )}
 
             {/* Technical Metadata Matrix on Surface Box */}
-            <div className="pt-4 border-t border-[#226192]/20 grid grid-cols-2 gap-4 text-xs font-mono bg-[#226192]/8 p-4 rounded-xs border border-[#226192]/15">
+            <div className="pt-4 border-t border-[#EF8557]/25 grid grid-cols-2 gap-4 text-xs font-mono bg-[#226192]/8 p-4 rounded-xs border border-[#226192]/15">
               <div>
                 <span className="text-[#226192]/60 block text-[10px]">SERIES:</span>
                 <span className="text-[#226192] font-medium">{item.collectionTitle}</span>

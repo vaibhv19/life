@@ -11,16 +11,6 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   {
-    title: 'NOTES',
-    subtitle: "Small thoughts, observations, and things I don't want to forget.",
-    href: '/notes',
-  },
-  {
-    title: 'ALL POST',
-    subtitle: 'Longer thoughts, stories, and pieces collected along the way.',
-    href: '/all-post',
-  },
-  {
     title: 'EXTRAA',
     subtitle: 'Private writings, unpublished work, and personal archives.',
     href: '/extraa',
@@ -29,9 +19,9 @@ const NAV_ITEMS: NavItem[] = [
 
 export const EditorialPageNav: React.FC = () => {
   return (
-    <section aria-label="Page Navigation" className="w-full pb-14 sm:pb-20 md:pb-24 select-none">
+    <section aria-label="Page Navigation" className="w-full pb-10 sm:pb-14 md:pb-16 select-none">
       <div className="content-container">
-        <nav className="border-y border-[#226192]/20 divide-y divide-[#226192]/20">
+        <nav className="w-full">
           {NAV_ITEMS.map((item) => (
             <Link
               key={item.href}

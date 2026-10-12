@@ -13,7 +13,7 @@ export const Letter: React.FC<LetterProps> = ({ block }) => {
       className="w-full border border-[#226192]/25 bg-[#226192]/[0.04] p-8 sm:p-14 lg:p-16 mb-10"
       style={{ borderRadius: '26px 8px 24px 6px / 14px 24px 10px 20px' }}
     >
-      <div className="flex items-center justify-between border-b border-[#226192]/15 pb-4 mb-8 text-xs text-[#226192]/60">
+      <div className="flex items-center justify-between border-b border-[#EF8557]/20 pb-4 mb-8 text-xs text-[#226192]/60">
         <span className="text-[#EF8557] font-bold uppercase tracking-wider">
           PERSONAL CORRESPONDENCE // TO {block.recipient.toUpperCase()}
         </span>

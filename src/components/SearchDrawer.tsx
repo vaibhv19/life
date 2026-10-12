@@ -57,7 +57,7 @@ export const SearchDrawer: React.FC<SearchDrawerProps> = ({
         className="w-full max-w-md h-full bg-[#226192] text-[#EAE6DE] border-l-2 border-[#226192] flex flex-col shadow-2xl p-6 sm:p-8"
       >
         {/* Drawer Header */}
-        <div className="flex items-center justify-between pb-6 border-b border-[#EAE6DE]/20">
+        <div className="flex items-center justify-between pb-6 border-b border-[#EF8557]/30">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#EF8557]" />
             <h3 className="font-mono text-xs uppercase tracking-wider text-[#EAE6DE] font-bold">

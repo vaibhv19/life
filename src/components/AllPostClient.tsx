@@ -59,7 +59,7 @@ export const AllPostClient: React.FC<AllPostClientProps> = ({ posts }) => {
           {groupedPosts.map((group) => (
             <section key={group.label} className="space-y-8">
               {/* Chronological Section Indicator */}
-              <div className="flex items-baseline justify-between border-b border-[#226192]/20 pb-3">
+              <div className="flex items-baseline justify-between border-b border-[#EF8557]/25 pb-3">
                 <div className="flex items-baseline gap-3">
                   <span className="text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-[#226192]">
                     {group.label}

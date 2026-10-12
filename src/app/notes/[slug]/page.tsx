@@ -65,7 +65,7 @@ export default async function IndividualNotePage({ params }: PageProps) {
         </div>
 
         {/* Note Article Header */}
-        <header className="border-b border-[#226192]/20 pb-8 mb-10">
+        <header className="border-b border-[#EF8557]/25 pb-8 mb-10">
           {note.formattedDate && (
             <div className="text-xs font-mono text-[#EF8557] uppercase tracking-wider mb-3 font-semibold">
               {note.formattedDate}
@@ -120,7 +120,7 @@ export default async function IndividualNotePage({ params }: PageProps) {
         </div>
 
         {/* Note Footer Colophon */}
-        <div className="pt-8 mt-12 border-t border-[#226192]/15 flex items-center justify-between text-xs text-[#226192]/50 font-mono">
+        <div className="pt-8 mt-12 border-t border-[#EF8557]/25 flex items-center justify-between text-xs text-[#226192]/50 font-mono">
           <span>END OF NOTE</span>
           <Link
             href="/notes"

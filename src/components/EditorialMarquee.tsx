@@ -33,7 +33,7 @@ export const EditorialMarquee: React.FC<EditorialMarqueeProps> = ({
     <section aria-label={ariaLabel} className={className}>
       <div className="content-container">
         {/* Straight Horizontal Top & Bottom Borders strictly within the central content column */}
-        <div className="w-full border-y border-[#226192]/20 py-2 sm:py-2.5">
+        <div className="w-full border-y border-[#EF8557]/20 py-2 sm:py-2.5">
           {/* Central Column Clipped Boundary with Horizontal Opacity Gradient Mask */}
           <div
             className="relative w-full overflow-hidden py-1 sm:py-1.5 pointer-events-none"

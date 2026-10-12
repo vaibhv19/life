@@ -26,7 +26,7 @@ export const ExtraaSpace: React.FC = () => {
   return (
     <div className="content-container py-12 sm:py-16 select-none">
       {/* Top Banner & Header */}
-      <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#226192]/20 pb-8 mb-12">
+      <header className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#EF8557]/25 pb-8 mb-12">
         <div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#226192]">
             Extraa

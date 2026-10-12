@@ -27,7 +27,7 @@ export const TimelinePanel: React.FC<TimelinePanelProps> = ({
   return (
     <main className="flex-1 flex flex-col h-full overflow-hidden bg-zinc-50 dark:bg-zinc-950 transition-colors">
       {/* Timeline Header */}
-      <div className="sticky top-0 z-10 bg-zinc-50 dark:bg-zinc-950 px-6 sm:px-8 py-4 border-b border-zinc-200 dark:border-zinc-800/80 flex flex-wrap items-center justify-between gap-4">
+      <div className="sticky top-0 z-10 bg-zinc-50 dark:bg-zinc-950 px-6 sm:px-8 py-4 border-b border-[#EF8557]/20 flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-3">
           <h2 className="font-mono text-xs uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
             timeline
@@ -105,7 +105,7 @@ export const TimelinePanel: React.FC<TimelinePanelProps> = ({
             posts.map((post) => (
               <article
                 key={post.id}
-                className="space-y-4 pb-12 border-b border-zinc-200 dark:border-zinc-900 last:border-b-0"
+                className="space-y-4 pb-12 border-b border-[#EF8557]/20 last:border-b-0"
               >
                 {/* Meta header */}
                 <div className="flex flex-wrap items-center justify-between gap-2 text-xs font-mono text-zinc-400 dark:text-zinc-500">

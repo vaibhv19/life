@@ -45,7 +45,7 @@ export const CatalogCollectionView: React.FC<CatalogCollectionViewProps> = ({
       </div>
 
       {/* Collection Header */}
-      <header className="border-b border-[#226192]/20 pb-8 mb-10">
+      <header className="border-b border-[#EF8557]/25 pb-8 mb-10">
         <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-widest text-[#EF8557] mb-2 font-mono">
           <span>COLLECTION // {collection.numeral}</span>
           <span className="text-[#226192]/40">·</span>
@@ -62,7 +62,7 @@ export const CatalogCollectionView: React.FC<CatalogCollectionViewProps> = ({
 
         {/* Travel Location Filter / Breadcrumb (Data-driven hierarchy) */}
         {isTravel && travelLocations.length > 0 && (
-          <div className="mt-8 pt-6 border-t border-[#226192]/15">
+          <div className="mt-8 pt-6 border-t border-[#EF8557]/20">
             <div className="text-[10px] font-mono uppercase tracking-wider text-[#EF8557] mb-3 font-semibold">
               GEOGRAPHIC SUBCOLLECTIONS
             </div>

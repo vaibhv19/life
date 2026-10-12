@@ -30,7 +30,7 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({ item, onClose }) =
       {/* Modal Dialog Container: Cream Physical Surface */}
       <div className="relative z-10 w-full max-w-4xl max-h-[90vh] bg-[#226192] text-[#EAE6DE] border-2 border-[#226192] flex flex-col shadow-2xl overflow-hidden rounded-xs">
         {/* Modal Top Bar */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-[#EAE6DE]/15 text-xs font-mono shrink-0 bg-[#226192] font-semibold">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#EF8557]/25 text-xs font-mono shrink-0 bg-[#226192] font-semibold">
           <div className="flex items-center gap-2.5">
             <span className="text-[#EF8557] font-bold">SPECIMEN VIEW</span>
             <span className="text-[#EAE6DE]/30">/</span>
@@ -74,7 +74,7 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({ item, onClose }) =
               )}
             </div>
 
-            <div className="flex items-center justify-between text-xs font-mono text-[#226192]/80 pt-3 border-t border-[#226192]/15">
+            <div className="flex items-center justify-between text-xs font-mono text-[#226192]/80 pt-3 border-t border-[#EF8557]/20">
               <span>{item.metadata?.filmStock || item.metadata?.camera || '35mm Negative'}</span>
               <span>{item.coordinates || '28°38\'N 77°13\'E'}</span>
             </div>
@@ -111,28 +111,28 @@ export const LightboxModal: React.FC<LightboxModalProps> = ({ item, onClose }) =
                 TECHNICAL LOG
               </span>
               <div className="space-y-2 text-[#226192]/80">
-                <div className="flex justify-between border-b border-[#226192]/10 pb-1">
+                <div className="flex justify-between border-b border-[#EF8557]/20 pb-1">
                   <span className="text-[#226192]/60">Recorded:</span>
                   <span className="text-[#226192] font-semibold">{item.date}</span>
                 </div>
-                <div className="flex justify-between border-b border-[#226192]/10 pb-1">
+                <div className="flex justify-between border-b border-[#EF8557]/20 pb-1">
                   <span className="text-[#226192]/60">Medium:</span>
                   <span className="text-[#EF8557] font-bold uppercase">{item.medium}</span>
                 </div>
                 {item.metadata?.camera && (
-                  <div className="flex justify-between border-b border-[#226192]/10 pb-1">
+                  <div className="flex justify-between border-b border-[#EF8557]/20 pb-1">
                     <span className="text-[#226192]/60">Camera:</span>
                     <span className="text-[#226192]">{item.metadata.camera}</span>
                   </div>
                 )}
                 {item.metadata?.filmStock && (
-                  <div className="flex justify-between border-b border-[#226192]/10 pb-1">
+                  <div className="flex justify-between border-b border-[#EF8557]/20 pb-1">
                     <span className="text-[#226192]/60">Emulsion:</span>
                     <span className="text-[#EF8557] font-medium">{item.metadata.filmStock}</span>
                   </div>
                 )}
                 {item.coordinates && (
-                  <div className="flex justify-between border-b border-[#226192]/10 pb-1">
+                  <div className="flex justify-between border-b border-[#EF8557]/20 pb-1">
                     <span className="text-[#226192]/60">Coordinates:</span>
                     <span className="text-[#226192]">{item.coordinates}</span>
                   </div>

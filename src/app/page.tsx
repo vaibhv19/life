@@ -40,7 +40,7 @@ export default function LifePage() {
         <CatalogHighlights />
 
         {/* 04. Editorial Continuous Marquee (To exist is a fact, to live is an art) */}
-        <EditorialMarquee className="w-full mt-1 sm:mt-2 md:mt-3 mb-12 sm:mb-16 md:mb-20 select-none" />
+        <EditorialMarquee className="w-full mt-1 sm:mt-2 md:mt-3 mb-4 sm:mb-5 md:mb-6 select-none" />
 
         {/* 05. Section 1: What Is This Page? */}
         <WhatIsThisPage />
@@ -51,11 +51,11 @@ export default function LifePage() {
         {/* 07. Second Editorial Continuous Marquee */}
         <EditorialMarquee
           phrase="I haven't met all of me yet"
-          className="w-full mt-2 sm:mt-4 md:mt-6 mb-12 sm:mb-16 md:mb-20 select-none"
+          className="w-full mt-1 sm:mt-2 md:mt-3 mb-6 sm:mb-7 md:mb-8 select-none"
           ariaLabel="Editorial Motto: Be the love you never received"
         />
 
-        {/* 08. Editorial Page Navigation Section (Notes, All Post, Extraa) */}
+        {/* 08. Editorial Page Navigation Section (Extraa) */}
         <EditorialPageNav />
       </main>
 

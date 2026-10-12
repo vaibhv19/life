@@ -25,7 +25,7 @@ export const WhyIMadeThisPage: React.FC = () => {
         {/* Middle-column border strictly within container */}
         <div className="content-divider" />
 
-        <div className="py-12 sm:py-16 md:py-20">
+        <div className="pt-5 sm:pt-6 md:pt-8 pb-5 sm:pb-6 md:pb-7">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
             {/* Left Column: Heading & Anchor */}
             <div className="md:col-span-5 space-y-2">
@@ -48,7 +48,7 @@ export const WhyIMadeThisPage: React.FC = () => {
 
             {/* Right Column: Reflective Narrative */}
             <div className="md:col-span-7">
-              <div className="border-l-2 border-[#226192]/20 pl-5 sm:pl-6 space-y-4 text-sm sm:text-base text-[#226192]/80 leading-relaxed font-normal">
+              <div className="border-l-2 border-[#EF8557]/25 pl-5 sm:pl-6 space-y-4 text-sm sm:text-base text-[#226192]/80 leading-relaxed font-normal">
                 <TypewriterSpan
                   as="p"
                   text={ITEMS[2]}

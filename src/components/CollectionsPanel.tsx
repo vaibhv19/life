@@ -46,9 +46,9 @@ export const CollectionsPanel: React.FC<CollectionsPanelProps> = ({
   }
 
   return (
-    <aside className="relative z-10 w-full md:w-[460px] lg:w-[500px] shrink-0 border-r border-zinc-200 dark:border-zinc-800/80 bg-zinc-50 dark:bg-zinc-950 flex flex-col h-full overflow-hidden transition-colors">
+    <aside className="relative z-10 w-full md:w-[460px] lg:w-[500px] shrink-0 border-r border-[#EF8557]/20 bg-zinc-50 dark:bg-zinc-950 flex flex-col h-full overflow-hidden transition-colors">
       {/* Panel Top Header */}
-      <div className="sticky top-0 z-20 bg-zinc-50 dark:bg-zinc-950 px-6 py-4 border-b border-zinc-200 dark:border-zinc-800/80 flex items-center justify-between">
+      <div className="sticky top-0 z-20 bg-zinc-50 dark:bg-zinc-950 px-6 py-4 border-b border-[#EF8557]/20 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
           <h2 className="font-mono text-xs uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
             collections
@@ -82,7 +82,7 @@ export const CollectionsPanel: React.FC<CollectionsPanelProps> = ({
             return (
               <section
                 key={col.id}
-                className={`space-y-3 pb-8 border-b border-zinc-200 dark:border-zinc-900 last:border-b-0 ${
+                className={`space-y-3 pb-8 border-b border-[#EF8557]/20 last:border-b-0 ${
                   isActive ? 'opacity-100' : 'opacity-85 hover:opacity-100'
                 } transition-opacity`}
               >

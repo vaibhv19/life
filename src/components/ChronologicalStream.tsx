@@ -29,7 +29,7 @@ export const ChronologicalStream: React.FC<ChronologicalStreamProps> = ({
     <section className="relative w-full pt-12 sm:pt-20 pb-4 sm:pb-6">
       <div className="content-container">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 sm:pb-12 border-b border-[#226192]/20">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-8 sm:pb-12 border-b border-[#EF8557]/25">
           <div>
             <div className="flex items-center gap-2 text-xs font-mono text-[#EF8557] uppercase tracking-wider mb-2 font-bold">
               <span>03</span>
@@ -71,7 +71,7 @@ export const ChronologicalStream: React.FC<ChronologicalStreamProps> = ({
                   <article
                     key={item.id}
                     onClick={() => onSelectItem(item)}
-                    className="group border-b border-[#226192]/20 pb-8 sm:pb-10 last:border-b-0 cursor-pointer"
+                    className="group border-b border-[#EF8557]/20 pb-8 sm:pb-10 last:border-b-0 cursor-pointer"
                   >
                     <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
                       {/* Left Details: Date, Location, Title, Note */}

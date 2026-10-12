@@ -90,7 +90,7 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
       {/* Persistent Vertical Navigation Rail */}
       <nav
         aria-label="Sidebar navigation"
-        className="w-14 sm:w-16 h-full shrink-0 border-r border-zinc-200 dark:border-zinc-800/80 bg-zinc-50 dark:bg-zinc-950 flex flex-col items-center justify-between py-5 select-none transition-colors"
+        className="w-14 sm:w-16 h-full shrink-0 border-r border-[#EF8557]/20 bg-zinc-50 dark:bg-zinc-950 flex flex-col items-center justify-between py-5 select-none transition-colors"
       >
         {/* Top: Monogram / Home Anchor */}
         <div className="flex flex-col items-center gap-6">
@@ -203,10 +203,10 @@ export const SidebarNav: React.FC<SidebarNavProps> = ({
       {isSearchOpen && (
         <aside
           aria-label="Search panel"
-          className="w-72 sm:w-80 h-full border-r border-zinc-200 dark:border-zinc-800/80 bg-zinc-50 dark:bg-zinc-950 flex flex-col z-20 shadow-xl transition-colors"
+          className="w-72 sm:w-80 h-full border-r border-[#EF8557]/20 bg-zinc-50 dark:bg-zinc-950 flex flex-col z-20 shadow-xl transition-colors"
         >
           {/* Search Header */}
-          <div className="p-5 border-b border-zinc-200 dark:border-zinc-800/80 flex items-center justify-between">
+          <div className="p-5 border-b border-[#EF8557]/20 flex items-center justify-between">
             <h3 className="font-mono text-xs uppercase tracking-wider text-zinc-600 dark:text-zinc-400">
               search archive
             </h3>
