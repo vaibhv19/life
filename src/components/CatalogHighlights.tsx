@@ -5,14 +5,27 @@ import { CATALOG_COLLECTIONS } from '@/data/catalog';
 import { StoryViewer } from '@/components/StoryViewer';
 
 const THUMBNAIL_MAP: Record<string, string> = {
-  'fav-moments': '/archive/2026-09-28-01.jpeg',
-  'fitness': '/archive/2026-09-28-02.jpeg',
-  'art': '/archive/2026-09-28-03.jpeg',
-  'people-i-love': '/archive/2026-09-28-04.jpeg',
+  'fav-moments': '/archive/Screenshot_20261012-170421_Instagram~2.jpg',
+  'fitness': '/archive/Screenshot_20261012-170535_Instagram~2.jpg',
+  'art': '/archive/Screenshot_20261012-170705_Instagram~2.jpg',
+  'people-i-love': '/archive/Screenshot_20261012-170751_Instagram~2.jpg',
   'other-hobbies': '/archive/Warm Acoustic Guitar Portrait.png',
-  'i-think-i-look-good-in-these-pics': '/cutout.png',
-  'travel': '/archive/2026-09-28-05.jpeg',
+  'i-think-i-look-good-in-these-pics': '/archive/Screenshot_20261012-170849_Instagram~2.jpg',
+  'travel': '/archive/Screenshot_20261012-170936_Instagram~2.jpg',
 };
+
+const EMOJI_MAP: Record<string, string> = {
+  'fav-moments': '😃',
+  'fitness': '💪',
+  'art': '🎨',
+  'people-i-love': '❣️',
+  'other-hobbies': '🎯',
+  'i-think-i-look-good-in-these-pics': '👍',
+  'travel': '✈️',
+};
+
+// Filter out Travel from homepage highlights row (remains available in catalog/stories)
+const HOMEPAGE_HIGHLIGHTS = CATALOG_COLLECTIONS.filter((category) => category.id !== 'travel');
 
 export const CatalogHighlights: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
@@ -21,10 +34,11 @@ export const CatalogHighlights: React.FC = () => {
     <section aria-label="Catalog Highlights" className="w-full pb-4 sm:pb-5 select-none">
       <div className="content-container">
         {/* 1. Instagram Highlights Row */}
-        <div className="w-full overflow-x-auto no-scrollbar scroll-smooth py-1 -mx-2 px-2 sm:mx-0 sm:px-0">
-          <div className="flex items-start gap-4 sm:gap-5 md:gap-6 min-w-max sm:min-w-0 sm:justify-between">
-            {CATALOG_COLLECTIONS.map((category) => {
+        <div className="w-full pt-1 pb-0">
+          <div className="flex items-start justify-between w-full">
+            {HOMEPAGE_HIGHLIGHTS.map((category) => {
               const thumbnailSrc = THUMBNAIL_MAP[category.id] || '/cutout.png';
+              const emoji = EMOJI_MAP[category.id] || '✨';
               const isSelected = activeCategory === category.id;
 
               return (
@@ -39,16 +53,16 @@ export const CatalogHighlights: React.FC = () => {
                 >
                   {/* Outer Ring with Hover Reaction */}
                   <div
-                    className={`p-[3px] rounded-full border transition-all duration-300 ease-out ${
+                    className={`p-[2px] sm:p-[3px] rounded-full border transition-all duration-300 ease-out ${
                       isSelected
                         ? 'border-[#EF8557] ring-2 ring-[#EF8557]/40 scale-105'
                         : 'border-[#226192]/30 group-hover:border-[#EF8557] group-hover:scale-105'
                     }`}
                   >
                     {/* Ring Gap */}
-                    <div className="p-[2px] rounded-full bg-[#EAE6DE]">
+                    <div className="p-[1.5px] sm:p-[2px] rounded-full bg-[#EAE6DE]">
                       {/* Circular Image Container */}
-                      <div className="w-14 h-14 sm:w-16 sm:h-16 md:w-[68px] md:h-[68px] rounded-full overflow-hidden bg-[#226192]/10 relative">
+                      <div className="w-10 h-10 min-[360px]:w-[42px] min-[360px]:h-[42px] min-[390px]:w-12 min-[390px]:h-12 sm:w-16 sm:h-16 md:w-[74px] md:h-[74px] lg:w-[78px] lg:h-[78px] rounded-full overflow-hidden bg-[#226192]/10 relative">
                         <img
                           src={thumbnailSrc}
                           alt={category.title}
@@ -59,16 +73,16 @@ export const CatalogHighlights: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Category Title Label */}
+                  {/* Category Emoji Label */}
                   <span
-                    className={`text-[10px] sm:text-[11px] font-medium tracking-tight text-center max-w-[70px] sm:max-w-[78px] transition-colors mt-2 leading-tight line-clamp-2 min-h-[26px] sm:min-h-[28px] flex items-start justify-center ${
+                    className={`text-xs min-[360px]:text-sm sm:text-base md:text-lg transition-transform duration-200 mt-1 sm:mt-1.5 md:mt-2 leading-none flex items-center justify-center select-none ${
                       isSelected
-                        ? 'text-[#EF8557] font-semibold'
-                        : 'text-[#226192]/80 group-hover:text-[#EF8557]'
+                        ? 'scale-110 drop-shadow-xs'
+                        : 'group-hover:scale-110'
                     }`}
-                    title={category.title}
+                    aria-hidden="true"
                   >
-                    {category.title}
+                    {emoji}
                   </span>
                 </button>
               );
@@ -77,7 +91,7 @@ export const CatalogHighlights: React.FC = () => {
         </div>
 
         {/* 2. Understated Editorial Statement below highlights */}
-        <div className="mt-4 sm:mt-5">
+        <div className="mt-4 sm:mt-6 md:mt-7">
           <p className="font-editorial-italic text-base sm:text-lg md:text-xl text-[#226192] tracking-tight">
             My social media profile, except I own the platform.
           </p>

@@ -17,6 +17,16 @@ const TICK_INTERVAL_MS = 40;
 
 const subscribe = () => () => {};
 
+const EMOJI_MAP: Record<string, string> = {
+  'fav-moments': '😃',
+  'fitness': '💪',
+  'art': '🎨',
+  'people-i-love': '❣️',
+  'other-hobbies': '🎯',
+  'i-think-i-look-good-in-these-pics': '👍',
+  'travel': '✈️',
+};
+
 export const StoryViewer: React.FC<StoryViewerProps> = ({
   categoryId,
   onClose,
@@ -273,11 +283,15 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({
               />
             </div>
 
-            <div className="flex flex-col">
-              <span className="text-xs sm:text-sm font-bold tracking-tight text-[#EAE6DE] leading-tight">
-                {collection?.title}
+            <div className="flex flex-col justify-center">
+              <span
+                className="text-sm sm:text-base leading-none select-none"
+                role="img"
+                aria-label={collection?.title || 'Catalog'}
+              >
+                {EMOJI_MAP[activeCategoryId] || '✨'}
               </span>
-              <span className="text-[10px] sm:text-[11px] font-mono text-[#EAE6DE]/60 leading-tight">
+              <span className="text-[10px] sm:text-[11px] font-mono text-[#EAE6DE]/60 leading-tight mt-0.5">
                 {currentIndex + 1} of {items.length} {activeItem.date ? `· ${activeItem.date}` : ''}
               </span>
             </div>
@@ -449,20 +463,33 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({
           <div className="max-w-3xl mx-auto w-full flex flex-col flex-1">
             {/* Overview Top Header */}
             <div className="flex items-center justify-between pb-4 border-b border-[#EF8557]/25 shrink-0">
-              <div>
-                <h3 className="text-xl sm:text-2xl font-bold tracking-tight text-[#EAE6DE]">
-                  {collection?.title}
-                </h3>
+              <div className="flex items-center">
+                <span
+                  className="text-2xl sm:text-3xl leading-none select-none"
+                  role="img"
+                  aria-label={collection?.title || 'Catalog'}
+                >
+                  {EMOJI_MAP[activeCategoryId] || '✨'}
+                </span>
               </div>
 
               {/* Close Browse / Back to Story */}
               <button
                 type="button"
                 onClick={() => setIsBrowseOpen(false)}
-                aria-label="Back to story slideshow"
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-white/20 hover:border-[#EF8557] text-[#EAE6DE] hover:text-[#EF8557] text-xs font-mono transition-colors cursor-pointer focus:outline-none"
+                aria-label="Back to Story"
+                title="Back to Story (Esc)"
+                className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center border border-white/20 hover:border-[#EF8557] hover:bg-white/10 text-[#EAE6DE]/80 hover:text-[#EF8557] transition-all cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#EF8557]"
               >
-                <span>✕ Back to Story</span>
+                <svg
+                  className="w-4 h-4 sm:w-5 sm:h-5 stroke-[2]"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
               </button>
             </div>
 
