@@ -5,16 +5,23 @@ import { ArchivePost } from '@/lib/posts';
 
 interface AllPostClientProps {
   posts: ArchivePost[];
+  initialFocusedId?: string | null;
 }
 
-export const AllPostClient: React.FC<AllPostClientProps> = ({ posts }) => {
+export const AllPostClient: React.FC<AllPostClientProps> = ({
+  posts,
+  initialFocusedId,
+}) => {
   // Sort posts chronologically by rawDate, newest first
   const sortedPosts = useMemo(() => {
     return [...posts].sort((a, b) => b.rawDate.localeCompare(a.rawDate));
   }, [posts]);
 
-  // Default state: focused browsing layout with the newest post selected on initial page load
+  // Default state: Focus View with first media item selected on page load (5-column grid hidden)
   const [focusedId, setFocusedId] = useState<string | null>(() => {
+    if (initialFocusedId !== undefined) {
+      return initialFocusedId;
+    }
     return sortedPosts.length > 0 ? sortedPosts[0].id : null;
   });
 
@@ -28,6 +35,58 @@ export const AllPostClient: React.FC<AllPostClientProps> = ({ posts }) => {
   const mobileStripItemRefs = useRef<Record<string, HTMLElement | null>>({});
   const gridContainerRef = useRef<HTMLDivElement | null>(null);
   const horizontalStripRef = useRef<HTMLDivElement | null>(null);
+
+  // Internal scrolling state for media grid (constrained to 3 rows if > 3 rows)
+  const mobileGridContainerRef = useRef<HTMLDivElement | null>(null);
+  const desktopGridContainerRef = useRef<HTMLDivElement | null>(null);
+  const [mobileMaxHeight, setMobileMaxHeight] = useState<number | null>(null);
+  const [desktopMaxHeight, setDesktopMaxHeight] = useState<number | null>(null);
+
+  const mobileHasMoreThan3Rows = sortedPosts.length > 9;
+  const desktopHasMoreThan3Rows = sortedPosts.length > 15;
+
+  useEffect(() => {
+    if (focusedId) return; // Only measure when grid is visible
+
+    const measureHeights = () => {
+      // Mobile: 3 columns, 3 rows -> element at index 8 is the last item of row 3
+      if (mobileHasMoreThan3Rows && mobileGridContainerRef.current) {
+        const container = mobileGridContainerRef.current;
+        const grid = container.firstElementChild as HTMLElement | null;
+        if (grid && grid.children.length > 8) {
+          const row3LastItem = grid.children[8] as HTMLElement;
+          const containerTop = container.getBoundingClientRect().top;
+          const row3Bottom = row3LastItem.getBoundingClientRect().bottom;
+          const calculatedHeight = Math.ceil(row3Bottom - containerTop) + 4;
+          if (calculatedHeight > 100) {
+            setMobileMaxHeight(calculatedHeight);
+          }
+        }
+      }
+
+      // Desktop: 5 columns, 3 rows -> element at index 14 is the last item of row 3
+      if (desktopHasMoreThan3Rows && desktopGridContainerRef.current) {
+        const container = desktopGridContainerRef.current;
+        const grid = container.firstElementChild as HTMLElement | null;
+        if (grid && grid.children.length > 14) {
+          const row3LastItem = grid.children[14] as HTMLElement;
+          const containerTop = container.getBoundingClientRect().top;
+          const row3Bottom = row3LastItem.getBoundingClientRect().bottom;
+          const calculatedHeight = Math.ceil(row3Bottom - containerTop) + 4;
+          if (calculatedHeight > 150) {
+            setDesktopMaxHeight(calculatedHeight);
+          }
+        }
+      }
+    };
+
+    const timer = setTimeout(measureHeights, 50);
+    window.addEventListener('resize', measureHeights);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', measureHeights);
+    };
+  }, [focusedId, mobileHasMoreThan3Rows, desktopHasMoreThan3Rows]);
 
   // Handle image selection
   const handleSelect = useCallback((id: string) => {
@@ -202,33 +261,47 @@ export const AllPostClient: React.FC<AllPostClientProps> = ({ posts }) => {
             </div>
           </div>
         ) : (
-          /* Default State: 5-Column Grid on Desktop */
-          <div className="grid grid-cols-5 gap-4 xl:gap-5 w-full animate-in fade-in duration-300">
-            {sortedPosts.map((item) => (
-              <article
-                key={item.id}
-                onClick={() => handleSelect(item.id)}
-                className="group cursor-pointer transition-all duration-300 relative"
-                title={`Open ${item.formattedDate}`}
-              >
-                <div
-                  className="p-1.5 sm:p-2 bg-[#DFDBD3]/35 border border-[#226192]/20 group-hover:border-[#EF8557] transition-all duration-300 shadow-xs group-hover:shadow-md"
-                  style={{ borderRadius: '10px 3px 12px 3px / 4px 10px 4px 8px' }}
+          /* Desktop Revealed State: 5-Column Grid constrained to 3 rows if > 3 rows */
+          <div
+            ref={desktopGridContainerRef}
+            className={`w-full ${
+              desktopHasMoreThan3Rows
+                ? 'overflow-y-auto subtle-scrollbar pr-2 xl:pr-2.5 max-h-[580px] xl:max-h-[640px]'
+                : ''
+            }`}
+            style={
+              desktopHasMoreThan3Rows && desktopMaxHeight
+                ? { maxHeight: `${desktopMaxHeight}px` }
+                : undefined
+            }
+          >
+            <div className="grid grid-cols-5 gap-4 xl:gap-5 w-full animate-in fade-in duration-300">
+              {sortedPosts.map((item) => (
+                <article
+                  key={item.id}
+                  onClick={() => handleSelect(item.id)}
+                  className="group cursor-pointer transition-all duration-300 relative"
+                  title={`Open ${item.formattedDate}`}
                 >
-                  <div className="relative w-full aspect-square overflow-hidden bg-[#226192]/5 rounded-[2px]">
-                    <img
-                      src={item.src}
-                      alt={item.formattedDate}
-                      className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
-                      loading="lazy"
-                    />
+                  <div
+                    className="p-1.5 sm:p-2 bg-[#DFDBD3]/35 border border-[#226192]/20 group-hover:border-[#EF8557] transition-all duration-300 shadow-xs group-hover:shadow-md"
+                    style={{ borderRadius: '10px 3px 12px 3px / 4px 10px 4px 8px' }}
+                  >
+                    <div className="relative w-full aspect-square overflow-hidden bg-[#226192]/5 rounded-[2px]">
+                      <img
+                        src={item.src}
+                        alt={item.formattedDate}
+                        className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="pt-2 pb-0.5 px-0.5 text-xs font-semibold text-[#226192] tracking-tight">
+                      {item.formattedDate}
+                    </div>
                   </div>
-                  <div className="pt-2 pb-0.5 px-0.5 text-xs font-semibold text-[#226192] tracking-tight">
-                    {item.formattedDate}
-                  </div>
-                </div>
-              </article>
-            ))}
+                </article>
+              ))}
+            </div>
           </div>
         )}
       </div>
@@ -319,33 +392,47 @@ export const AllPostClient: React.FC<AllPostClientProps> = ({ posts }) => {
             </div>
           </div>
         ) : (
-          /* Mobile Default State: 2-Column (or 3 on tablet) Grid */
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 w-full">
-            {sortedPosts.map((item) => (
-              <article
-                key={item.id}
-                onClick={() => handleSelect(item.id)}
-                className="group cursor-pointer transition-all duration-300 relative"
-                title={`Open ${item.formattedDate}`}
-              >
-                <div
-                  className="p-1.5 sm:p-2 bg-[#DFDBD3]/35 border border-[#226192]/20 group-hover:border-[#EF8557] transition-all duration-300 shadow-xs group-hover:shadow-md"
-                  style={{ borderRadius: '10px 3px 12px 3px / 4px 10px 4px 8px' }}
+          /* Mobile Revealed State: 3-Column Grid constrained to 3 rows if > 3 rows */
+          <div
+            ref={mobileGridContainerRef}
+            className={`w-full ${
+              mobileHasMoreThan3Rows
+                ? 'overflow-y-auto subtle-scrollbar pr-1.5 max-h-[415px] sm:max-h-[580px] md:max-h-[640px]'
+                : ''
+            }`}
+            style={
+              mobileHasMoreThan3Rows && mobileMaxHeight
+                ? { maxHeight: `${mobileMaxHeight}px` }
+                : undefined
+            }
+          >
+            <div className="grid grid-cols-3 gap-2 sm:gap-3 md:gap-4 w-full animate-in fade-in duration-300">
+              {sortedPosts.map((item) => (
+                <article
+                  key={item.id}
+                  onClick={() => handleSelect(item.id)}
+                  className="group cursor-pointer transition-all duration-300 relative"
+                  title={`Open ${item.formattedDate}`}
                 >
-                  <div className="relative w-full aspect-square overflow-hidden bg-[#226192]/5 rounded-[2px]">
-                    <img
-                      src={item.src}
-                      alt={item.formattedDate}
-                      className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
-                      loading="lazy"
-                    />
+                  <div
+                    className="p-1 sm:p-1.5 md:p-2 bg-[#DFDBD3]/35 border border-[#226192]/20 group-hover:border-[#EF8557] transition-all duration-300 shadow-xs group-hover:shadow-md"
+                    style={{ borderRadius: '10px 3px 12px 3px / 4px 10px 4px 8px' }}
+                  >
+                    <div className="relative w-full aspect-square overflow-hidden bg-[#226192]/5 rounded-[2px]">
+                      <img
+                        src={item.src}
+                        alt={item.formattedDate}
+                        className="w-full h-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="pt-1.5 pb-0.5 px-0.5 text-[10px] min-[380px]:text-[11px] sm:text-xs font-semibold text-[#226192] tracking-tight truncate text-left">
+                      {item.formattedDate}
+                    </div>
                   </div>
-                  <div className="pt-2 pb-0.5 px-0.5 text-xs font-semibold text-[#226192] tracking-tight">
-                    {item.formattedDate}
-                  </div>
-                </div>
-              </article>
-            ))}
+                </article>
+              ))}
+            </div>
           </div>
         )}
       </div>

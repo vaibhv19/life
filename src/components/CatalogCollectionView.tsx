@@ -33,14 +33,14 @@ export const CatalogCollectionView: React.FC<CatalogCollectionViewProps> = ({
 
   return (
     <div className="w-full flex flex-col">
-      {/* Return to Catalog Index Navigation */}
+      {/* Return to Home Navigation */}
       <div className="mb-8">
         <Link
-          href="/catalog"
+          href="/"
           className="inline-flex items-center gap-2 text-xs font-semibold text-[#EF8557] hover:text-[#2C7BB8] transition-colors"
         >
           <span>←</span>
-          <span>Return to Catalog Index</span>
+          <span>Return to Home</span>
         </Link>
       </div>
 

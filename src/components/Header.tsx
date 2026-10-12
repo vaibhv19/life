@@ -40,9 +40,7 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const pathname = usePathname();
   const isHomePage = pathname === '/';
-  const isCatalogPage = pathname.startsWith('/catalog') || (isHomePage && activeView === 'series');
   const isNotesPage = pathname.startsWith('/notes');
-  const isAllPostPage = pathname.startsWith('/all-post') || (isHomePage && activeView === 'chronology');
   const isBetweenUsPage = pathname.startsWith('/between-us');
 
   return (
@@ -59,6 +57,7 @@ export const Header: React.FC<HeaderProps> = ({
               if (onSelectView) onSelectView('all');
             }
           }}
+          aria-current={isHomePage ? 'page' : undefined}
           className={`text-base sm:text-lg font-bold tracking-tight transition-colors duration-200 cursor-pointer relative py-1 focus:outline-none shrink-0 bg-transparent border-none p-0 appearance-none ${
             isHomePage
               ? 'text-[#2C7BB8] hover:text-[#EF8557]'
@@ -67,25 +66,12 @@ export const Header: React.FC<HeaderProps> = ({
           title="Return to Life Homepage"
         >
           Home
+          {isHomePage && <ActiveWave />}
         </Link>
 
-        {/* RIGHT: Archive Catalog, Notes, All Post & [ Between Us ] Button Navigation */}
+        {/* RIGHT: Notes & [ Between Us ] Button Navigation */}
         <nav aria-label="Main Navigation" className="flex items-center gap-3 sm:gap-5 md:gap-6 shrink-0">
-          {/* 1. Catalog */}
-          <Link
-            href="/catalog"
-            aria-current={isCatalogPage ? 'page' : undefined}
-            className={`text-xs sm:text-sm md:text-base font-medium tracking-normal transition-colors duration-200 cursor-pointer relative inline-block py-1 focus:outline-none ${
-              isCatalogPage
-                ? 'text-[#2C7BB8] font-semibold hover:text-[#EF8557]'
-                : 'text-[#226192] hover:text-[#EF8557]'
-            }`}
-          >
-            Catalog
-            {isCatalogPage && <ActiveWave />}
-          </Link>
-
-          {/* 2. Notes */}
+          {/* 1. Notes */}
           <Link
             href="/notes"
             aria-current={isNotesPage ? 'page' : undefined}
@@ -99,21 +85,7 @@ export const Header: React.FC<HeaderProps> = ({
             {isNotesPage && <ActiveWave />}
           </Link>
 
-          {/* 3. All Post */}
-          <Link
-            href="/all-post"
-            aria-current={isAllPostPage ? 'page' : undefined}
-            className={`text-xs sm:text-sm md:text-base font-medium tracking-normal transition-colors duration-200 cursor-pointer relative inline-block py-1 focus:outline-none ${
-              isAllPostPage
-                ? 'text-[#2C7BB8] font-semibold hover:text-[#EF8557]'
-                : 'text-[#226192] hover:text-[#EF8557]'
-            }`}
-          >
-            All Post
-            {isAllPostPage && <ActiveWave />}
-          </Link>
-
-          {/* 4. [ Between Us ] Button (Organic Hand-Cut Shape, Cream Fill, Burgundy Text) */}
+          {/* 2. [ Between Us ] Button (Organic Hand-Cut Shape, Cream Fill, Burgundy Text) */}
           <Link
             href="/between-us"
             className={`btn-palette-b cursor-pointer focus:outline-none px-3.5 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-semibold tracking-tight hover:scale-[1.02] active:scale-[0.98] shadow-sm select-none shrink-0 ${

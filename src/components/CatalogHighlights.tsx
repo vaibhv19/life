@@ -31,7 +31,7 @@ export const CatalogHighlights: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   return (
-    <section aria-label="Catalog Highlights" className="w-full pb-4 sm:pb-5 select-none">
+    <section aria-label="Catalog Highlights" className="w-full select-none">
       <div className="content-container">
         {/* 1. Instagram Highlights Row */}
         <div className="w-full pt-1 pb-0">
@@ -90,15 +90,11 @@ export const CatalogHighlights: React.FC = () => {
           </div>
         </div>
 
-        {/* 2. Understated Editorial Statement below highlights */}
-        <div className="mt-4 sm:mt-6 md:mt-7">
-          <p className="font-editorial-italic text-base sm:text-lg md:text-xl text-[#226192] tracking-tight">
-            My social media profile, except I own the platform.
-          </p>
-        </div>
+        {/* 2. Subtle horizontal separator between highlights row and media archive */}
+        <div className="content-divider mt-4 sm:mt-5 md:mt-6 mb-6 sm:mb-8 md:mb-10" />
       </div>
 
-      {/* 3. Instagram-Style Story Viewer Modal */}
+      {/* 2. Instagram-Style Story Viewer Modal */}
       {activeCategory && (
         <StoryViewer
           categoryId={activeCategory}
