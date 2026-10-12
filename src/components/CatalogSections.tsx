@@ -140,7 +140,7 @@ export const CatalogSections: React.FC = () => {
               className="inline-block bg-[#EF8557] text-[#226192] text-xs sm:text-sm font-bold tracking-wider uppercase px-4 sm:px-5 py-1.5 sm:py-2 shadow-sm select-none mb-4 sm:mb-5 leading-snug"
               style={{ borderRadius: '18px 5px 22px 7px / 8px 20px 7px 16px' }}
             >
-              ME
+              Personal
             </h2>
             {renderHighlightRow(ME_HIGHLIGHTS)}
           </div>

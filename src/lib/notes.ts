@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { MOCK_NOTES } from '@/data/mockNotes';
 
 export interface NoteEntry {
   slug: string;
@@ -78,24 +79,28 @@ function parseNoteFile(rawContent: string, slug: string): NoteEntry {
 
 /**
  * Retrieves all notes from content/notes/, sorted newest to oldest.
+ * If no user markdown files exist in content/notes/, falls back to MOCK_NOTES.
  */
 export function getAllNotes(): NoteEntry[] {
   try {
     const notesDir = path.join(process.cwd(), 'content', 'notes');
-    if (!fs.existsSync(notesDir)) {
-      return [];
+    let notes: NoteEntry[] = [];
+
+    if (fs.existsSync(notesDir)) {
+      const files = fs.readdirSync(notesDir);
+      for (const file of files) {
+        if (file.endsWith('.md') || file.endsWith('.markdown')) {
+          const filePath = path.join(notesDir, file);
+          const raw = fs.readFileSync(filePath, 'utf-8');
+          const slug = file.replace(/\.(md|markdown)$/i, '');
+          notes.push(parseNoteFile(raw, slug));
+        }
+      }
     }
 
-    const files = fs.readdirSync(notesDir);
-    const notes: NoteEntry[] = [];
-
-    for (const file of files) {
-      if (file.endsWith('.md') || file.endsWith('.markdown')) {
-        const filePath = path.join(notesDir, file);
-        const raw = fs.readFileSync(filePath, 'utf-8');
-        const slug = file.replace(/\.(md|markdown)$/i, '');
-        notes.push(parseNoteFile(raw, slug));
-      }
+    // Fall back to mock notes for UI/UX prototyping if no real notes exist
+    if (notes.length === 0) {
+      return MOCK_NOTES;
     }
 
     // Sort by date descending if dates exist, otherwise slug
@@ -111,12 +116,13 @@ export function getAllNotes(): NoteEntry[] {
     return notes;
   } catch (error) {
     console.error('Error reading notes:', error);
-    return [];
+    return MOCK_NOTES;
   }
 }
 
 /**
  * Retrieves a single note by slug.
+ * Checks content/notes/ first, then falls back to MOCK_NOTES.
  */
 export function getNoteBySlug(slug: string): NoteEntry | null {
   try {
@@ -131,14 +137,16 @@ export function getNoteBySlug(slug: string): NoteEntry | null {
       targetPath = markdownPath;
     }
 
-    if (!targetPath) {
-      return null;
+    if (targetPath) {
+      const raw = fs.readFileSync(targetPath, 'utf-8');
+      return parseNoteFile(raw, slug);
     }
 
-    const raw = fs.readFileSync(targetPath, 'utf-8');
-    return parseNoteFile(raw, slug);
+    // Fall back to mock notes
+    const mockMatch = MOCK_NOTES.find((n) => n.slug === slug);
+    return mockMatch || null;
   } catch (error) {
     console.error(`Error reading note ${slug}:`, error);
-    return null;
+    return MOCK_NOTES.find((n) => n.slug === slug) || null;
   }
 }
