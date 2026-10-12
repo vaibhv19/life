@@ -18,7 +18,7 @@ export default async function BetweenUsPage() {
   const person = await getAuthenticatedPerson();
 
   return (
-    <div className="flex flex-col min-h-screen w-full bg-transparent text-[#1546D9] antialiased">
+    <div className="flex flex-col min-h-screen w-full bg-transparent text-[#226192] antialiased">
       {/* 01. Global Editorial Header */}
       <Header />
 

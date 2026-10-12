@@ -31,7 +31,7 @@ export default function RootLayout({
       lang="en"
       className={`${syne.variable} h-full antialiased`}
     >
-      <body className="min-h-full w-full bg-[#EDECE6] text-[#1546D9] font-sans selection:bg-[#F9B318] selection:text-[#EDECE6] flex flex-col relative font-[family-name:var(--font-syne)]">
+      <body className="min-h-full w-full bg-[#EAE6DE] text-[#226192] font-sans selection:bg-[#EF8557] selection:text-[#EAE6DE] flex flex-col relative font-[family-name:var(--font-syne)]">
         {/* Full-Viewport Fixed Background Layer (Stationary during scrolling) */}
         <FixedBackground />
 

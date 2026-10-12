@@ -27,9 +27,9 @@ export const Header: React.FC<HeaderProps> = ({
   const isBetweenUsPage = pathname.startsWith('/between-us');
 
   return (
-    <header className="sticky top-0 z-40 w-full bg-[#EDECE6]/95 backdrop-blur-md select-none">
+    <header className="sticky top-0 z-40 w-full bg-[#EAE6DE]/95 backdrop-blur-md select-none">
       <div className="content-container">
-        <div className="h-14 sm:h-16 py-3 sm:py-4 flex items-center justify-between gap-3 sm:gap-6 border-b border-[#1546D9]/25">
+        <div className="h-14 sm:h-16 py-3 sm:py-4 flex items-center justify-between gap-3 sm:gap-6 border-b border-[#226192]/25">
         {/* LEFT: Home link */}
         <Link
           href="/"
@@ -40,16 +40,14 @@ export const Header: React.FC<HeaderProps> = ({
               if (onSelectView) onSelectView('all');
             }
           }}
-          className={`group text-base sm:text-lg font-bold tracking-tight transition-all cursor-pointer relative py-1 focus:outline-none shrink-0 bg-transparent border-none p-0 appearance-none ${
+          className={`text-base sm:text-lg font-bold tracking-tight transition-colors duration-200 cursor-pointer relative py-1 focus:outline-none shrink-0 bg-transparent border-none p-0 appearance-none ${
             isHomePage
-              ? 'text-[#2E5DE8] after:w-full'
-              : 'text-[#1546D9] hover:text-[#2E5DE8]'
+              ? 'text-[#2C7BB8] hover:text-[#EF8557]'
+              : 'text-[#226192] hover:text-[#EF8557]'
           }`}
           title="Return to Life Homepage"
         >
-          <span className="inline-block relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#1546D9] group-hover:after:w-full after:transition-all after:duration-300 after:ease-out">
-            Home
-          </span>
+          Home
         </Link>
 
         {/* RIGHT: Archive Catalog, Notes, All Post & [ Between Us ] Button Navigation */}
@@ -57,50 +55,44 @@ export const Header: React.FC<HeaderProps> = ({
           {/* 1. Catalog */}
           <Link
             href="/catalog"
-            className={`group text-xs sm:text-sm md:text-base font-medium tracking-normal transition-all cursor-pointer relative py-1 focus:outline-none ${
+            className={`text-xs sm:text-sm md:text-base font-medium tracking-normal transition-colors duration-200 cursor-pointer relative py-1 focus:outline-none ${
               isCatalogPage
-                ? 'text-[#2E5DE8] font-semibold after:w-full'
-                : 'text-[#1546D9] hover:text-[#2E5DE8]'
+                ? 'text-[#2C7BB8] font-semibold hover:text-[#EF8557]'
+                : 'text-[#226192] hover:text-[#EF8557]'
             }`}
           >
-            <span className="inline-block relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#1546D9] group-hover:after:w-full after:transition-all after:duration-300 after:ease-out">
-              Catalog
-            </span>
+            Catalog
           </Link>
 
           {/* 2. Notes */}
           <Link
             href="/notes"
-            className={`group text-xs sm:text-sm md:text-base font-medium tracking-normal transition-all cursor-pointer relative py-1 focus:outline-none ${
+            className={`text-xs sm:text-sm md:text-base font-medium tracking-normal transition-colors duration-200 cursor-pointer relative py-1 focus:outline-none ${
               isNotesPage
-                ? 'text-[#2E5DE8] font-semibold after:w-full'
-                : 'text-[#1546D9] hover:text-[#2E5DE8]'
+                ? 'text-[#2C7BB8] font-semibold hover:text-[#EF8557]'
+                : 'text-[#226192] hover:text-[#EF8557]'
             }`}
           >
-            <span className="inline-block relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#1546D9] group-hover:after:w-full after:transition-all after:duration-300 after:ease-out">
-              Notes
-            </span>
+            Notes
           </Link>
 
           {/* 3. All Post */}
           <Link
             href="/all-post"
-            className={`group text-xs sm:text-sm md:text-base font-medium tracking-normal transition-all cursor-pointer relative py-1 focus:outline-none ${
+            className={`text-xs sm:text-sm md:text-base font-medium tracking-normal transition-colors duration-200 cursor-pointer relative py-1 focus:outline-none ${
               isAllPostPage
-                ? 'text-[#2E5DE8] font-semibold after:w-full'
-                : 'text-[#1546D9] hover:text-[#2E5DE8]'
+                ? 'text-[#2C7BB8] font-semibold hover:text-[#EF8557]'
+                : 'text-[#226192] hover:text-[#EF8557]'
             }`}
           >
-            <span className="inline-block relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-0 after:h-[2px] after:bg-[#1546D9] group-hover:after:w-full after:transition-all after:duration-300 after:ease-out">
-              All Post
-            </span>
+            All Post
           </Link>
 
           {/* 4. [ Between Us ] Button (Organic Hand-Cut Shape, Cream Fill, Burgundy Text) */}
           <Link
             href="/between-us"
             className={`btn-palette-b cursor-pointer focus:outline-none px-3.5 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-semibold tracking-tight hover:scale-[1.02] active:scale-[0.98] shadow-sm select-none shrink-0 ${
-              isBetweenUsPage ? 'ring-2 ring-[#F9B318]/60' : ''
+              isBetweenUsPage ? 'ring-2 ring-[#EF8557]/60' : ''
             }`}
             style={{
               borderRadius: '18px 5px 22px 7px / 8px 20px 7px 16px',

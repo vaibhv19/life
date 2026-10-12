@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 
 interface HeroArchiveProps {
   featuredItem?: unknown;
@@ -12,40 +11,29 @@ interface HeroArchiveProps {
 
 export const HeroArchive: React.FC<HeroArchiveProps> = () => {
   return (
-    <section className="relative w-full pt-12 sm:pt-20 lg:pt-24 pb-4 sm:pb-6 select-none">
+    <section className="relative w-full pt-6 sm:pt-8 md:pt-10 pb-4 sm:pb-6 select-none">
       <div className="content-container">
-        {/* Restrained Introductory Heading Establishing Personal Identity */}
-        <div className="mb-8 sm:mb-10">
-          <h1 className="text-sm sm:text-base md:text-lg font-medium text-[#1546D9]/80 tracking-tight">
-            Who is @vaibhv19 apart from code?
-          </h1>
+        {/* Balanced Two-Column Composition: Portrait & Quote/CTA */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 sm:gap-10 lg:gap-12 items-start">
+          {/* Column 1: Supporting Portrait Image */}
+          <div className="md:col-span-4 w-full">
+            <div className="relative aspect-[3/4] w-full max-w-[220px] sm:max-w-[250px] md:max-w-none mx-auto overflow-hidden rounded-md border border-[#226192]/25 shadow-xs transform -rotate-[3.5deg] hover:-rotate-[1deg] transition-transform duration-500 ease-out origin-center">
+              <img
+                src="/archive/Warm Acoustic Guitar Portrait.png"
+                alt="Vaibhav Gupta"
+                className="w-full h-full object-cover object-center"
+                loading="eager"
+              />
+            </div>
+          </div>
+
+          {/* Column 2: Visual Quote */}
+          <div className="md:col-span-8 flex flex-col items-center md:items-start text-center md:text-left pt-3 md:pt-12">
+            <blockquote className="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-medium italic tracking-tight text-[#226192] leading-tight sm:leading-snug">
+              I think if I do nothing on this planet than make people feel a little more loved, then I have served my purpose well.
+            </blockquote>
+          </div>
         </div>
-
-        {/* Primary Visual Quote — Exact five-line italic composition */}
-        <blockquote className="text-2xl sm:text-3xl md:text-4xl font-medium italic tracking-tight text-[#1546D9] leading-tight sm:leading-snug mb-10 sm:mb-12">
-          <span className="block">“I THINK IF I DO <span className="text-[#F9B318]">NOTHING</span></span>
-          <span className="block">ON THIS PLANET THAT MAKES</span>
-          <span className="block">PEOPLE FEEL A LITTLE <span className="text-[#F9B318]">MORE</span></span>
-          <span className="block"><span className="text-[#F9B318]">LOVED</span>, THEN I HAVE SERVED</span>
-          <span className="block"><span className="text-[#F9B318]">MY PURPOSE</span> WELL.”</span>
-        </blockquote>
-
-        {/* Between Us Organic Button */}
-        <div>
-          <Link
-            href="/between-us"
-            className="btn-palette-b cursor-pointer focus:outline-none px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold tracking-tight hover:scale-[1.02] active:scale-[0.98] shadow-sm select-none inline-block leading-snug"
-            style={{
-              borderRadius: '18px 5px 22px 7px / 8px 20px 7px 16px',
-            }}
-            title="Open Between Us private space"
-          >
-            I might have something specially for you
-          </Link>
-        </div>
-
-        {/* Section separator aligned with content width */}
-        <div className="content-divider mt-12 sm:mt-16 lg:mt-20" />
       </div>
     </section>
   );

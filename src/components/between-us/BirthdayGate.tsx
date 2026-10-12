@@ -74,15 +74,15 @@ export const BirthdayGate: React.FC = () => {
   return (
     <div className="w-full max-w-xl mx-auto py-16 sm:py-24 px-4 flex flex-col items-center select-none text-center">
       {/* Editorial Marker */}
-      <div className="text-[11px] font-bold uppercase tracking-widest text-[#F9B318] mb-3">
+      <div className="text-[11px] font-bold uppercase tracking-widest text-[#EF8557] mb-3">
         BETWEEN US // PERSONAL REPOSITORY
       </div>
 
-      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#1546D9] mb-3">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#226192] mb-3">
         Between Us
       </h1>
 
-      <p className="text-xs sm:text-sm text-[#1546D9]/70 max-w-sm mb-10 leading-relaxed font-normal">
+      <p className="text-xs sm:text-sm text-[#226192]/70 max-w-sm mb-10 leading-relaxed font-normal">
         A quiet collection of personal spaces. Enter your birth date to open your corner.
       </p>
 
@@ -104,13 +104,13 @@ export const BirthdayGate: React.FC = () => {
                   document.getElementById('bu-month')?.focus();
                 }
               }}
-              className="w-16 sm:w-20 text-center py-2.5 sm:py-3 bg-[#1546D9]/[0.06] border border-[#1546D9]/30 text-[#1546D9] placeholder-[#1546D9]/30 text-base sm:text-lg font-semibold tracking-wider focus:outline-none focus:border-[#F9B318] transition-colors rounded-sm"
+              className="w-16 sm:w-20 text-center py-2.5 sm:py-3 bg-[#226192]/[0.06] border border-[#226192]/30 text-[#226192] placeholder-[#226192]/30 text-base sm:text-lg font-semibold tracking-wider focus:outline-none focus:border-[#EF8557] transition-colors rounded-sm"
               autoFocus
             />
-            <span className="text-[10px] uppercase tracking-widest text-[#1546D9]/50 mt-1">Day</span>
+            <span className="text-[10px] uppercase tracking-widest text-[#226192]/50 mt-1">Day</span>
           </div>
 
-          <span className="text-[#1546D9]/40 text-lg font-light pb-4">/</span>
+          <span className="text-[#226192]/40 text-lg font-light pb-4">/</span>
 
           {/* Month */}
           <div className="flex flex-col items-center">
@@ -128,12 +128,12 @@ export const BirthdayGate: React.FC = () => {
                   document.getElementById('bu-year')?.focus();
                 }
               }}
-              className="w-16 sm:w-20 text-center py-2.5 sm:py-3 bg-[#1546D9]/[0.06] border border-[#1546D9]/30 text-[#1546D9] placeholder-[#1546D9]/30 text-base sm:text-lg font-semibold tracking-wider focus:outline-none focus:border-[#F9B318] transition-colors rounded-sm"
+              className="w-16 sm:w-20 text-center py-2.5 sm:py-3 bg-[#226192]/[0.06] border border-[#226192]/30 text-[#226192] placeholder-[#226192]/30 text-base sm:text-lg font-semibold tracking-wider focus:outline-none focus:border-[#EF8557] transition-colors rounded-sm"
             />
-            <span className="text-[10px] uppercase tracking-widest text-[#1546D9]/50 mt-1">Month</span>
+            <span className="text-[10px] uppercase tracking-widest text-[#226192]/50 mt-1">Month</span>
           </div>
 
-          <span className="text-[#1546D9]/40 text-lg font-light pb-4">/</span>
+          <span className="text-[#226192]/40 text-lg font-light pb-4">/</span>
 
           {/* Year */}
           <div className="flex flex-col items-center">
@@ -148,15 +148,15 @@ export const BirthdayGate: React.FC = () => {
                 const val = e.target.value.replace(/\D/g, '');
                 setYear(val);
               }}
-              className="w-20 sm:w-24 text-center py-2.5 sm:py-3 bg-[#1546D9]/[0.06] border border-[#1546D9]/30 text-[#1546D9] placeholder-[#1546D9]/30 text-base sm:text-lg font-semibold tracking-wider focus:outline-none focus:border-[#F9B318] transition-colors rounded-sm"
+              className="w-20 sm:w-24 text-center py-2.5 sm:py-3 bg-[#226192]/[0.06] border border-[#226192]/30 text-[#226192] placeholder-[#226192]/30 text-base sm:text-lg font-semibold tracking-wider focus:outline-none focus:border-[#EF8557] transition-colors rounded-sm"
             />
-            <span className="text-[10px] uppercase tracking-widest text-[#1546D9]/50 mt-1">Year</span>
+            <span className="text-[10px] uppercase tracking-widest text-[#226192]/50 mt-1">Year</span>
           </div>
         </div>
 
         {/* Gentle Notice */}
         {notice && (
-          <div className="text-xs text-[#F9B318] font-medium tracking-wide">
+          <div className="text-xs text-[#EF8557] font-medium tracking-wide">
             {notice}
           </div>
         )}

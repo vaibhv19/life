@@ -43,17 +43,12 @@ export const PasswordGate: React.FC = () => {
 
   return (
     <div className="w-full max-w-md mx-auto py-16 sm:py-24 px-4 flex flex-col items-center select-none text-center">
-      {/* Editorial Marker */}
-      <div className="text-[11px] font-bold uppercase tracking-widest text-[#F9B318] mb-3">
-        VAULT KEY // LEVEL 02
-      </div>
-
-      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#1546D9] mb-3">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#226192] mb-3">
         Extraa
       </h1>
 
-      <p className="text-xs sm:text-sm text-[#1546D9]/70 max-w-sm mb-10 leading-relaxed font-normal">
-        Private personal material, unpublished books, and internal archives.
+      <p className="text-xs sm:text-sm text-[#226192]/80 max-w-sm mb-8 leading-relaxed font-normal">
+        An unlisted space for personal writings, unpublished manuscripts, bucket list objectives, and internal archives kept away from the public site.
       </p>
 
       {/* Understated Password Form */}
@@ -64,14 +59,14 @@ export const PasswordGate: React.FC = () => {
             placeholder="Enter access passphrase"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full text-center py-3 px-4 bg-[#1546D9]/[0.06] border border-[#1546D9]/30 text-[#1546D9] placeholder-[#1546D9]/30 text-sm sm:text-base font-medium focus:outline-none focus:border-[#F9B318] transition-colors rounded-sm tracking-widest"
+            className="w-full text-center py-3 px-4 bg-[#226192]/[0.06] border border-[#226192]/30 text-[#226192] placeholder-[#226192]/30 text-sm sm:text-base font-medium focus:outline-none focus:border-[#EF8557] transition-colors rounded-sm tracking-widest"
             autoFocus
           />
         </div>
 
         {/* Access Denied Feedback */}
         {errorState && (
-          <div className="text-xs text-[#F9B318] font-medium tracking-wide">
+          <div className="text-xs text-[#EF8557] font-medium tracking-wide">
             {errorState}
           </div>
         )}

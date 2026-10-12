@@ -47,7 +47,7 @@ export default async function CatalogCollectionPage({ params }: PageProps) {
   const travelLocations = collectionId === 'travel' ? getTravelLocations() : [];
 
   return (
-    <div className="flex flex-col min-h-screen w-full bg-transparent text-[#1546D9] antialiased">
+    <div className="flex flex-col min-h-screen w-full bg-transparent text-[#226192] antialiased">
       {/* 01. Global Editorial Header */}
       <Header />
 

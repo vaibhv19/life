@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --color-burgundy: #EDECE6;
-  --color-burgundy-deep: #E2E1DA;
-  --color-burgundy-surface: #F5F4EF;
+  --color-burgundy: #EAE6DE;
+  --color-burgundy-deep: #DFDBD3;
+  --color-burgundy-surface: #F2EFE7;
   
-  --color-cream: #1546D9;
-  --color-cream-light: #2E5DE8;
-  --color-cream-muted: #204FD8;
-  --color-cream-dark: #1A43B8;
+  --color-cream: #226192;
+  --color-cream-light: #2C7BB8;
+  --color-cream-muted: #1D537D;
+  --color-cream-dark: #174263;
   
-  --color-dusty-pink: #F9B318;
-  --color-dusty-pink-dark: #D8970E;
+  --color-dusty-pink: #EF8557;
+  --color-dusty-pink-dark: #D86D3E;
   
-  --color-border-cream: rgba(21, 70, 217, 0.25);
-  --color-border-cream-strong: rgba(21, 70, 217, 0.6);
+  --color-border-cream: rgba(34, 97, 146, 0.25);
+  --color-border-cream-strong: rgba(34, 97, 146, 0.6);
 
   --font-serif: var(--font-syne), system-ui, -apple-system, sans-serif;
   --font-sans: var(--font-syne), system-ui, -apple-system, sans-serif;
@@ -24,14 +24,14 @@
 
 /* Global resets & Canvas */
 :root {
-  --canvas-bg: #EDECE6;
-  --canvas-fg: #1546D9;
-  --canvas-accent: #F9B318;
+  --canvas-bg: #EAE6DE;
+  --canvas-fg: #226192;
+  --canvas-accent: #EF8557;
 }
 
 html, body {
-  background-color: #EDECE6;
-  color: #1546D9;
+  background-color: #EAE6DE;
+  color: #226192;
   font-family: var(--font-syne), system-ui, -apple-system, sans-serif;
   color-scheme: light;
 }
@@ -57,16 +57,16 @@ html, body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #EDECE6;
+  background: #EAE6DE;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1546D9;
+  background: #226192;
   border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #F9B318;
+  background: #EF8557;
 }
 
 /* Grain texture overlay (ultra-subtle) */
@@ -80,7 +80,7 @@ html, body {
   inset: 0;
   pointer-events: none;
   opacity: 0.03;
-  background-image: radial-gradient(rgba(21, 70, 217, 0.9) 1px, transparent 0);
+  background-image: radial-gradient(rgba(34, 97, 146, 0.9) 1px, transparent 0);
   background-size: 8px 8px;
 }
 
@@ -104,19 +104,96 @@ html, body {
 .content-divider {
   width: 100%;
   height: 1px;
-  background-color: rgba(21, 70, 217, 0.2);
+  background-color: rgba(34, 97, 146, 0.2);
 }
 
-/* Shared Button Styles (Palette B: Sun Yellow background, Cobalt Blue text) */
-.btn-palette-b {
-  background-color: #F9B318 !important;
-  color: #1546D9 !important;
+/* Shared Button Styles (Palette C: Coral Orange background, Deep Editorial Blue text) */
+.btn-palette-b,
+.btn-palette-c {
+  background-color: #EF8557 !important;
+  color: #226192 !important;
   transition: all 0.2s ease-out;
 }
 
-.btn-palette-b:hover {
-  background-color: #E5A312 !important;
-  color: #1546D9 !important;
+.btn-palette-b:hover,
+.btn-palette-c:hover {
+  background-color: #E27443 !important;
+  color: #226192 !important;
 }
+
+/* Editorial Page Transitions (Smooth fade & subtle vertical glide) */
+@keyframes pageEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-transition {
+  animation: pageEnter 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  width: 100%;
+  flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-transition {
+    animation: none !important;
+    transform: none !important;
+  }
+}
+
+/* Editorial Tilted Marquee Animation */
+@keyframes marqueeScroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.marquee-track {
+  animation: marqueeScroll 28s linear infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation-play-state: paused !important;
+  }
+}
+
+/* Subtle Typewriter Blinking Cursor */
+@keyframes typewriterBlink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.05em;
+  background-color: #EF8557;
+  vertical-align: -0.12em;
+  animation: typewriterBlink 0.75s steps(2, start) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .typewriter-cursor {
+    display: none !important;
+  }
+}
+
+
 
 

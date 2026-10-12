@@ -61,17 +61,17 @@ export const LikeButton: React.FC<LikeButtonProps> = ({
         onClick={handleToggle}
         aria-label={isLiked ? `Unlike this ${itemType}` : `Like this ${itemType}`}
         aria-pressed={isLiked}
-        className={`group inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-mono transition-all duration-200 cursor-pointer select-none border focus:outline-none focus:ring-2 focus:ring-[#F9B318]/40 ${
+        className={`group inline-flex items-center gap-2 px-3.5 py-1.5 text-xs font-mono transition-all duration-200 cursor-pointer select-none border focus:outline-none focus:ring-2 focus:ring-[#EF8557]/40 ${
           isLiked
-            ? 'btn-palette-b border-[#F9B318] shadow-sm'
-            : 'bg-transparent text-[#1546D9]/80 border-[#1546D9]/30 hover:border-[#F9B318] hover:text-[#1546D9]'
+            ? 'btn-palette-b border-[#EF8557] shadow-sm'
+            : 'bg-transparent text-[#226192]/80 border-[#226192]/30 hover:border-[#EF8557] hover:text-[#226192]'
         }`}
         style={{ borderRadius: '14px 4px 16px 4px / 6px 14px 6px 12px' }}
       >
         {/* Heart Icon SVG */}
         <svg
           className={`w-3.5 h-3.5 transition-transform duration-200 ${
-            isLiked ? 'scale-110 text-[#1546D9]' : 'text-current group-hover:scale-105'
+            isLiked ? 'scale-110 text-[#226192]' : 'text-current group-hover:scale-105'
           }`}
           viewBox="0 0 24 24"
           fill={isLiked ? 'currentColor' : 'none'}
