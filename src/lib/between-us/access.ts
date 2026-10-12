@@ -2,18 +2,7 @@ import 'server-only';
 import crypto from 'crypto';
 import { cookies } from 'next/headers';
 
-export type PersonId =
-  | 'zoya'
-  | 'somya'
-  | 'stuti'
-  | 'madhu'
-  | 'priyam'
-  | 'shristi'
-  | 'anushka'
-  | 'prakhar'
-  | 'sarthak'
-  | 'utsav'
-  | 'yash';
+export type PersonId = 'zoya';
 
 export interface PersonProfile {
   id: PersonId;
@@ -22,18 +11,9 @@ export interface PersonProfile {
 }
 
 // Server-only birthday mapping (NEVER exposed to the client bundle)
+// Currently supporting only Zoya's personal space (12-08-2004)
 const REGISTERED_BIRTHDAYS: Record<string, PersonProfile> = {
   '12-08-2004': { id: 'zoya', displayName: 'Zoya' },
-  '12-07-2004': { id: 'somya', displayName: 'Somya' },
-  '22-03-2004': { id: 'stuti', displayName: 'Stuti' },
-  '16-06-1974': { id: 'madhu', displayName: 'Madhu', relationship: 'Mother' },
-  '06-08-1997': { id: 'priyam', displayName: 'Priyam', relationship: 'Didi' },
-  '29-05-2004': { id: 'shristi', displayName: 'Shristi' },
-  '13-08-2005': { id: 'anushka', displayName: 'Anushka' },
-  '08-03-2004': { id: 'prakhar', displayName: 'Prakhar' },
-  '30-07-2003': { id: 'sarthak', displayName: 'Sarthak' },
-  '30-08-2002': { id: 'utsav', displayName: 'Utsav' },
-  '30-12-2004': { id: 'yash', displayName: 'Yash' },
 };
 
 const VALID_PERSON_IDS = new Set<string>(

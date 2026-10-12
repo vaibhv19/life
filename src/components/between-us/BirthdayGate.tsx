@@ -73,17 +73,12 @@ export const BirthdayGate: React.FC = () => {
 
   return (
     <div className="w-full max-w-xl mx-auto py-16 sm:py-24 px-4 flex flex-col items-center select-none text-center">
-      {/* Editorial Marker */}
-      <div className="text-[11px] font-bold uppercase tracking-widest text-[#EF8557] mb-3">
-        BETWEEN US // PERSONAL REPOSITORY
-      </div>
-
-      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#226192] mb-3">
-        Between Us
+      <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#226192] mb-2 sm:mb-2.5">
+        A space dedicated to you
       </h1>
 
-      <p className="text-xs sm:text-sm text-[#226192]/70 max-w-sm mb-10 leading-relaxed font-normal">
-        A quiet collection of personal spaces. Enter your birth date to open your corner.
+      <p className="text-xs sm:text-sm md:text-base text-[#226192]/70 max-w-sm mb-8 sm:mb-10 leading-relaxed font-normal">
+        Enter your birthday to unlock
       </p>
 
       {/* Understated Date Form */}

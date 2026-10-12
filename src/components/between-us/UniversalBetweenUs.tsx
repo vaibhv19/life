@@ -10,22 +10,9 @@ interface UniversalBetweenUsProps {
 export const UniversalBetweenUs: React.FC<UniversalBetweenUsProps> = ({ onTryAnother }) => {
   return (
     <div className="w-full max-w-2xl mx-auto py-16 sm:py-24 px-5 sm:px-8 select-none text-center">
-      {/* Editorial Marker */}
-      <div className="text-[11px] font-bold uppercase tracking-widest text-[#EF8557] mb-3">
-        BETWEEN US // AN OPEN CORNER
-      </div>
-
-      <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#226192] mb-6 leading-tight">
+      <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#226192] mb-8 sm:mb-10 leading-tight">
         This little corner is still waiting for its story.
       </h1>
-
-      <p className="text-sm sm:text-base text-[#226192]/80 max-w-xl mx-auto mb-6 leading-relaxed font-normal">
-        Not every page in this archive has been authored yet. Some spaces are left open for unhurried conversations, quiet memories, and whatever comes next.
-      </p>
-
-      <p className="text-xs sm:text-sm text-[#EF8557] font-medium tracking-wide mb-10">
-        Maybe there&apos;s something here for you someday.
-      </p>
 
       {/* Understated Nav Actions */}
       <div className="flex flex-wrap items-center justify-center gap-5 sm:gap-8 text-xs sm:text-sm">
