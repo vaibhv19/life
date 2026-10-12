@@ -169,6 +169,16 @@ html, body {
   }
 }
 
+/* Hide scrollbar utility for clean horizontal scroll strips */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 /* Subtle Typewriter Blinking Cursor */
 @keyframes typewriterBlink {
   0%, 100% {

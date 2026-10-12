@@ -11,11 +11,6 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   {
-    title: 'CATALOG',
-    subtitle: 'A collection of things worth keeping.',
-    href: '/catalog',
-  },
-  {
     title: 'NOTES',
     subtitle: "Small thoughts, observations, and things I don't want to forget.",
     href: '/notes',

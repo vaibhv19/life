@@ -21,10 +21,7 @@ export const WhatIsThisPage: React.FC = () => {
   return (
     <section ref={sectionRef} aria-label="What is this page" className="w-full select-none">
       <div className="content-container">
-        {/* Middle-column border strictly within container */}
-        <div className="content-divider" />
-
-        <div className="py-12 sm:py-16 md:py-20">
+        <div className="pt-2 sm:pt-4 md:pt-6 pb-12 sm:pb-16 md:pb-20">
           {/* Section Title (Types First) */}
           <TypewriterSpan
             as="h2"
