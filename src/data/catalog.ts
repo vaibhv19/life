@@ -84,7 +84,16 @@ export interface TravelLocationNode {
  *   }
  * ]
  */
-export const TRAVEL_LOCATIONS: TravelLocationNode[] = [];
+export const TRAVEL_LOCATIONS: TravelLocationNode[] = [
+  {
+    name: 'India',
+    slug: 'india',
+    children: [
+      { name: 'Delhi', slug: 'delhi' },
+      { name: 'Himachal', slug: 'himachal' },
+    ],
+  },
+];
 
 export interface CatalogImageEntry {
   id: string;
@@ -99,17 +108,105 @@ export interface CatalogImageEntry {
 /**
  * Curated catalog assignments referencing underlying images.
  * A single photograph can belong to multiple collections without file duplication.
- *
- * Example:
- * [
- *   {
- *     id: '2026-09-28-01',
- *     src: '/archive/2026-09-28-01.jpeg',
- *     date: '28 September 2026',
- *     title: 'Morning Sun',
- *     collections: ['fav-moments', 'travel'],
- *     travelPath: ['India', 'Delhi'],
- *   }
- * ]
  */
-export const CATALOG_ITEMS: CatalogImageEntry[] = [];
+export const CATALOG_ITEMS: CatalogImageEntry[] = [
+  {
+    id: 'fav-01',
+    src: '/archive/2026-09-28-01.jpeg',
+    date: '28 Sep 2026',
+    title: 'Morning Sun & Shadows',
+    caption: 'Low autumn sun slicing through dust above the crosswalk.',
+    collections: ['fav-moments', 'travel', 'art'],
+    travelPath: ['India', 'Delhi'],
+  },
+  {
+    id: 'fav-02',
+    src: '/archive/2026-09-28-03.jpeg',
+    date: '15 Aug 2026',
+    title: 'Exhibition Forms',
+    caption: 'Quiet reflections inside the gallery space.',
+    collections: ['fav-moments', 'art'],
+  },
+  {
+    id: 'fav-03',
+    src: '/archive/2026-09-28-04.jpeg',
+    date: '02 Jul 2026',
+    title: 'Shared Laughter',
+    caption: 'Unscripted afternoon with the people who matter most.',
+    collections: ['fav-moments', 'people-i-love'],
+  },
+  {
+    id: 'fitness-01',
+    src: '/archive/2026-09-28-02.jpeg',
+    date: '20 Sep 2026',
+    title: 'Morning Conditioning',
+    caption: 'Discipline, breath, and early movement.',
+    collections: ['fitness'],
+  },
+  {
+    id: 'art-01',
+    src: '/archive/2026-09-28-03.jpeg',
+    date: '15 Aug 2026',
+    title: 'Visual Compositions',
+    caption: 'Exploring symmetry and textured paper mediums.',
+    collections: ['art'],
+  },
+  {
+    id: 'art-02',
+    src: '/archive/Warm Acoustic Guitar Portrait.png',
+    date: '04 Jun 2026',
+    title: 'Acoustic Resonance',
+    caption: 'Studies in warmth and wood grain tones.',
+    collections: ['art', 'other-hobbies'],
+  },
+  {
+    id: 'people-01',
+    src: '/archive/2026-09-28-04.jpeg',
+    date: '02 Jul 2026',
+    title: 'Familiar Constellations',
+    caption: 'Grateful for every conversation and shared meal.',
+    collections: ['people-i-love'],
+  },
+  {
+    id: 'hobbies-01',
+    src: '/archive/Warm Acoustic Guitar Portrait.png',
+    date: '12 May 2026',
+    title: 'Warm Acoustic Guitar',
+    caption: 'Chords learned slowly in the quiet hours of evening.',
+    collections: ['other-hobbies'],
+  },
+  {
+    id: 'portrait-01',
+    src: '/cutout.png',
+    date: '10 Oct 2026',
+    title: 'Editorial Silhouette',
+    caption: 'Self-portrait experiment with clean contour lighting.',
+    collections: ['i-think-i-look-good-in-these-pics'],
+  },
+  {
+    id: 'portrait-02',
+    src: '/vaibhav-profile-cutout.png',
+    date: '24 Sep 2026',
+    title: 'Profile Study',
+    caption: 'Monochrome profile cut.',
+    collections: ['i-think-i-look-good-in-these-pics'],
+  },
+  {
+    id: 'travel-01',
+    src: '/archive/2026-09-28-05.jpeg',
+    date: '18 Sep 2026',
+    title: 'Distant Ridgelines',
+    caption: 'Watching mountain layers dissolve into morning haze.',
+    collections: ['travel'],
+    travelPath: ['India', 'Himachal'],
+  },
+  {
+    id: 'travel-02',
+    src: '/archive/2026-09-28-01.jpeg',
+    date: '28 Sep 2026',
+    title: 'Old Quarter Crossing',
+    caption: 'Walking unfamiliar streets with a camera.',
+    collections: ['travel'],
+    travelPath: ['India', 'Delhi'],
+  },
+];

@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
-import Link from 'next/link';
+import React, { useState } from 'react';
 import { CATALOG_COLLECTIONS } from '@/data/catalog';
+import { StoryViewer } from '@/components/StoryViewer';
 
 const THUMBNAIL_MAP: Record<string, string> = {
   'fav-moments': '/archive/2026-09-28-01.jpeg',
@@ -15,6 +15,8 @@ const THUMBNAIL_MAP: Record<string, string> = {
 };
 
 export const CatalogHighlights: React.FC = () => {
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
+
   return (
     <section aria-label="Catalog Highlights" className="w-full pb-5 sm:pb-6 md:pb-7 select-none">
       <div className="content-container">
@@ -25,11 +27,14 @@ export const CatalogHighlights: React.FC = () => {
               const thumbnailSrc = THUMBNAIL_MAP[category.id] || '/cutout.png';
 
               return (
-                <Link
+                <button
                   key={category.id}
-                  href={`/catalog/${category.id}`}
+                  type="button"
+                  onClick={() => setActiveCategory(category.id)}
+                  aria-haspopup="dialog"
+                  aria-label={`Open ${category.title} stories`}
                   className="group flex flex-col items-center flex-shrink-0 cursor-pointer focus:outline-none"
-                  title={`Open ${category.title} collection`}
+                  title={`Open ${category.title} stories`}
                 >
                   {/* Outer Ring with Hover Reaction */}
                   <div className="p-[3px] rounded-full border border-[#226192]/30 group-hover:border-[#EF8557] group-hover:scale-105 transition-all duration-300 ease-out">
@@ -54,7 +59,7 @@ export const CatalogHighlights: React.FC = () => {
                   >
                     {category.title}
                   </span>
-                </Link>
+                </button>
               );
             })}
           </div>
@@ -67,6 +72,16 @@ export const CatalogHighlights: React.FC = () => {
           </p>
         </div>
       </div>
+
+      {/* 3. Instagram-Style Story Viewer Modal */}
+      {activeCategory && (
+        <StoryViewer
+          categoryId={activeCategory}
+          onClose={() => setActiveCategory(null)}
+          thumbnailMap={THUMBNAIL_MAP}
+        />
+      )}
     </section>
   );
 };
+
