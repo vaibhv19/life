@@ -5,7 +5,7 @@ import React from 'react';
 export const FixedBackground: React.FC = () => {
   return (
     <div
-      className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-[#EDECE6] select-none"
+      className="fixed inset-0 pointer-events-none z-0 overflow-hidden bg-[#EAE6DE] select-none"
       aria-hidden="true"
     >
       {/* 1. Subtle Organic Tonal Variation (Vignette & Soft Parchment Lighting) */}
@@ -13,10 +13,10 @@ export const FixedBackground: React.FC = () => {
         className="absolute inset-0 pointer-events-none"
         style={{
           background: `
-            radial-gradient(ellipse 120% 70% at 50% 0%, rgba(248, 247, 241, 0.7) 0%, transparent 65%),
-            radial-gradient(ellipse 90% 85% at 15% 25%, rgba(246, 245, 239, 0.5) 0%, transparent 55%),
-            radial-gradient(ellipse 85% 85% at 85% 70%, rgba(224, 222, 214, 0.5) 0%, transparent 60%),
-            radial-gradient(ellipse 100% 100% at 50% 100%, rgba(219, 217, 208, 0.45) 0%, transparent 75%)
+            radial-gradient(ellipse 120% 70% at 50% 0%, rgba(246, 244, 238, 0.7) 0%, transparent 65%),
+            radial-gradient(ellipse 90% 85% at 15% 25%, rgba(244, 242, 236, 0.5) 0%, transparent 55%),
+            radial-gradient(ellipse 85% 85% at 85% 70%, rgba(220, 216, 208, 0.5) 0%, transparent 60%),
+            radial-gradient(ellipse 100% 100% at 50% 100%, rgba(215, 211, 203, 0.45) 0%, transparent 75%)
           `,
         }}
       />

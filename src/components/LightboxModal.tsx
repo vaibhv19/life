@@ -1,103 +1,145 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { LightboxData } from '../types';
+import { ArchiveItem } from '../types';
+import { LikeButton } from './LikeButton';
 
 interface LightboxModalProps {
-  data: LightboxData | null;
+  item: ArchiveItem | null;
   onClose: () => void;
 }
 
-export const LightboxModal: React.FC<LightboxModalProps> = ({ data, onClose }) => {
+export const LightboxModal: React.FC<LightboxModalProps> = ({ item, onClose }) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === 'Escape' && item) {
         onClose();
       }
     };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [item, onClose]);
 
-    if (data) {
-      window.addEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = 'hidden';
-    }
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
-    };
-  }, [data, onClose]);
-
-  if (!data) return null;
+  if (!item) return null;
 
   return (
-    <div
-      role="dialog"
-      aria-modal="true"
-      onClick={onClose}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10 bg-black/85 backdrop-blur-md transition-opacity duration-200 animate-in fade-in"
-    >
-      {/* Modal Content */}
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-3xl bg-zinc-950 border border-zinc-800 rounded-2xl overflow-hidden shadow-2xl shadow-black/80 flex flex-col"
-      >
-        {/* Top bar with metadata and close button */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-zinc-800/80 bg-zinc-900/60">
-          <div className="flex items-center gap-3">
-            <span className="text-xs font-mono uppercase tracking-widest text-zinc-400">
-              {data.label}
-            </span>
-            <span className="text-zinc-600 text-xs">•</span>
-            <span className="text-xs font-mono text-zinc-400">
-              {data.date}
-            </span>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#EAE6DE]/95 backdrop-blur-md p-4 sm:p-8 select-none">
+      {/* Backdrop click dismiss */}
+      <div className="absolute inset-0" onClick={onClose} />
+
+      {/* Modal Dialog Container: Cream Physical Surface */}
+      <div className="relative z-10 w-full max-w-4xl max-h-[90vh] bg-[#226192] text-[#EAE6DE] border-2 border-[#226192] flex flex-col shadow-2xl overflow-hidden rounded-xs">
+        {/* Modal Top Bar */}
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#EF8557]/25 text-xs font-mono shrink-0 bg-[#226192] font-semibold">
+          <div className="flex items-center gap-2.5">
+            <span className="text-[#EF8557] font-bold">SPECIMEN VIEW</span>
+            <span className="text-[#EAE6DE]/30">/</span>
+            <span className="text-[#EAE6DE] font-bold">{item.collectionTitle}</span>
           </div>
 
           <button
             onClick={onClose}
-            className="w-8 h-8 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 hover:border-zinc-400 text-zinc-400 hover:text-white flex items-center justify-center transition-colors text-sm"
-            title="Close (ESC)"
-            aria-label="Close modal"
+            className="text-[#EAE6DE] hover:text-[#EF8557] px-2.5 py-1 border border-[#EAE6DE]/30 hover:border-[#EF8557] text-xs font-mono cursor-pointer transition-colors font-bold"
           >
-            ✕
+            CLOSE [ESC] ✕
           </button>
         </div>
 
-        {/* Large Placeholder Image Area */}
-        <div className="p-6 sm:p-8 bg-zinc-950 flex flex-col items-center justify-center">
-          <div className="w-full aspect-[4/3] sm:aspect-[16/10] rounded-xl bg-gradient-to-b from-zinc-900 to-zinc-950 border border-zinc-800 flex flex-col items-center justify-center p-8 relative overflow-hidden select-none">
-            {/* Center crosshair */}
-            <div className="w-16 h-16 rounded-xl border border-dashed border-zinc-700 flex items-center justify-center text-zinc-500 font-mono text-lg mb-3">
-              +
-            </div>
-            <div className="font-mono text-sm tracking-wider text-zinc-300 font-medium text-center">
-              {data.title}
-            </div>
-            <div className="font-mono text-xs text-zinc-500 mt-1">
-              [PLACEHOLDER FRAME // HIGH RESOLUTION PREVIEW]
+        {/* Modal Scrollable Content */}
+        <div className="flex-1 overflow-y-auto p-6 sm:p-10 space-y-8 bg-[#226192]">
+          {/* Main Visual Display on Burgundy Inset Frame */}
+          <div className="relative w-full aspect-[16/10] max-h-[460px] bg-[#EAE6DE] border border-[#EAE6DE]/40 p-6 sm:p-8 flex flex-col justify-between shadow-inner">
+            {/* Corner registration marks in Dusty Pink */}
+            <div className="absolute top-2 left-2 w-3.5 h-3.5 border-t-2 border-l-2 border-[#EF8557]" />
+            <div className="absolute top-2 right-2 w-3.5 h-3.5 border-t-2 border-r-2 border-[#EF8557]" />
+            <div className="absolute bottom-2 left-2 w-3.5 h-3.5 border-b-2 border-l-2 border-[#EF8557]" />
+            <div className="absolute bottom-2 right-2 w-3.5 h-3.5 border-b-2 border-r-2 border-[#EF8557]" />
+
+            <div className="flex items-center justify-between text-xs font-mono text-[#226192]/80">
+              <span className="text-[#EF8557] font-bold">{item.metadata?.format || 'ARCHIVAL SPECIMEN'}</span>
+              <span>{item.date}</span>
             </div>
 
-            {/* Corner marks */}
-            <span className="absolute top-3 left-3 text-[10px] font-mono text-zinc-600">┌</span>
-            <span className="absolute top-3 right-3 text-[10px] font-mono text-zinc-600">┐</span>
-            <span className="absolute bottom-3 left-3 text-[10px] font-mono text-zinc-600">└</span>
-            <span className="absolute bottom-3 right-3 text-[10px] font-mono text-zinc-600">┘</span>
-          </div>
-        </div>
+            <div className="my-auto text-center py-6">
+              <span className="text-xs font-mono text-[#EF8557] uppercase tracking-widest block mb-2 font-bold">
+                {item.medium}
+              </span>
+              <h2 className="font-editorial-display text-2xl sm:text-4xl text-[#226192] max-w-xl mx-auto">
+                &quot;{item.title}&quot;
+              </h2>
+              {item.location && (
+                <span className="text-xs font-mono text-[#226192]/70 mt-2 block">
+                  {item.location}
+                </span>
+              )}
+            </div>
 
-        {/* Caption & Context Footer */}
-        <div className="px-6 sm:px-8 py-5 border-t border-zinc-800/80 bg-zinc-900/40 space-y-2">
-          <div className="flex items-center justify-between gap-4">
-            <span className="text-xs font-mono text-zinc-400">
-              Collection: <span className="text-zinc-200">{data.collectionTitle}</span>
-            </span>
-            {data.location && (
-              <span className="text-xs font-mono text-zinc-400">{data.location}</span>
-            )}
+            <div className="flex items-center justify-between text-xs font-mono text-[#226192]/80 pt-3 border-t border-[#EF8557]/20">
+              <span>{item.metadata?.filmStock || item.metadata?.camera || '35mm Negative'}</span>
+              <span>{item.coordinates || '28°38\'N 77°13\'E'}</span>
+            </div>
           </div>
-          <p className="text-sm text-zinc-300 font-light leading-relaxed">
-            {data.caption}
-          </p>
+
+          {/* Narrative & Field Notes on Cream */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+            <div className="md:col-span-7 space-y-4">
+              <h3 className="font-editorial-display text-2xl text-[#EAE6DE] font-semibold">
+                {item.title}
+              </h3>
+              <p className="text-sm text-[#EAE6DE]/90 font-sans leading-relaxed font-medium">
+                {item.caption}
+              </p>
+              {item.notes && (
+                <div className="bg-[#EAE6DE] p-4 border border-[#EAE6DE] rounded-xs space-y-1">
+                  <span className="text-[10px] font-mono text-[#EF8557] uppercase block font-bold">
+                    Author&apos;s Field Note:
+                  </span>
+                  <p className="text-xs font-mono text-[#226192] italic leading-relaxed">
+                    {item.notes}
+                  </p>
+                </div>
+              )}
+
+              <div className="pt-2">
+                <LikeButton itemId={item.id} itemType="entry" />
+              </div>
+            </div>
+
+            {/* Technical Metadata Matrix */}
+            <div className="md:col-span-5 bg-[#EAE6DE] text-[#226192]/80 p-5 space-y-3 text-xs font-mono rounded-xs shadow-md">
+              <span className="text-[10px] uppercase text-[#EF8557] tracking-wider block font-bold">
+                TECHNICAL LOG
+              </span>
+              <div className="space-y-2 text-[#226192]/80">
+                <div className="flex justify-between border-b border-[#EF8557]/20 pb-1">
+                  <span className="text-[#226192]/60">Recorded:</span>
+                  <span className="text-[#226192] font-semibold">{item.date}</span>
+                </div>
+                <div className="flex justify-between border-b border-[#EF8557]/20 pb-1">
+                  <span className="text-[#226192]/60">Medium:</span>
+                  <span className="text-[#EF8557] font-bold uppercase">{item.medium}</span>
+                </div>
+                {item.metadata?.camera && (
+                  <div className="flex justify-between border-b border-[#EF8557]/20 pb-1">
+                    <span className="text-[#226192]/60">Camera:</span>
+                    <span className="text-[#226192]">{item.metadata.camera}</span>
+                  </div>
+                )}
+                {item.metadata?.filmStock && (
+                  <div className="flex justify-between border-b border-[#EF8557]/20 pb-1">
+                    <span className="text-[#226192]/60">Emulsion:</span>
+                    <span className="text-[#EF8557] font-medium">{item.metadata.filmStock}</span>
+                  </div>
+                )}
+                {item.coordinates && (
+                  <div className="flex justify-between border-b border-[#EF8557]/20 pb-1">
+                    <span className="text-[#226192]/60">Coordinates:</span>
+                    <span className="text-[#226192]">{item.coordinates}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

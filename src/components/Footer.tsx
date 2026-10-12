@@ -4,7 +4,7 @@ import React from 'react';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="w-full bg-[#EDECE6]/95 backdrop-blur-md text-[#1546D9] select-none">
+    <footer className="w-full bg-[#EAE6DE]/95 backdrop-blur-md text-[#226192] select-none">
       <div className="content-container">
         {/* Top footer divider aligned with content width */}
         <div className="content-divider" />
@@ -15,7 +15,7 @@ export const Footer: React.FC = () => {
           <div className="text-xs sm:text-sm font-medium">
             <a 
               href="mailto:contact@vaibhv19.dev" 
-              className="text-[#1546D9] hover:text-[#F9B318] transition-colors tracking-normal"
+              className="text-[#226192] hover:text-[#EF8557] transition-colors tracking-normal"
             >
               contact@vaibhv19.dev
             </a>
@@ -27,7 +27,7 @@ export const Footer: React.FC = () => {
               href="https://www.instagram.com/vaibhv_19"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#1546D9] hover:text-[#F9B318] transition-colors p-1 inline-flex items-center justify-center"
+              className="text-[#226192] hover:text-[#EF8557] transition-colors p-1 inline-flex items-center justify-center"
               aria-label="Instagram profile @vaibhv_19"
               title="@vaibhv_19 on Instagram"
             >
@@ -50,7 +50,7 @@ export const Footer: React.FC = () => {
               href="https://www.linkedin.com/in/vaibhv19"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#1546D9] hover:text-[#F9B318] transition-colors p-1 inline-flex items-center justify-center"
+              className="text-[#226192] hover:text-[#EF8557] transition-colors p-1 inline-flex items-center justify-center"
               aria-label="LinkedIn profile Vaibhav Gupta"
               title="Vaibhav Gupta on LinkedIn"
             >
@@ -78,7 +78,7 @@ export const Footer: React.FC = () => {
 
         {/* 3. MAIN CENTERPIECE: Editorial Quote */}
         <div className="py-7 sm:py-9 md:py-11 flex items-center justify-center text-center px-4">
-          <p className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-[#1546D9] max-w-4xl leading-tight sm:leading-snug md:leading-snug">
+          <p className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-[#226192] max-w-4xl leading-tight sm:leading-snug md:leading-snug">
             everything is beautiful when you look at it with love
           </p>
         </div>
@@ -89,34 +89,34 @@ export const Footer: React.FC = () => {
         {/* 5. BOTTOM ROW */}
         <div className="py-4 sm:py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs sm:text-sm tracking-wider uppercase">
           {/* Left: Copyright & Built by */}
-          <div className="space-y-0.5 text-[#1546D9]/80">
+          <div className="space-y-0.5 text-[#226192]/80">
             <div>© 2026 VAIBHAV GUPTA. ALL RIGHTS RESERVED.</div>
-            <div className="text-[11px] sm:text-xs text-[#1546D9]/60">
+            <div className="text-[11px] sm:text-xs text-[#226192]/60">
               BUILT BY{' '}
               <a 
                 href="https://vaibhv19.dev" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="hover:text-[#F9B318] transition-colors underline decoration-[#1546D9]/30 underline-offset-2"
+                className="hover:text-[#EF8557] transition-colors underline decoration-[#226192]/30 underline-offset-2"
               >
                 VAIBHV19.DEV
               </a>
             </div>
           </div>
 
-          {/* Right: Legal links */}
-          <div className="flex items-center gap-4 sm:gap-6 text-[11px] sm:text-xs font-medium text-[#1546D9]/80">
+          {/* Right: Legal links matching 1NFINITY reference */}
+          <div className="flex items-center gap-4 sm:gap-6 text-[11px] sm:text-xs font-medium text-[#226192]/80">
             <button
               type="button"
-              className="hover:text-[#F9B318] transition-colors cursor-pointer bg-transparent border-none p-0 tracking-wider"
+              className="hover:text-[#EF8557] transition-colors cursor-pointer bg-transparent border-none p-0 tracking-wider"
               onClick={() => {}}
             >
               PRIVACY POLICY
             </button>
-            <span className="text-[#1546D9]/40 text-[10px]">•</span>
+            <span className="text-[#226192]/40 text-[10px]">•</span>
             <button
               type="button"
-              className="hover:text-[#F9B318] transition-colors cursor-pointer bg-transparent border-none p-0 tracking-wider"
+              className="hover:text-[#EF8557] transition-colors cursor-pointer bg-transparent border-none p-0 tracking-wider"
               onClick={() => {}}
             >
               TERMS & CONDITIONS

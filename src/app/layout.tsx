@@ -10,8 +10,15 @@ const syne = Syne({
 });
 
 export const metadata: Metadata = {
-  title: "Life is coming soon — life.vaibhv19.dev",
-  description: "A personal space for the things that exist outside the code. — Vaibhav Gupta",
+  title: "life",
+  description: "A personal digital archive, scrapbook, visual journal, and memoirs by Vaibhav Gupta.",
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -22,14 +29,14 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${syne.variable} h-full antialiased light`}
+      className={`${syne.variable} h-full antialiased`}
     >
-      <body className="min-h-full w-full bg-[#EDECE6] text-[#1546D9] font-sans selection:bg-[#F9B318] selection:text-[#1546D9] flex flex-col relative font-[family-name:var(--font-syne)]">
-        {/* Full-Viewport Fixed Background Layer (Stationary) */}
+      <body className="min-h-full w-full bg-[#EAE6DE] text-[#226192] font-sans selection:bg-[#EF8557] selection:text-[#EAE6DE] flex flex-col relative font-[family-name:var(--font-syne)]">
+        {/* Full-Viewport Fixed Background Layer (Stationary during scrolling) */}
         <FixedBackground />
 
-        {/* Foreground Content */}
-        <div className="relative z-10 flex flex-col min-h-full flex-1 bg-transparent">
+        {/* Moving Foreground Content */}
+        <div className="relative z-10 flex flex-col min-h-screen bg-transparent">
           {children}
         </div>
       </body>
