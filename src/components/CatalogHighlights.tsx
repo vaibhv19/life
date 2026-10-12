@@ -18,7 +18,7 @@ export const CatalogHighlights: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   return (
-    <section aria-label="Catalog Highlights" className="w-full pb-5 sm:pb-6 md:pb-7 select-none">
+    <section aria-label="Catalog Highlights" className="w-full pb-4 sm:pb-5 select-none">
       <div className="content-container">
         {/* 1. Instagram Highlights Row */}
         <div className="w-full overflow-x-auto no-scrollbar scroll-smooth py-1 -mx-2 px-2 sm:mx-0 sm:px-0">
@@ -77,7 +77,7 @@ export const CatalogHighlights: React.FC = () => {
         </div>
 
         {/* 2. Understated Editorial Statement below highlights */}
-        <div className="mt-4 sm:mt-6">
+        <div className="mt-4 sm:mt-5">
           <p className="font-editorial-italic text-base sm:text-lg md:text-xl text-[#226192] tracking-tight">
             My social media profile, except I own the platform.
           </p>

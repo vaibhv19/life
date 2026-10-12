@@ -22,8 +22,11 @@ export default function LifePage() {
         {/* Hero composition: portrait & quote */}
         <HeroArchive />
 
-        {/* Between Us CTA Button positioned after portrait and quote */}
-        <div className="content-container flex justify-center text-center mt-2 sm:mt-4 mb-8 sm:mb-10 md:mb-12 select-none">
+        {/* 03. Catalog Highlights (Hero area Highlights row) */}
+        <CatalogHighlights />
+
+        {/* Between Us CTA Button positioned below highlights and editorial statement */}
+        <div className="content-container flex justify-center text-center mt-2 sm:mt-3 mb-6 sm:mb-8 md:mb-10 select-none">
           <Link
             href="/between-us"
             className="btn-palette-b cursor-pointer focus:outline-none px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-semibold tracking-tight hover:scale-[1.02] active:scale-[0.98] shadow-sm select-none inline-block leading-snug"
@@ -35,9 +38,6 @@ export default function LifePage() {
             I might have something specially for you
           </Link>
         </div>
-
-        {/* 03. Catalog Highlights (Hero area Highlights row) */}
-        <CatalogHighlights />
 
         {/* 04. Editorial Continuous Marquee (To exist is a fact, to live is an art) */}
         <EditorialMarquee className="w-full mt-1 sm:mt-2 md:mt-3 mb-4 sm:mb-5 md:mb-6 select-none" />
