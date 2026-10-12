@@ -1,6 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useSyncExternalStore } from 'react';
+import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { CatalogCollectionDef, CatalogImageEntry } from '@/data/catalog';
 import { getCatalogCollectionById, getCollectionItems } from '@/lib/catalog';
@@ -14,11 +15,19 @@ interface StoryViewerProps {
 const AUTOPLAY_DURATION_MS = 5000;
 const TICK_INTERVAL_MS = 40;
 
+const subscribe = () => () => {};
+
 export const StoryViewer: React.FC<StoryViewerProps> = ({
   categoryId,
   onClose,
   thumbnailMap = {},
 }) => {
+  const mounted = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false
+  );
+
   // 1. Data derivation
   const collection: CatalogCollectionDef | null = getCatalogCollectionById(categoryId);
   const rawItems: CatalogImageEntry[] = getCollectionItems(categoryId);
@@ -46,32 +55,36 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({
 
   const activeItem = items[currentIndex] || items[0];
 
-  // 3. Navigation Handlers
+  // 3. Navigation Handlers with functional state updates (prevents stale closures)
   const handleNext = useCallback(() => {
-    if (currentIndex < items.length - 1) {
-      setCurrentIndex((prev) => prev + 1);
-      setProgress(0);
-    } else {
-      // Reached the end of this category's stories: close cleanly
-      onClose();
-    }
-  }, [currentIndex, items.length, onClose]);
+    setCurrentIndex((prevIndex) => {
+      if (prevIndex < items.length - 1) {
+        setProgress(0);
+        return prevIndex + 1;
+      } else {
+        // Reached the end of this category's stories: close cleanly
+        onClose();
+        return prevIndex;
+      }
+    });
+  }, [items.length, onClose]);
 
   const handlePrev = useCallback(() => {
-    if (currentIndex > 0) {
-      setCurrentIndex((prev) => prev - 1);
+    setCurrentIndex((prevIndex) => {
       setProgress(0);
-    } else {
+      if (prevIndex > 0) {
+        return prevIndex - 1;
+      }
       // At the first item: restart current item's timer
-      setProgress(0);
-    }
-  }, [currentIndex]);
+      return 0;
+    });
+  }, []);
 
-  const handleSelectStoryItem = (index: number) => {
+  const handleSelectStoryItem = useCallback((index: number) => {
     setCurrentIndex(index);
     setProgress(0);
     setIsBrowseOpen(false);
-  };
+  }, []);
 
   // 4. Autoplay Timer
   useEffect(() => {
@@ -101,7 +114,7 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({
     };
   }, []);
 
-  // 6. Keyboard navigation (ArrowLeft, ArrowRight, Escape)
+  // 6. Keyboard navigation (ArrowLeft, ArrowRight, Escape, Spacebar)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -134,25 +147,39 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isBrowseOpen, handleNext, handlePrev, onClose]);
 
-  // Pointer hold handlers (pause while pressing down on media)
-  const pointerDownRef = useRef(false);
+  // 7. Pointer hold handlers (pause only after sustained hold of >150ms so normal taps don't glitch)
+  const holdTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handlePointerDown = () => {
-    pointerDownRef.current = true;
-    setIsHolding(true);
+    holdTimeoutRef.current = setTimeout(() => {
+      setIsHolding(true);
+    }, 150);
   };
 
   const handlePointerUp = () => {
-    pointerDownRef.current = false;
+    if (holdTimeoutRef.current) {
+      clearTimeout(holdTimeoutRef.current);
+      holdTimeoutRef.current = null;
+    }
     setIsHolding(false);
   };
 
-  return (
+  useEffect(() => {
+    return () => {
+      if (holdTimeoutRef.current) {
+        clearTimeout(holdTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  if (!mounted) return null;
+
+  const content = (
     <div
       role="dialog"
       aria-modal="true"
       aria-label={`${collection?.title || 'Catalog'} story viewer`}
-      className="fixed inset-0 z-50 flex flex-col justify-between bg-[#0B1E2E]/95 backdrop-blur-md select-none text-[#EAE6DE] animate-in fade-in duration-200"
+      className="fixed inset-0 z-[9999] flex flex-col justify-between bg-[#0B1E2E]/95 backdrop-blur-md select-none text-[#EAE6DE] animate-in fade-in duration-200"
       onPointerUp={handlePointerUp}
       onPointerCancel={handlePointerUp}
     >
@@ -260,16 +287,18 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({
       </header>
 
       {/* ========================================================= */}
-      {/* CENTER MEDIA AREA: Centered scale-to-fit with tap zones   */}
+      {/* CENTER MEDIA AREA: Centered scale-to-fit with navigation  */}
       {/* ========================================================= */}
-      <main className="relative flex-1 w-full max-w-3xl mx-auto flex items-center justify-center p-2 sm:p-4 my-auto overflow-hidden">
-        {/* Desktop Previous Button */}
+      <main className="relative flex-1 w-full max-w-4xl mx-auto flex items-center justify-between px-3 sm:px-6 my-auto">
+        {/* Desktop Previous Button (Outside media frame, never clipped) */}
         <button
           type="button"
-          onClick={handlePrev}
-          disabled={currentIndex === 0}
+          onClick={(e) => {
+            e.stopPropagation();
+            handlePrev();
+          }}
           aria-label="Previous frame"
-          className="hidden sm:flex absolute left-2 lg:-left-12 z-30 items-center justify-center w-10 h-10 rounded-full bg-black/40 hover:bg-[#EF8557] text-[#EAE6DE] hover:text-[#0B1E2E] transition-all shadow-lg cursor-pointer disabled:opacity-20 disabled:pointer-events-none focus:outline-none focus:ring-2 focus:ring-[#EF8557]"
+          className="hidden sm:flex shrink-0 mr-3 lg:mr-6 z-30 items-center justify-center w-11 h-11 rounded-full bg-black/50 hover:bg-[#EF8557] text-[#EAE6DE] hover:text-[#0B1E2E] transition-all shadow-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#EF8557]"
           title="Previous frame (Left arrow)"
         >
           <svg className="w-5 h-5 stroke-[2]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -279,7 +308,7 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({
 
         {/* Media Frame Container */}
         <div
-          className="relative w-full h-full max-h-[72vh] sm:max-h-[78vh] flex items-center justify-center"
+          className="relative flex-1 h-full max-h-[72vh] sm:max-h-[78vh] flex items-center justify-center"
           onPointerDown={handlePointerDown}
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerUp}
@@ -294,26 +323,28 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({
             draggable={false}
           />
 
-          {/* Left Mobile Tap Zone */}
-          <button
-            type="button"
+          {/* Left Tap Zone (mobile & direct media tap) */}
+          <div
+            role="button"
+            tabIndex={-1}
             aria-label="Previous story"
             onClick={(e) => {
               e.stopPropagation();
               handlePrev();
             }}
-            className="absolute inset-y-0 left-0 w-1/3 z-20 cursor-pointer focus:outline-none opacity-0"
+            className="absolute inset-y-0 left-0 w-1/3 z-20 cursor-pointer select-none"
           />
 
-          {/* Right Mobile Tap Zone */}
-          <button
-            type="button"
+          {/* Right Tap Zone (mobile & direct media tap) */}
+          <div
+            role="button"
+            tabIndex={-1}
             aria-label="Next story"
             onClick={(e) => {
               e.stopPropagation();
               handleNext();
             }}
-            className="absolute inset-y-0 right-0 w-1/3 z-20 cursor-pointer focus:outline-none opacity-0"
+            className="absolute inset-y-0 right-0 w-1/3 z-20 cursor-pointer select-none"
           />
 
           {/* Caption / Title Overlay at bottom of media */}
@@ -333,12 +364,15 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({
           )}
         </div>
 
-        {/* Desktop Next Button */}
+        {/* Desktop Next Button (Outside media frame, never clipped) */}
         <button
           type="button"
-          onClick={handleNext}
+          onClick={(e) => {
+            e.stopPropagation();
+            handleNext();
+          }}
           aria-label="Next frame"
-          className="hidden sm:flex absolute right-2 lg:-right-12 z-30 items-center justify-center w-10 h-10 rounded-full bg-black/40 hover:bg-[#EF8557] text-[#EAE6DE] hover:text-[#0B1E2E] transition-all shadow-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#EF8557]"
+          className="hidden sm:flex shrink-0 ml-3 lg:ml-6 z-30 items-center justify-center w-11 h-11 rounded-full bg-black/50 hover:bg-[#EF8557] text-[#EAE6DE] hover:text-[#0B1E2E] transition-all shadow-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#EF8557]"
           title="Next frame (Right arrow)"
         >
           <svg className="w-5 h-5 stroke-[2]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -353,9 +387,12 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({
       <footer className="w-full max-w-2xl mx-auto pb-4 sm:pb-6 pt-2 px-4 flex items-center justify-center shrink-0 z-30">
         <button
           type="button"
-          onClick={() => setIsBrowseOpen(true)}
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsBrowseOpen(true);
+          }}
           aria-label={`Browse all ${items.length} items in ${collection?.title}`}
-          className="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-white/10 hover:bg-[#EF8557] border border-[#EF8557]/40 hover:border-[#EF8557] text-[#EAE6DE] hover:text-[#0B1E2E] transition-all duration-200 text-xs sm:text-sm font-semibold tracking-wide cursor-pointer shadow-md focus:outline-none focus:ring-2 focus:ring-[#EF8557]"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 hover:bg-[#EF8557] border border-[#EF8557]/40 hover:border-[#EF8557] text-[#EAE6DE] hover:text-[#0B1E2E] transition-all duration-200 text-xs sm:text-sm font-semibold tracking-wide cursor-pointer shadow-md focus:outline-none focus:ring-2 focus:ring-[#EF8557]"
         >
           {/* Grid Archive Icon */}
           <svg
@@ -382,7 +419,7 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({
           role="dialog"
           aria-modal="true"
           aria-label={`Browse all frames in ${collection?.title}`}
-          className="absolute inset-0 z-40 bg-[#0B1E2E]/98 backdrop-blur-xl flex flex-col p-4 sm:p-6 md:p-8 animate-in fade-in duration-200 overflow-y-auto"
+          className="fixed inset-0 z-50 bg-[#0B1E2E]/98 backdrop-blur-xl flex flex-col p-4 sm:p-6 md:p-8 animate-in fade-in duration-200 overflow-y-auto"
         >
           <div className="max-w-3xl mx-auto w-full flex flex-col flex-1">
             {/* Overview Top Header */}
@@ -481,4 +518,7 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({
       )}
     </div>
   );
+
+  return createPortal(content, document.body);
 };
+
