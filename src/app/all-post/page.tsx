@@ -20,27 +20,16 @@ export default function AllPostPage() {
       {/* 01. Global Editorial Header */}
       <Header />
 
-      {/* 02. Chronological Visual Archive Content */}
-      <main className="flex-1 flex flex-col content-container py-12 sm:py-16">
+      {/* 02. Visual Archive Content */}
+      <main className="flex-1 flex flex-col content-container pt-8 sm:pt-10 md:pt-12 pb-12 sm:pb-16 select-none">
         {/* Editorial Section Header */}
-        <header className="mb-10 sm:mb-12 border-b border-[#EF8557]/25 pb-6 sm:pb-8">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <div>
-              <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#226192]">
-                All Post
-              </h1>
-              <p className="text-xs sm:text-sm text-[#226192]/80 mt-2.5 max-w-2xl font-normal leading-relaxed">
-                The complete chronological archive of personal entries, moments, and longer-form records gathered over time. Kept in continuous order, this stream brings together everyday frames, milestone dates, and personal entries as an unbroken record of living.
-              </p>
-            </div>
-
-            <div className="text-xs text-[#226192]/60 font-mono shrink-0">
-              {posts.length} {posts.length === 1 ? 'entry recorded' : 'entries recorded'}
-            </div>
-          </div>
+        <header className="mb-6 sm:mb-8 md:mb-10">
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-[#226192]">
+            All Post
+          </h1>
         </header>
 
-        {/* Chronological Grid Stream */}
+        {/* Visual Archive Image Grid */}
         <AllPostClient posts={posts} />
       </main>
 

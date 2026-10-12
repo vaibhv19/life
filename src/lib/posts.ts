@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import { MOCK_POSTS } from '@/data/mockPosts';
 
 export interface ArchivePost {
   id: string;
@@ -94,12 +95,13 @@ export function parseArchiveFilename(filename: string): ArchivePost | null {
 /**
  * Automatically discovers all photographs in public/archive,
  * validates filename conventions, and returns them sorted newest to oldest.
+ * If no valid YYYY-MM-DD files are found, falls back to MOCK_POSTS for UI/UX testing.
  */
 export function getArchivePosts(): ArchivePost[] {
   try {
     const archiveDir = path.join(process.cwd(), 'public', 'archive');
     if (!fs.existsSync(archiveDir)) {
-      return [];
+      return MOCK_POSTS;
     }
 
     const entries = fs.readdirSync(archiveDir);
@@ -110,6 +112,11 @@ export function getArchivePosts(): ArchivePost[] {
       if (parsed) {
         validPosts.push(parsed);
       }
+    }
+
+    // Fall back to mock posts for UI/UX prototyping if no real archive posts exist
+    if (validPosts.length === 0) {
+      return MOCK_POSTS;
     }
 
     // Sort newest to oldest. Stable tie-breaking by filename descending.
@@ -124,6 +131,6 @@ export function getArchivePosts(): ArchivePost[] {
     return validPosts;
   } catch (error) {
     console.error('Error discovering archive posts:', error);
-    return [];
+    return MOCK_POSTS;
   }
 }
