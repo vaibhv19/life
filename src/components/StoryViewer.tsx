@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useEffect, useRef, useCallback, useMemo, useSyncExternalStore } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
-import { CATALOG_COLLECTIONS, CatalogCollectionDef, CatalogImageEntry } from '@/data/catalog';
+import { CatalogCollectionDef, CatalogImageEntry } from '@/data/catalog';
 import { getCatalogCollectionById, getCollectionItems } from '@/lib/catalog';
 
 interface StoryViewerProps {
@@ -49,15 +49,6 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({
     setProgress(0);
   }, [categoryId]);
 
-  // Categories in defined highlight order, skipping empty categories
-  const validCollections = useMemo(() => {
-    const populated = CATALOG_COLLECTIONS.filter((col) => {
-      const colItems = getCollectionItems(col.id);
-      return colItems.length > 0;
-    });
-    return populated.length > 0 ? populated : CATALOG_COLLECTIONS;
-  }, []);
-
   // 2. Data derivation for the active category
   const collection: CatalogCollectionDef | null = getCatalogCollectionById(activeCategoryId);
   const rawItems: CatalogImageEntry[] = getCollectionItems(activeCategoryId);
@@ -85,51 +76,25 @@ export const StoryViewer: React.FC<StoryViewerProps> = ({
 
   const activeItem = items[currentIndex] || items[0];
 
-  // 4. Cross-Catalog Transition Handlers
-  const goToNextCategory = useCallback(() => {
-    const currentIdx = validCollections.findIndex((c) => c.id === activeCategoryId);
-    const nextIdx = (currentIdx + 1) % validCollections.length;
-    const nextCol = validCollections[nextIdx];
-
-    setActiveCategoryId(nextCol.id);
-    setCurrentIndex(0);
-    setProgress(0);
-    onCategoryChange?.(nextCol.id);
-  }, [activeCategoryId, validCollections, onCategoryChange]);
-
-  const goToPrevCategory = useCallback(() => {
-    const currentIdx = validCollections.findIndex((c) => c.id === activeCategoryId);
-    const prevIdx = (currentIdx - 1 + validCollections.length) % validCollections.length;
-    const prevCol = validCollections[prevIdx];
-    const prevItems = getCollectionItems(prevCol.id);
-    const lastIndex = Math.max(0, prevItems.length - 1);
-
-    setActiveCategoryId(prevCol.id);
-    setCurrentIndex(lastIndex);
-    setProgress(0);
-    onCategoryChange?.(prevCol.id);
-  }, [activeCategoryId, validCollections, onCategoryChange]);
-
-  // 5. Navigation Handlers
+  // 4. Navigation Handlers
   const handleNext = useCallback(() => {
     if (currentIndex < items.length - 1) {
       setCurrentIndex((prev) => prev + 1);
       setProgress(0);
     } else {
-      // Reached final item of current catalog: advance to next catalog
-      goToNextCategory();
+      // Reached final item of current catalog: close the slideshow
+      onClose();
     }
-  }, [currentIndex, items.length, goToNextCategory]);
+  }, [currentIndex, items.length, onClose]);
 
   const handlePrev = useCallback(() => {
     if (currentIndex > 0) {
       setCurrentIndex((prev) => prev - 1);
       setProgress(0);
     } else {
-      // Reached first item of current catalog: move to previous catalog's last item
-      goToPrevCategory();
+      setProgress(0);
     }
-  }, [currentIndex, goToPrevCategory]);
+  }, [currentIndex]);
 
   const handleSelectStoryItem = useCallback((index: number) => {
     setCurrentIndex(index);

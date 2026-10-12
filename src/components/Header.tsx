@@ -14,6 +14,25 @@ interface HeaderProps {
   onClearFilter?: () => void;
 }
 
+const ActiveWave: React.FC = () => (
+  <svg
+    className="absolute -bottom-0.5 left-0 w-full h-[4px] overflow-visible pointer-events-none"
+    viewBox="0 0 40 4"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    <path
+      d="M0 2 Q 5 0.5, 10 2 T 20 2 T 30 2 T 40 2"
+      fill="none"
+      stroke="#EF8557"
+      strokeWidth="1.2"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
 export const Header: React.FC<HeaderProps> = ({
   activeView = 'all',
   onSelectView,
@@ -55,37 +74,43 @@ export const Header: React.FC<HeaderProps> = ({
           {/* 1. Catalog */}
           <Link
             href="/catalog"
-            className={`text-xs sm:text-sm md:text-base font-medium tracking-normal transition-colors duration-200 cursor-pointer relative py-1 focus:outline-none ${
+            aria-current={isCatalogPage ? 'page' : undefined}
+            className={`text-xs sm:text-sm md:text-base font-medium tracking-normal transition-colors duration-200 cursor-pointer relative inline-block py-1 focus:outline-none ${
               isCatalogPage
                 ? 'text-[#2C7BB8] font-semibold hover:text-[#EF8557]'
                 : 'text-[#226192] hover:text-[#EF8557]'
             }`}
           >
             Catalog
+            {isCatalogPage && <ActiveWave />}
           </Link>
 
           {/* 2. Notes */}
           <Link
             href="/notes"
-            className={`text-xs sm:text-sm md:text-base font-medium tracking-normal transition-colors duration-200 cursor-pointer relative py-1 focus:outline-none ${
+            aria-current={isNotesPage ? 'page' : undefined}
+            className={`text-xs sm:text-sm md:text-base font-medium tracking-normal transition-colors duration-200 cursor-pointer relative inline-block py-1 focus:outline-none ${
               isNotesPage
                 ? 'text-[#2C7BB8] font-semibold hover:text-[#EF8557]'
                 : 'text-[#226192] hover:text-[#EF8557]'
             }`}
           >
             Notes
+            {isNotesPage && <ActiveWave />}
           </Link>
 
           {/* 3. All Post */}
           <Link
             href="/all-post"
-            className={`text-xs sm:text-sm md:text-base font-medium tracking-normal transition-colors duration-200 cursor-pointer relative py-1 focus:outline-none ${
+            aria-current={isAllPostPage ? 'page' : undefined}
+            className={`text-xs sm:text-sm md:text-base font-medium tracking-normal transition-colors duration-200 cursor-pointer relative inline-block py-1 focus:outline-none ${
               isAllPostPage
                 ? 'text-[#2C7BB8] font-semibold hover:text-[#EF8557]'
                 : 'text-[#226192] hover:text-[#EF8557]'
             }`}
           >
             All Post
+            {isAllPostPage && <ActiveWave />}
           </Link>
 
           {/* 4. [ Between Us ] Button (Organic Hand-Cut Shape, Cream Fill, Burgundy Text) */}
