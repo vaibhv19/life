@@ -25,6 +25,7 @@ export const CatalogHighlights: React.FC = () => {
           <div className="flex items-start gap-4 sm:gap-5 md:gap-6 min-w-max sm:min-w-0 sm:justify-between">
             {CATALOG_COLLECTIONS.map((category) => {
               const thumbnailSrc = THUMBNAIL_MAP[category.id] || '/cutout.png';
+              const isSelected = activeCategory === category.id;
 
               return (
                 <button
@@ -37,7 +38,13 @@ export const CatalogHighlights: React.FC = () => {
                   title={`Open ${category.title} stories`}
                 >
                   {/* Outer Ring with Hover Reaction */}
-                  <div className="p-[3px] rounded-full border border-[#226192]/30 group-hover:border-[#EF8557] group-hover:scale-105 transition-all duration-300 ease-out">
+                  <div
+                    className={`p-[3px] rounded-full border transition-all duration-300 ease-out ${
+                      isSelected
+                        ? 'border-[#EF8557] ring-2 ring-[#EF8557]/40 scale-105'
+                        : 'border-[#226192]/30 group-hover:border-[#EF8557] group-hover:scale-105'
+                    }`}
+                  >
                     {/* Ring Gap */}
                     <div className="p-[2px] rounded-full bg-[#EAE6DE]">
                       {/* Circular Image Container */}
@@ -54,7 +61,11 @@ export const CatalogHighlights: React.FC = () => {
 
                   {/* Category Title Label */}
                   <span
-                    className="text-[10px] sm:text-[11px] font-medium text-[#226192]/80 group-hover:text-[#EF8557] tracking-tight text-center max-w-[70px] sm:max-w-[78px] transition-colors mt-2 leading-tight line-clamp-2 min-h-[26px] sm:min-h-[28px] flex items-start justify-center"
+                    className={`text-[10px] sm:text-[11px] font-medium tracking-tight text-center max-w-[70px] sm:max-w-[78px] transition-colors mt-2 leading-tight line-clamp-2 min-h-[26px] sm:min-h-[28px] flex items-start justify-center ${
+                      isSelected
+                        ? 'text-[#EF8557] font-semibold'
+                        : 'text-[#226192]/80 group-hover:text-[#EF8557]'
+                    }`}
                     title={category.title}
                   >
                     {category.title}
@@ -77,6 +88,7 @@ export const CatalogHighlights: React.FC = () => {
       {activeCategory && (
         <StoryViewer
           categoryId={activeCategory}
+          onCategoryChange={setActiveCategory}
           onClose={() => setActiveCategory(null)}
           thumbnailMap={THUMBNAIL_MAP}
         />
