@@ -37,21 +37,14 @@ html, body {
   color-scheme: light;
 }
 
-
 /* Syne Editorial Typography utilities */
-.font-editorial-display {
-  font-family: var(--font-syne), system-ui, sans-serif;
-  letter-spacing: -0.025em;
-  font-weight: 700;
-}
-
 .font-editorial-italic {
   font-family: var(--font-syne), system-ui, sans-serif;
   font-style: italic;
   font-weight: 400;
 }
 
-/* Subtle, restrained scrollbar */
+/* Subtle, restrained global scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -68,45 +61,6 @@ html, body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #EF8557;
-}
-
-/* Dedicated subtle warm-orange internal scrollbar utility */
-.subtle-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: rgba(239, 133, 87, 0.45) rgba(34, 97, 146, 0.05);
-}
-
-.subtle-scrollbar::-webkit-scrollbar {
-  width: 5px;
-}
-
-.subtle-scrollbar::-webkit-scrollbar-track {
-  background: rgba(34, 97, 146, 0.04);
-  border-radius: 4px;
-}
-
-.subtle-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(239, 133, 87, 0.4);
-  border-radius: 4px;
-}
-
-.subtle-scrollbar::-webkit-scrollbar-thumb:hover {
-  background-color: #EF8557;
-}
-
-/* Grain texture overlay (ultra-subtle) */
-.subtle-paper-grain {
-  position: relative;
-}
-
-.subtle-paper-grain::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  opacity: 0.03;
-  background-image: radial-gradient(rgba(34, 97, 146, 0.9) 1px, transparent 0);
-  background-size: 8px 8px;
 }
 
 /* Consistent Centered Content Container & Content-Width Separator Utilities */
@@ -132,47 +86,6 @@ html, body {
   background-color: rgba(239, 133, 87, 0.25);
 }
 
-/* Shared Button Styles (Palette C: Coral Orange background, Deep Editorial Blue text) */
-.btn-palette-b,
-.btn-palette-c {
-  background-color: #EF8557 !important;
-  color: #226192 !important;
-  transition: all 0.2s ease-out;
-}
-
-.btn-palette-b:hover,
-.btn-palette-c:hover {
-  background-color: #E27443 !important;
-  color: #226192 !important;
-}
-
-/* Editorial Page Transitions (Smooth fade & subtle vertical glide) */
-@keyframes pageEnter {
-  0% {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  100% {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.page-transition {
-  animation: pageEnter 240ms cubic-bezier(0.16, 1, 0.3, 1) both;
-  width: 100%;
-  flex: 1 1 0%;
-  display: flex;
-  flex-direction: column;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .page-transition {
-    animation: none !important;
-    transform: none !important;
-  }
-}
-
 /* Editorial Tilted Marquee Animation */
 @keyframes marqueeScroll {
   from {
@@ -193,44 +106,3 @@ html, body {
     animation-play-state: paused !important;
   }
 }
-
-/* Hide scrollbar utility for clean scrollable containers */
-.no-scrollbar::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
-}
-
-.no-scrollbar {
-  -ms-overflow-style: none !important;
-  scrollbar-width: none !important;
-}
-
-/* Subtle Typewriter Blinking Cursor */
-@keyframes typewriterBlink {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-}
-
-.typewriter-cursor {
-  display: inline-block;
-  width: 2px;
-  height: 1.05em;
-  background-color: #EF8557;
-  vertical-align: -0.12em;
-  animation: typewriterBlink 0.75s steps(2, start) infinite;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .typewriter-cursor {
-    display: none !important;
-  }
-}
-
-
-
-

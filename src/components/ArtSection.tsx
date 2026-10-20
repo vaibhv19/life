@@ -16,15 +16,15 @@ export interface ArtComposition {
  */
 export const ART_PIECES: ArtComposition = {
   portrait: {
-    src: '/art/Screenshot_20261012-170705_Instagram~2.jpg',
+    src: '/art/Screenshot_20261012-170705_Instagram~2.webp',
     alt: 'Art - Angelic warrior sketch study',
   },
   landscapeLeft: {
-    src: '/art/IMG_20231218_024947_208~4.jpg',
+    src: '/art/IMG_20231218_024947_208~4.webp',
     alt: 'Art - Pencil illustration study',
   },
   landscapeRight: {
-    src: '/art/IMG_20251122_161501621_HDR_AE-EDIT.jpg',
+    src: '/art/IMG_20251122_161501621_HDR_AE-EDIT.webp',
     alt: 'Art - Kimi no Na wa tribute sketch',
   },
 };

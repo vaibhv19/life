@@ -19,7 +19,7 @@ export const HeroArchive: React.FC<HeroArchiveProps> = () => {
           <div className="md:col-span-4 w-full">
             <div className="relative aspect-[3/4] w-full max-w-[220px] sm:max-w-[250px] md:max-w-none mx-auto overflow-hidden rounded-md border border-[#226192]/25 shadow-xs transform -rotate-[3.5deg] hover:-rotate-[1deg] transition-transform duration-500 ease-out origin-center">
               <img
-                src="/archive/Warm Acoustic Guitar Portrait.png"
+                src="/archive/Warm Acoustic Guitar Portrait.webp"
                 alt="Vaibhav Gupta"
                 className="w-full h-full object-cover object-center"
                 loading="eager"

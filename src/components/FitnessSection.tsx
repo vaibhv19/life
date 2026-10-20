@@ -12,15 +12,15 @@ export interface ImageSlot {
  */
 export const FITNESS_IMAGES: ImageSlot[] = [
   {
-    src: '/fitness/IMG_20250708_121605976_HDR.jpg',
+    src: '/fitness/IMG_20250708_121605976_HDR.webp',
     alt: 'Fitness - Training and physical conditioning',
   },
   {
-    src: '/fitness/VID_20250730_225359810_exported_22272.jpg',
+    src: '/fitness/VID_20250730_225359810_exported_22272.webp',
     alt: 'Fitness - Movement and workout session',
   },
   {
-    src: '/fitness/VID_20250730_225359810_exported_49473-EDIT.jpg',
+    src: '/fitness/VID_20250730_225359810_exported_49473-EDIT.webp',
     alt: 'Fitness - Strength and discipline',
   },
 ];
