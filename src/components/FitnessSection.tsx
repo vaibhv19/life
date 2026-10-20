@@ -46,7 +46,7 @@ export const FitnessSection: React.FC<FitnessSectionProps> = ({
         {/* Restrained Section Heading */}
         <div className="mb-4 sm:mb-5 md:mb-6">
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#226192]">
-            Fitness
+            I have not met all of me yet.......
           </h2>
         </div>
 

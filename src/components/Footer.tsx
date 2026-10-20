@@ -79,7 +79,7 @@ export const Footer: React.FC = () => {
         {/* 3. MAIN CENTERPIECE: Editorial Quote */}
         <div className="py-7 sm:py-9 md:py-11 flex items-center justify-center text-center px-4">
           <p className="text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-[#226192] max-w-4xl leading-tight sm:leading-snug md:leading-snug">
-            everything is beautiful when you look at it with love
+           Sometimes you feel like you want to disappear but in reality you just want to be found....
           </p>
         </div>
 
@@ -91,7 +91,12 @@ export const Footer: React.FC = () => {
           {/* Left: Copyright & Built by */}
           <div className="space-y-0.5 text-[#226192]/80">
             <div>© 2026 VAIBHAV GUPTA. ALL RIGHTS RESERVED.</div>
-            <div className="text-[11px] sm:text-xs text-[#226192]/60">
+           
+          </div>
+
+          {/* Right: Legal links matching 1NFINITY reference */}
+          <div>
+             <div className="text-[11px] sm:text-xs text-[#226192]/60">
               BUILT BY{' '}
               <a 
                 href="https://vaibhv19.dev" 
@@ -102,25 +107,6 @@ export const Footer: React.FC = () => {
                 VAIBHV19.DEV
               </a>
             </div>
-          </div>
-
-          {/* Right: Legal links matching 1NFINITY reference */}
-          <div className="flex items-center gap-4 sm:gap-6 text-[11px] sm:text-xs font-medium text-[#226192]/80">
-            <button
-              type="button"
-              className="hover:text-[#EF8557] transition-colors cursor-pointer bg-transparent border-none p-0 tracking-wider"
-              onClick={() => {}}
-            >
-              PRIVACY POLICY
-            </button>
-            <span className="text-[#226192]/40 text-[10px]">•</span>
-            <button
-              type="button"
-              className="hover:text-[#EF8557] transition-colors cursor-pointer bg-transparent border-none p-0 tracking-wider"
-              onClick={() => {}}
-            >
-              TERMS & CONDITIONS
-            </button>
           </div>
         </div>
       </div>
