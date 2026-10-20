@@ -18,7 +18,7 @@ export const WhyIMadeThisPage: React.FC = () => {
 
               {/* Anchor Subtitle */}
               <p className="text-xs sm:text-sm text-[#226192]/60 pt-1 font-normal leading-relaxed block">
-                Making room for parts of myself that do not belong on a professional website.
+                Making room for the parts of life that don&apos;t fit on a résumé.
               </p>
             </div>
 
@@ -26,13 +26,13 @@ export const WhyIMadeThisPage: React.FC = () => {
             <div className="md:col-span-7">
               <div className="border-l-2 border-[#EF8557]/25 pl-5 sm:pl-6 space-y-4 text-sm sm:text-base text-[#226192]/80 leading-relaxed font-normal">
                 <p className="block">
-                  Most places on the internet ask us to present only what is finished, useful, or career-oriented. For a long time, my online footprint was defined almost entirely by software and clean summaries.
+                  The internet often shows us carefully presented versions of people: their work, achievements, and finished projects. I wanted a small space that felt a little more personal.
                 </p>
                 <p className="block">
-                  I wanted a dedicated space to preserve moments as they happen, collect things that genuinely matter to me, and make room for parts of myself that simply do not belong on a resume.
+                  A place for a few things I enjoy, things I&apos;ve made, and moments I choose to share. Nothing exhaustive, and nothing that needs to be constantly updated.
                 </p>
                 <p className="block">
-                  Some memories deserve more than getting lost in a camera roll. This page is a quiet reminder to slow down, notice things, and document living as it happens.
+                  Some things can stay private. Others are worth sharing simply because they matter to me, not because they serve a purpose.
                 </p>
               </div>
 

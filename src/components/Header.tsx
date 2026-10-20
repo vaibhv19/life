@@ -71,33 +71,37 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* RIGHT: Notes & [ Between Us ] Button Navigation */}
         <nav aria-label="Main Navigation" className="flex items-center gap-3 sm:gap-5 md:gap-6 shrink-0">
-          {/* 1. Notes */}
-          <Link
-            href="/notes"
-            aria-current={isNotesPage ? 'page' : undefined}
-            className={`text-xs sm:text-sm md:text-base font-medium tracking-normal transition-colors duration-200 cursor-pointer relative inline-block py-1 focus:outline-none ${
-              isNotesPage
-                ? 'text-[#2C7BB8] font-semibold hover:text-[#EF8557]'
-                : 'text-[#226192] hover:text-[#EF8557]'
-            }`}
-          >
-            Notes
-            {isNotesPage && <ActiveWave />}
-          </Link>
+          {/* 1. Notes (Hidden on homepage) */}
+          {!isHomePage && (
+            <Link
+              href="/notes"
+              aria-current={isNotesPage ? 'page' : undefined}
+              className={`text-xs sm:text-sm md:text-base font-medium tracking-normal transition-colors duration-200 cursor-pointer relative inline-block py-1 focus:outline-none ${
+                isNotesPage
+                  ? 'text-[#2C7BB8] font-semibold hover:text-[#EF8557]'
+                  : 'text-[#226192] hover:text-[#EF8557]'
+              }`}
+            >
+              Notes
+              {isNotesPage && <ActiveWave />}
+            </Link>
+          )}
 
-          {/* 2. [ Between Us ] Button (Organic Hand-Cut Shape, Cream Fill, Burgundy Text) */}
-          <Link
-            href="/between-us"
-            className={`btn-palette-b cursor-pointer focus:outline-none px-3.5 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-semibold tracking-tight hover:scale-[1.02] active:scale-[0.98] shadow-sm select-none shrink-0 ${
-              isBetweenUsPage ? 'ring-2 ring-[#EF8557]/60' : ''
-            }`}
-            style={{
-              borderRadius: '18px 5px 22px 7px / 8px 20px 7px 16px',
-            }}
-            title="Open Between Us private space"
-          >
-            Between Us
-          </Link>
+          {/* 2. [ Between Us ] Button (Organic Hand-Cut Shape, Cream Fill, Burgundy Text) - Hidden on homepage */}
+          {!isHomePage && (
+            <Link
+              href="/between-us"
+              className={`btn-palette-b cursor-pointer focus:outline-none px-3.5 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-semibold tracking-tight hover:scale-[1.02] active:scale-[0.98] shadow-sm select-none shrink-0 ${
+                isBetweenUsPage ? 'ring-2 ring-[#EF8557]/60' : ''
+              }`}
+              style={{
+                borderRadius: '18px 5px 22px 7px / 8px 20px 7px 16px',
+              }}
+              title="Open Between Us private space"
+            >
+              Between Us
+            </Link>
+          )}
         </nav>
         </div>
       </div>
