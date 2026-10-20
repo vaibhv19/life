@@ -7,6 +7,8 @@ import { CatalogHighlights } from '@/components/CatalogHighlights';
 import { AllPostClient } from '@/components/AllPostClient';
 import { TravelHighlights } from '@/components/TravelHighlights';
 import { EditorialMarquee } from '@/components/EditorialMarquee';
+import { FitnessSection } from '@/components/FitnessSection';
+import { ArtSection } from '@/components/ArtSection';
 import { WhatIsThisPage } from '@/components/WhatIsThisPage';
 import { WhyIMadeThisPage } from '@/components/WhyIMadeThisPage';
 import { EditorialPageNav } from '@/components/EditorialPageNav';
@@ -84,8 +86,19 @@ export default function LifePage() {
           </>
         )}
 
-        {/* 6. Existing Marquee and Remaining Editorial Content */}
+        {/* 6. Marquee separating Hero and Fitness section */}
         <EditorialMarquee className="w-full mt-1 sm:mt-2 mb-4 sm:mb-5 md:mb-6 select-none" />
+
+     
+                {/* 9. Dedicated Art Section (3 image slots) */}
+        <ArtSection />
+
+        {/* 10. Existing Editorial Narrative Sections */}
+
+        {/* 8. Marquee separating Fitness and Art section */}
+        <EditorialMarquee className="w-full mt-1 sm:mt-2 mb-4 sm:mb-5 md:mb-6 select-none" />
+   {/* 7. Dedicated Fitness Section (3 image slots) */}
+        <FitnessSection />
 
         <WhatIsThisPage />
 
