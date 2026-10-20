@@ -29,6 +29,12 @@ export default function LifePage() {
   // Visibility control: Hide Between Us CTA button from homepage
   const showBetweenUsCTA = false;
 
+  // Visibility control: Hide Extraa navigation ("There is more, somewhere.") from homepage
+  const showExtraaNav = false;
+
+  // Visibility control: Hide lower marquee ("I haven't met all of me yet") from homepage
+  const showLowerMarquee = false;
+
   return (
     <div className="flex flex-col min-h-screen w-full bg-transparent text-[#226192] antialiased">
       {/* 01. Global Editorial Navigation Bar */}
@@ -85,13 +91,15 @@ export default function LifePage() {
 
         <WhyIMadeThisPage />
 
-        <EditorialMarquee
-          phrase="I haven't met all of me yet"
-          className="w-full mt-1 sm:mt-2 mb-6 sm:mb-7 md:mb-8 select-none"
-          ariaLabel="Editorial Motto: Be the love you never received"
-        />
+        {showLowerMarquee && (
+          <EditorialMarquee
+            phrase="I haven't met all of me yet"
+            className="w-full mt-1 sm:mt-2 mb-6 sm:mb-7 md:mb-8 select-none"
+            ariaLabel="Editorial Motto: Be the love you never received"
+          />
+        )}
 
-        <EditorialPageNav />
+        {showExtraaNav && <EditorialPageNav />}
       </main>
 
       {/* 7. Existing Footer */}
