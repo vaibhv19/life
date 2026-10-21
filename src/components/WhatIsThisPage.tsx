@@ -12,16 +12,16 @@ export const WhatIsThisPage: React.FC = () => {
 
           {/* Prominent Lead Statement */}
           <p className="font-editorial-italic text-lg sm:text-xl md:text-2xl text-[#226192] leading-relaxed mb-6 font-normal block">
-            Life is a personal digital space, scrapbook, and visual journal—kept for the things that make up a life beyond engineering.
+            Life is a little corner of the internet for the things that make me who I am beyond engineering.
           </p>
 
           {/* Explanatory Body */}
           <div className="space-y-4 text-sm sm:text-base text-[#226192]/80 leading-relaxed font-normal max-w-2xl">
             <p className="block">
-              My professional portfolio holds the code, technical experiments, and the side of my work that fits on a screen. But this space is dedicated to everything else: personal moments, photographs, art, the books I read, music I return to, quiet experiences, thoughts, and memories.
+              My professional portfolio is where I share my work. This space is for the other parts of me: the art I make, the things I enjoy, and a few moments worth keeping.
             </p>
             <p className="block">
-              It is a living archive rather than a showcase or a polished pitch—just an honest collection of things gathered along the way, preserved as they are.
+              Not everything needs to be documented or shared. This page is simply a small glimpse into my life, without the pressure to keep adding to it.
             </p>
           </div>
         </div>
